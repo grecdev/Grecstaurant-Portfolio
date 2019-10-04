@@ -126,3 +126,37 @@ svg {
 
 /* Highlight text */
 .highlight-red { color: $primary-red }
+
+/* Margins / Paddings */
+.mb-sm { margin-bottom: 1rem }
+.mb-md { margin-bottom: 1.4rem }
+.mb-lg { margin-bottom: 1.7rem }
+
+/** Buttons **/
+.btn {
+	padding: .5rem 1rem;
+	border-radius: 5px;
+	transition: all 200ms ease-in-out;
+	
+	&-red {
+		background: $primary-red;
+		color: $primary-white;
+
+		&:hover { background: darken($primary-red, 10%) }
+	}
+}
+
+/* Overlay bg effect */
+.overlay-bg {
+	position: relative;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, .3);
+	}
+}

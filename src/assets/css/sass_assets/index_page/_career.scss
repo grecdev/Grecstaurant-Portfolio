@@ -1,0 +1,18 @@
+#career {
+	@include flex(row, space-between, center);
+	height: 500px;
+
+	.career-image {
+		background: url('../imgs/career-image.jpg') no-repeat center/cover;
+	}
+
+	.career-image, .career-content {
+		width: 50%;
+		height: 100%;
+	}
+
+	.career-content {
+		@include flex(column, center, center);
+		padding: 0 2rem;
+	}
+}
