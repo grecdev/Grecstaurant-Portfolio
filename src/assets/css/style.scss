@@ -1,2 +1,12 @@
+// Utilities
+@import './sass_assets/utilities/variables';
 @import './sass_assets/utilities/mixins_extends';
-@import './sass_assets/utilities/reset_utility';
+@import './sass_assets/utilities/utility';
+
+// Layout
+// Global
+@import './sass_assets/global/header';
+@import './sass_assets/global/footer';
+
+// INDEX PAGE
+@import './sass_assets/index_page/index_showcase';

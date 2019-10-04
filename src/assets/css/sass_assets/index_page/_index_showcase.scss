@@ -1,0 +1,80 @@
+#showcase {
+	height: 100vh;
+	background: url('../imgs/homepage-showcase.jpg') no-repeat center/cover;
+	position: relative;
+	@include flex(column, center, center);
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 200px;
+		background: linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, .7), rgba(0, 0, 0, .6), rgba(0, 0, 0, 0));
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, .5);
+	}
+
+	.showcase-content {
+		position: relative;
+		z-index: 1;
+		text-transform: capitalize;
+		text-align: center;
+
+		h1, h2 {
+			@include font(3rem, inherit, 700);
+			opacity: 0;
+		}
+
+		h1 {
+			transform: translateX(-300px);
+			animation: title-intro 1s ease-in-out forwards 2.5s;
+		}
+		
+		h2 {
+			transform: translateX(300px);
+			animation: title-intro 1s ease-in-out forwards 3.2s;
+		}
+	}
+
+	.scroll-hand {
+		position: absolute;
+		z-index: 1;
+		bottom: 20px;
+		right: 500px;
+		font-size: 4.5rem;
+		color: $primary-red;
+		opacity: 0;
+		transform: translate(0px, 0px) rotate(20deg);
+		animation: 
+		scroll-hand-intro 700ms ease-in-out forwards 4s,
+		scroll-hand 700ms ease-in-out infinite alternate 4s;
+	}
+}
+
+/*** Showcase Animations ***/
+@keyframes scroll-hand {
+	from { transform: translate(0px, 0px) rotate(20deg) }
+
+	to { transform: translate(-5px, 20px) rotate(20deg) }
+}
+
+@keyframes scroll-hand-intro { to { opacity: 1 } }
+
+@keyframes title-intro {
+
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+
+}

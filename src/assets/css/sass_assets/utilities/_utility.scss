@@ -5,6 +5,11 @@
 	box-sizing: border-box;
 }
 
+html {
+	height: 100%;
+	overflow-x: hidden;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -33,7 +38,13 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-	font: normal 1rem/1.5 sans-serif;
+	font: normal 1rem/1.5 'Merriweather', serif;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	position: relative;
+	min-height: 100%;
+	background: $primary-dark;
+	color: $primary-white;
 }
 
 ol, ul {
@@ -62,7 +73,7 @@ img {
 	height: auto;
 }
 
-a, button {
+a, .btn {
 	background: none;
 	outline: none;
 	border: none;
@@ -72,3 +83,46 @@ a, button {
 	text-transform: inherit;
 	font-size: inherit;
 }
+
+svg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/*** Utlity Classes ***/
+.container {
+	max-width: 1100px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+}
+
+/** Text **/
+/* Heading title */
+.heading-title { font-family: 'Lora', serif }
+
+.heading-bold { font-weight: 700 }
+
+.heading-xs { font-size: 1.3rem }
+.heading-sm { font-size: 1.5rem }
+.heading-md { font-size: 1.8rem }
+.heading-lg { font-size: 2.2rem }
+
+/* Descriptions */
+.description {
+	font-weight: 300;
+	font-style: italic;
+}
+
+.description-sm { font-size: 1.1rem }
+.description-md { font-size: 1.2rem }
+.description-lg { font-size: 1.3rem }
+
+/* Active page */
+.active-page { color: $primary-white }
+
+/* Highlight text */
+.highlight-red { color: $primary-red }

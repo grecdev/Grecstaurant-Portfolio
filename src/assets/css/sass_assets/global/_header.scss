@@ -1,0 +1,48 @@
+header {
+	color: $primary-red;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+
+	#desktop-header {
+		@include flex(row, center, center);
+		padding-left: 6rem;
+
+		ul {
+			@include flex(row, center, center);
+
+			li a {
+				display: block;
+				padding: .5rem 1rem;
+				transition: color 300ms ease-in-out;
+				text-transform: uppercase;
+				letter-spacing: .1rem;
+				font-size: .9rem;
+			}
+
+			li:hover a { color: #fff }
+		}
+	}
+
+	.logo {
+		width: 150px;
+		height: 150px;
+		border-radius: 50%;
+		margin: 0 2rem;
+	}
+}
+
+/*** Header animations ***/
+.logo-intro,
+.header-intro-fast,
+.header-intro-medium,
+.header-intro-slow { opacity: 0 }
+
+.logo-intro { animation: header-intro 800ms ease-in-out forwards 500ms }
+
+.header-intro-fast { animation: header-intro 800ms ease-in-out forwards 800ms }
+.header-intro-medium { animation: header-intro 800ms ease-in-out forwards 1.25s }
+.header-intro-slow { animation: header-intro 800ms ease-in-out forwards 1.7s }
+
+@keyframes header-intro { to { opacity: 1 } }
