@@ -4,6 +4,9 @@ header {
 	top: 0;
 	width: 100%;
 	z-index: 1;
+	transition: background 500ms ease-in-out;
+	
+	.container { transition: padding 500ms ease-in-out }
 
 	#desktop-header {
 		@include flex(row, center, center);
@@ -30,6 +33,7 @@ header {
 		height: 150px;
 		border-radius: 50%;
 		margin: 0 2rem;
+		transition: all 500ms ease-in-out;
 	}
 }
 
@@ -46,3 +50,20 @@ header {
 .header-intro-slow { animation: header-intro 800ms ease-in-out forwards 1.7s }
 
 @keyframes header-intro { to { opacity: 1 } }
+
+/** Normal header **/
+header.header-fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: lighten($primary-dark, 10%);
+	z-index: 50;
+
+	.container { padding: 0 }
+
+	.logo {
+		width: 70px;
+		height: 70px;
+	}
+}

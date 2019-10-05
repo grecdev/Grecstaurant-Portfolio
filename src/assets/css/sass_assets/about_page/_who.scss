@@ -1,0 +1,10 @@
+#who {
+
+	.who-container {
+		@include flex(row, space-between, center);
+
+		.who-box {
+			width: 45%;
+		}
+	}
+}

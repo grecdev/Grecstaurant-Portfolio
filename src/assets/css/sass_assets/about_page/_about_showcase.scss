@@ -1,0 +1,10 @@
+#about-showcase {
+	height: 65vh;
+	background: url('../imgs/about-showcase.jpg') no-repeat center/cover;
+	@include flex(column, center, flex-start);
+
+	.about-showcase-container {
+		background: url('../imgs/about-banner.png') no-repeat;
+		padding: 1rem 2rem;
+	}
+}

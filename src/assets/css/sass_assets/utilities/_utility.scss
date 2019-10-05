@@ -98,6 +98,7 @@ svg {
 	overflow: hidden;
 	position: relative;
 	padding: 1.5rem;
+	
 }
 
 /** Text **/
@@ -178,3 +179,9 @@ svg {
 		background: rgba(0, 0, 0, .3);
 	}
 }
+
+/* Padding resets */
+.body-padding-bottom { padding-bottom: 9rem }
+
+/** Sections **/
+.section-header { margin-bottom: 2.5rem }
