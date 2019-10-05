@@ -1,0 +1,32 @@
+#daily {
+
+	.daily-container {
+		@include flex(row, center, center);
+		max-width: 1300px;
+		padding: 4rem 2rem;
+	}
+
+	.daily-box {
+		width: 25%;
+		position: relative;
+
+		.daily-icon {
+			font-size: 2rem;
+			color: $primary-red;
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			width: 150px;
+			border-bottom: 3px $primary-red dotted;
+			top: 50%;
+			transform: translateY(-50%);
+			right: -83px;
+		}
+
+		&:last-child:after { display: none }
+	}
+
+	
+}

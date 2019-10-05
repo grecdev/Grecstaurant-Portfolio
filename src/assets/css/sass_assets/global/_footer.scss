@@ -1,0 +1,21 @@
+footer {
+	background: $primary-red;
+
+	.footer-container {
+	
+
+		@include flex(column, center, center);
+			
+		ul {
+			color: $primary-dark;
+			width: 30%;
+			@include flex(row, space-around, center);
+			font-size: 2rem;
+
+			li { transition: color 500ms ease-in-out }
+
+			li:hover { color: $primary-white }
+		}
+	
+	}
+}
