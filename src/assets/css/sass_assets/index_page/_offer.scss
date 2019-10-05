@@ -1,0 +1,60 @@
+#offers .offers-container {
+	@include flex(row, flex-start, center);
+	
+	.offer-box {
+		border-right: 5px solid $primary-red;
+		width: 20%;
+		height: 500px;
+		@include flex(column, space-between, center);
+
+		&-header {
+			@include flex(column, space-between, center);
+			padding: 2rem 0;
+
+			.header-banner {
+				background: $primary-red;
+				padding: 1rem 4rem;
+				border-radius: 10px;
+				-webkit-clip-path: polygon(36% 10%, 88% 24%, 94% 79%, 12% 87%, 2% 30%);
+				clip-path: polygon(36% 10%, 88% 24%, 94% 79%, 12% 87%, 2% 30%);
+			}
+		}
+
+		.offer-box-description {
+			padding-bottom: 2rem;
+			@include flex(column, space-between, center);
+
+			h5 { text-transform: capitalize }
+
+			p { padding: 0 1rem }
+
+			.offer-price {
+				background: $primary-red;
+				width: 70%;
+				height: 70px;
+				font-size: 2rem;
+				line-height: 70px;
+				-webkit-clip-path: polygon(65% 19%, 80% 10%, 94% 41%, 96% 63%, 84% 86%, 49% 91%, 13% 81%, 19% 53%, 12% 26%, 39% 11%);
+				clip-path: polygon(65% 19%, 80% 10%, 94% 41%, 96% 63%, 84% 86%, 49% 91%, 13% 81%, 19% 53%, 12% 26%, 39% 11%);
+
+				p span { font-size: 1.5rem }
+			}
+		}
+	}
+
+	/** Darken the overlay a little bit **/
+	.offer-box.overlay-bg::after { background: rgba(0, 0, 0, .5) }
+
+	.offer-box:first-child {
+		background: url('../imgs/steak-offer.jpg') no-repeat center/cover;
+		padding-bottom: 0;
+	}
+
+	.offer-box:last-child { border: none }
+
+	.offer-box:nth-child(2) { background: url('../imgs/burger-offer.jpg') no-repeat center/cover }
+	.offer-box:nth-child(3) { background: url('../imgs/vegan-offer.jpg') no-repeat center/cover }
+	.offer-box:nth-child(4) { background: url('../imgs/shrimp-offer.jpg') no-repeat center/cover }
+	.offer-box:nth-child(5) { background: url('../imgs/pizza-offer.jpeg') no-repeat center/cover }
+
+}

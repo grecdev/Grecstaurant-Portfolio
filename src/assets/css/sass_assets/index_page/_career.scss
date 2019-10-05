@@ -1,10 +1,9 @@
 #career {
 	@include flex(row, space-between, center);
 	height: 500px;
+	overflow: hidden;
 
-	.career-image {
-		background: url('../imgs/career-image.jpg') no-repeat center/cover;
-	}
+	.career-image { background: url('../imgs/career-image.jpg') no-repeat center/cover }
 
 	.career-image, .career-content {
 		width: 50%;
@@ -14,5 +13,19 @@
 	.career-content {
 		@include flex(column, center, center);
 		padding: 0 2rem;
+		position: relative;
+
+		img {
+			position: absolute;
+			bottom: 0px;
+			right: -20px;
+			transform: translate(140px, 180px) rotate(-40deg);
+			width: 200px;
+			height: 200px;
+			transition: transform 1s ease-in-out;
+		}
+
+		img.chef-visible { transform: translate(20px, 30px) rotate(-40deg) }
 	}
 }
+

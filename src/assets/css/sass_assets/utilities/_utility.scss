@@ -39,8 +39,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
 	font: normal 1rem/1.5 'Merriweather', serif;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow: hidden;
 	position: relative;
 	min-height: 100%;
 	background: $primary-dark;
@@ -98,6 +97,7 @@ svg {
 	margin: 0 auto;
 	overflow: hidden;
 	position: relative;
+	padding: 1.5rem;
 }
 
 /** Text **/
@@ -127,6 +127,11 @@ svg {
 /* Highlight text */
 .highlight-red { color: $primary-red }
 
+/* Text Align */
+.text-left { text-align: left }
+.text-center { text-align: center }
+.text-right { text-align: right }
+
 /* Margins / Paddings */
 .mb-sm { margin-bottom: 1rem }
 .mb-md { margin-bottom: 1.4rem }
@@ -144,11 +149,24 @@ svg {
 
 		&:hover { background: darken($primary-red, 10%) }
 	}
+
+	&-dark {
+		background: $primary-dark;
+		color: $primary-white;
+
+		&:hover { background: lighten($primary-dark, 10%) }
+	}
 }
 
 /* Overlay bg effect */
 .overlay-bg {
 	position: relative;
+
+	/** So we can interact with the items inside overlay **/
+	& > * {
+		position: relative;
+		z-index: 1;
+	}
 
 	&::after {
 		content: '';

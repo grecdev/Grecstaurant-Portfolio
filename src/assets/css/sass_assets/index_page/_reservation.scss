@@ -1,0 +1,48 @@
+#reservation {
+	background: $primary-white;
+	color: $primary-dark;
+
+	.container { max-width: 1300px }
+
+	.reservation-container {
+		@include flex(row, center, center);
+		height: 300px;
+	}
+
+	.reservation-line {
+		width: 1px;
+		height: 250px;
+		background: $primary-dark;
+		margin: 0 5rem;
+		position: relative;
+
+		img {
+			position: absolute;
+			width: 50px;
+			height: 130px;
+			transition: transform 1s ease-in-out;
+			transform: scaleX(0);
+		}
+
+		/** Reservation animation **/
+		img.pizza-visible { transform: scaleX(1) }
+
+		img:first-child {
+			top: -20px;
+			left: -50px;
+			transform-origin: right center;
+		}
+
+		img:last-child {
+			bottom: -20px;
+			right: -50px;
+			transform-origin: left center;
+		}
+	}
+
+	.order-box {
+		position: relative;
+		
+		@include flex(column, center, center);
+	}
+}
