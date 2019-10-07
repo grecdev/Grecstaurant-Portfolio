@@ -1,6 +1,6 @@
 #numbers {
 	position: relative;
-	margin-bottom: 3rem;
+	margin-bottom: 1rem;
 	
 	.numbers-container {
 		@include flex(row, space-between, center);
