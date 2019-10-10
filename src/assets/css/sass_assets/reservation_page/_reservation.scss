@@ -1,0 +1,137 @@
+#reservation {
+
+	form {
+
+		.form-box {
+			@include flex(row, space-between, center);
+			flex-wrap: wrap;
+		}
+
+		fieldset {
+			width: 48%;
+
+			.field-box {
+				margin: 1rem 0;
+				position: relative;
+			}
+
+			input, select, textarea {
+				width: 100%;
+				border: 1px solid $primary-red;
+				outline: none;
+				background: none;
+				padding: .5rem;
+				color: $primary-white;
+				font-family: inherit;
+				border-radius: 3px;
+				transition: border-color 300ms ease-in-out;
+			}
+
+			::placeholder { color: $primary-white }
+
+			/* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+			select::-ms-expand { display: none }
+
+			select {
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none; /* Remove default arrow */
+
+				option { background: $primary-dark }
+			}
+
+			/** Add custom arrow **/
+			.select-icon {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 15px;
+				font-size: 13.33px;
+				z-index: -1;
+			}
+
+		}
+
+		fieldset:first-child input,
+		fieldset:first-child select { cursor: pointer }
+
+		fieldset:nth-child(2) input:focus,
+		fieldset:last-child textarea:focus,
+		fieldset:first-child select:focus {
+			border-color: $primary-white;
+		}
+
+		/** Textarea **/
+		fieldset:last-child {
+			width: 100%;
+
+			textarea { height: 150px }
+		}
+		
+		button {
+			margin: 1rem auto 0;
+			display: block;
+			width: 20%;
+			padding: .7rem 0;
+		}
+	}
+}
+
+/*** Popup modals for reservation inputs ***/
+#modals {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 51;
+	background: rgba(0, 0, 0, .6);
+	@include flex(column, center, center);
+
+	/** Date modal **/
+	.date-modal {
+		background: $primary-dark;
+		width: 45%;
+		height: 500px;
+		padding: 3rem 7rem;
+		@include flex(column, flex-start, center);
+		text-transform: uppercase;
+	}
+
+	.calendar-container {
+		width: 100%;
+		@include flex(column, center, center);
+
+		.calendar-header {
+			@include flex(row, space-between, center);
+			width: 65%;
+
+			.calendar-month { font-size: 1.5rem }
+	
+			button {
+				font-size: 2rem;
+
+				&:hover { color: lighten($primary-dark, 20%) }
+			}
+		}
+
+		table {
+			width: 100%;
+
+			tr { @include grid(repeat(7, 1fr), 0) }
+
+			th, td {
+				border: 1.5px solid $primary-red;
+				@include flex(column, center, center);
+				padding: .5rem;
+			}
+
+			td:hover {
+				background: lighten($primary-dark, 20%);
+				cursor: pointer;
+			}
+		}
+
+		.selected { background: #6F6F6F }
+	}
+}

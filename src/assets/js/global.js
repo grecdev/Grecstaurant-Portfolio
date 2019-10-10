@@ -3,21 +3,10 @@
 
 import { ui } from './ui.js';
 
-export const globalFunctionality = (() => {
+// Event Listeners
+window.addEventListener('scroll', (e) => {
 
-	function init() {
+	ui.scrollFunctionality(e);
 
-		// Event Listeners
-		window.addEventListener('scroll', (e) => {
-
-			ui.scrollFunctionality(e);
-
-			e.stopPropagation();
-		});
-
-	}
-
-	return {
-		init
-	}
-})();
+	e.stopPropagation();
+});
