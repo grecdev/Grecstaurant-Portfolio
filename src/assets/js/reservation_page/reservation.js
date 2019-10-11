@@ -6,24 +6,22 @@ import { ui } from '../ui.js';
 // So we can increment the month / year
 const date = new Date();
 
-const current = {
+const navigate = {
 	year: date.getFullYear(),
 	month: date.getMonth(),
-	monthDay: date.getDate(),
-	weekDay: date.getDay()
 }
 
 ui.next_month_btn.addEventListener('click', (e) => {
 
 	// Increment months
-	if(current.month < 11) current.month++
+	if(navigate.month < 11) navigate.month++
 	// Reset year + month
-	else if(current.month === 11) {
-		current.month = 0;
-		current.year++;
+	else if(navigate.month === 11) {
+		navigate.month = 0;
+		navigate.year++;
 	}
 
-	ui.monthChange(e, current);
+	ui.monthChange(e, navigate);
 
 	e.stopPropagation();
 });
@@ -31,21 +29,31 @@ ui.next_month_btn.addEventListener('click', (e) => {
 ui.prev_month_btn.addEventListener('click', (e) => {
 
 	// Decrement months
-	if(current.month > 1) current.month--;
+	if(navigate.month >= 1) navigate.month--;
 	// Reset year + month
-	else if(current.month === 1) {
-		current.month = 11;
-		current.year--;
+	else if(navigate.month === 0) {
+		navigate.month = 11;
+		navigate.year--;
 	}
 
-	ui.monthChange(e, current);
+	ui.monthChange(e, navigate);
 
 	e.stopPropagation();
 });
 
-document.addEventListener('DOMContentLoaded', (e) => {
+ui.date_input.addEventListener('click', (e) => {
 
-	ui.monthChange(e, current);
+	ui.showHideModal(e);
+
+	e.stopPropagation();
+});
+
+// I put directly on the modal so don't have to manny listeners ( reduce memory usage )
+ui.modals.addEventListener('click', (e) => {
+
+	ui.showHideModal(e);
+
+	ui.setDate(e, navigate);
 
 	e.stopPropagation();
 });

@@ -11,42 +11,19 @@ class Ui {
 		this.calendar_month = document.querySelector('.calendar-month');
 		this.weekDays = document.querySelector('thead tr');
 		this.monthDays = document.querySelector('tbody');
+		this.modals = document.getElementById('modals');
+		this.date_modal = document.querySelector('.date-modal');
+		this.date_confirm_popup = document.querySelector('.date-info-confirmation');
+		this.date_confirm_info = document.querySelector('.date-info-confirmation span');
 		// Buttons
 		this.prev_month_btn = document.getElementById('prev-month');
 		this.next_month_btn = document.getElementById('next-month');
-	}
-
-	// Scroll functionality
-	scrollFunctionality(e) {
-
-		const pos = Math.floor(pageYOffset);
-
-		// For elements on the home page
-		if(document.body.getAttribute('id') === 'home-page') {
-
-			if(pos >= 500) ui.chef_avatar.classList.add('chef-visible')
-			else ui.chef_avatar.classList.remove('chef-visible')
-	
-			if(pos >= 800) {
-				ui.pizza_left.classList.add('pizza-visible');
-				ui.pizza_right.classList.add('pizza-visible');
-			} else {
-				ui.pizza_left.classList.remove('pizza-visible');
-				ui.pizza_right.classList.remove('pizza-visible');
-			}
-
-			if(pos > 0) ui.header.classList.add('header-fixed');
-			else ui.header.classList.remove('header-fixed');
-		}
-
-		
-		window.requestAnimationFrame(ui.scrollFunctionality);
-	}
-
-	// Month Change
-	monthChange(e, current) {
+		this.date_input = document.getElementById('full-date');
+		this.today_date_btn = document.getElementById('today-date');
+		this.confirm_date_btn = document.getElementById('confirm-date');
+		// Days / Months
 		// So we can dynamically implement with JS
-		const dateNames = {
+		this.dateNames = {
 			months: [
 				'January',
 				'February',
@@ -94,12 +71,51 @@ class Ui {
 				'Sat'
 			],
 			weekdaysAbbrev: ['S','M','T','W','T','F','S']
+		};
+
+		// Current date
+		// Current month ( not being increment / decrement )
+		// DRY
+		this.currentDate = {
+			month: new Date().getMonth(),
+			year: new Date().getFullYear(),
+			day: new Date().getDate()
+		}
+	}
+
+	// Scroll functionality
+	scrollFunctionality(e) {
+
+		const pos = Math.floor(pageYOffset);
+
+		// For elements on the home page
+		if(document.body.getAttribute('id') === 'home-page') {
+
+			if(pos >= 500) ui.chef_avatar.classList.add('chef-visible')
+			else ui.chef_avatar.classList.remove('chef-visible')
+	
+			if(pos >= 800) {
+				ui.pizza_left.classList.add('pizza-visible');
+				ui.pizza_right.classList.add('pizza-visible');
+			} else {
+				ui.pizza_left.classList.remove('pizza-visible');
+				ui.pizza_right.classList.remove('pizza-visible');
+			}
+
+			if(pos > 0) ui.header.classList.add('header-fixed');
+			else ui.header.classList.remove('header-fixed');
 		}
 
+		window.requestAnimationFrame(ui.scrollFunctionality);
+	}
+
+	// Month Change
+	monthChange(e, navigate) {
+		
 		let totalDays;
 
 		// Total days for each month
-		switch(dateNames.monthsShort[current.month]) {
+		switch(this.dateNames.monthsShort[navigate.month]) {
 			case 'Jan':
 			case 'Mar':
 			case 'May':
@@ -117,57 +133,32 @@ class Ui {
 				totalDays = 30;
 				break;
 
-			// Total days for leap years ( february only )
+			// Total days for leap years
 			case 'Feb':
-				if ((current.year % 4 == 0) && (current.year % 100 != 0) || (current.year % 400 == 0)) totalDays = 29;
+				if ((navigate.year % 4 == 0) && (navigate.year % 100 != 0) || (navigate.year % 400 == 0)) totalDays = 29;
 				else totalDays = 28;
 				break;
 		}
 
-		if(e.type === 'DOMContentLoaded') {
+		// Separate functionality
+		this.populateDates(navigate, totalDays);
 
-			this.populateDates(current, dateNames, totalDays);
-
-			// Select the current day
-			document.querySelectorAll('tbody td').forEach(day => { if(day.textContent == current.monthDay) day.classList.add('selected') });
-
-			// Set the month
-			this.calendar_month.textContent = `${dateNames.months[current.month]} ${current.year}`;
-		}
-
-		if(e.type === 'click') {
-
-			// Make sure you remove all days before you get new ones
-			// this.monthDays.innerHTML = '';
-
-			if(e.currentTarget === this.next_month_btn) {
-
-				this.populateDates(current, dateNames, totalDays);
-				
-			}
-
-			if(e.currentTarget === this.prev_month_btn) {
-
-				this.populateDates(current, dateNames, totalDays);
-				
-			}
-
-			// Display the calendar header
-			this.calendar_month.textContent = `${dateNames.months[current.month]} ${current.year}`;
-		}
+		// Select the current day when we change month, or when we load :)
+		if(this.calendar_month.textContent.includes(this.dateNames.months[this.currentDate.month]) && this.calendar_month.textContent.includes(this.currentDate.year)) document.querySelectorAll('tbody td').forEach(day => { if(day.textContent == navigate.monthDay) day.classList.add('selected') });
 
 	}
 
 	// Populate days ( DRY )
-	populateDates(current, dateNames, totalDays) {
+	populateDates(navigate, totalDays) {
 
-		const startingDay = new Date(current.year, current.month, 1).getDay();
+		// Get the first day of the month
+		const startingDay = new Date(navigate.year, navigate.month, 1).getDay();
 
 		let weekDays = '';
 		let monthDays = '';
 
 		// Loop for week days
-		dateNames.weekdaysShort.forEach(day => weekDays += `<th>${day}</th>`);
+		this.dateNames.weekdaysShort.forEach(day => weekDays += `<th>${day}</th>`);
 		
 		let day = 1;
 
@@ -191,6 +182,68 @@ class Ui {
 		// Add html
 		this.weekDays.innerHTML = weekDays;
 		this.monthDays.innerHTML = monthDays;
+
+		// Set the month
+		this.calendar_month.textContent = `${this.dateNames.months[navigate.month]} ${navigate.year}`;
+	}
+
+	showHideModal(e, navigate) {
+		// Show modal && calendar ( because in html files the time and calendar is in the same modal element )
+		if(e.currentTarget === this.date_input) {
+			this.modals.classList.add('visible-flex');
+			this.date_modal.classList.add('visible-flex');
+
+			// Highlight current day ( reset the calendar )
+			document.querySelectorAll('tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.add('selected') });
+		}
+
+		// Hide modal && calendar ( because in html files the time and calendar is in the same modal element ) DRY
+		if(e.target.parentElement.classList.contains('close-modal') || e.target.classList.contains('close-modal') || e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn) {
+			this.modals.classList.remove('visible-flex');
+			this.date_modal.classList.remove('visible-flex');
+		}
+	}
+
+	setDate(e, navigate) {
+
+		// Set today date
+		if(e.target === this.today_date_btn) {
+			// Set the input date and close the modal
+			this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`;
+			this.modals.classList.remove('visible-flex');
+			this.date_modal.classList.remove('visible-flex');
+		}
+
+		// Show confirm popup box and show selected date in the table
+		if(e.target.tagName === 'TD' && e.target.textContent.length > 0) {
+
+			// Highlight selected date
+			document.querySelectorAll('tbody td').forEach(day => day.classList.remove('selected'));
+			e.target.classList.add('selected');
+
+			// Show the buttons / confirm info pop up
+			this.date_confirm_popup.classList.add('visible-block');
+			document.querySelectorAll('[data-date-confirm]').forEach(btn => btn.classList.add('visible-block'));
+
+			// Change the date popup info so we tell the user what date he is choosing
+			this.date_confirm_info.textContent = `${this.dateNames.months[navigate.month]} ${e.target.textContent}, ${navigate.year}`;
+		}
+
+		// Confirm Date
+		if(e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn) {
+			// Change the input value and hide the modal
+			this.date_input.value = this.date_confirm_info.textContent;
+			this.showHideModal(e);
+
+			// Hide the buttons / confirm info pop up
+			this.date_confirm_popup.classList.remove('visible-block');
+			document.querySelectorAll('[data-date-confirm]').forEach(btn => btn.classList.remove('visible-block'));
+
+			// Remove all hightlighted dates
+			document.querySelectorAll('tbody td').forEach(day => day.classList.remove('selected'));
+		}
+
+
 
 	}
 

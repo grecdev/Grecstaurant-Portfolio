@@ -49,12 +49,12 @@
 					<fieldset>
 	
 						<div class="field-box">
-							<input id="full-date" type="text" readonly aria-haspopup="true" placeholder="Date">
+							<input id="full-date" name="date" type="text" readonly aria-haspopup="true" placeholder="Date">
 							<input data-reservation="full-date" type="hidden" value="31/07/2019">
 						</div>
 	
 						<div class="field-box">
-							<input id="full-time" type="text" readonly aria-haspopup="true" placeholder="Time">
+							<input id="full-time" name="time" type="text" readonly aria-haspopup="true" placeholder="Time">
 							<input data-reservation="full-time" type="hidden" value="12:00PM">
 						</div>
 	
@@ -123,6 +123,8 @@
 	<div id="modals">
 
 		<div class="date-modal">
+			<button class="highlight-red close-modal" type="button"><i class="fas fa-window-close"></i></button>
+			
 			<div class="calendar-container">
 				
 				<div class="calendar-header mb-lg">
@@ -132,18 +134,27 @@
 
 					<button type="button" id="next-month"><i class="fas fa-caret-right"></i></button>
 				</div>
-				
-				<table>
 
-					<thead>
-						<tr></tr>
-					</thead>
+				<!-- Implement dynamically with JS -->
+				<table class="mb-lg">
 
-					<tbody>
+					<thead><tr></tr></thead>
 
-					</tbody>
+					<tbody></tbody>
 					
 				</table>
+
+				<div class="calendar-button mb-sm">
+					<button id="confirm-date" data-date-confirm class="btn btn-confirm" type="button"><i class="fas fa-check"></i></button>
+
+					<button id="today-date" class="btn btn-red" type="button">Today</button>
+
+					<button id="reset-date" data-date-confirm class="btn btn-cancel" type="button"><i class="fas fa-times"></i></button>
+				</div>
+
+				<div class="date-info-confirmation">
+					<p>Confirm Date: <span>October 11, 2019</span></p>
+				</div>
 
 			</div>
 		</div>

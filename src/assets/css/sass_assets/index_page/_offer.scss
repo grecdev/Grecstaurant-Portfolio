@@ -14,7 +14,7 @@
 			.header-banner {
 				background: $primary-red;
 				padding: 1rem 4rem;
-				border-radius: 10px;
+				border-radius: $border-radius-md;
 				-webkit-clip-path: polygon(36% 10%, 88% 24%, 94% 79%, 12% 87%, 2% 30%);
 				clip-path: polygon(36% 10%, 88% 24%, 94% 79%, 12% 87%, 2% 30%);
 			}

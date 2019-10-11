@@ -157,6 +157,18 @@ svg {
 
 		&:hover { background: lighten($primary-dark, 10%) }
 	}
+
+	&-confirm {
+		color: $primary-green;
+
+		&:hover { color: darken($primary-green, 20%) }
+	}
+
+	&-cancel {
+		color: $primary-red;
+
+		&:hover { color: darken($primary-red, 20%) }
+	}
 }
 
 /* Overlay bg effect */
@@ -194,3 +206,8 @@ svg {
 		border-bottom: 2px solid $primary-red;
 	}
 }
+
+/** Show / Hide elements **/
+.visible-flex { display: flex !important }
+.visible-block { display: block !important }
+.visible-none { display: none !important }
