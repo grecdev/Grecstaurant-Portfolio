@@ -4,11 +4,9 @@ import { ui } from '../ui.js';
 
 // Get the current date
 // So we can increment the month / year
-const date = new Date();
-
 const navigate = {
-	year: date.getFullYear(),
-	month: date.getMonth(),
+	year: new Date().getFullYear(),
+	month: new Date().getMonth(),
 }
 
 ui.next_month_btn.addEventListener('click', (e) => {

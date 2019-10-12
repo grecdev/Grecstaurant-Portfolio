@@ -21,6 +21,7 @@ class Ui {
 		this.date_input = document.getElementById('full-date');
 		this.today_date_btn = document.getElementById('today-date');
 		this.confirm_date_btn = document.getElementById('confirm-date');
+		this.reset_date_btn = document.getElementById('reset-date');
 		// Days / Months
 		// So we can dynamically implement with JS
 		this.dateNames = {
@@ -112,36 +113,8 @@ class Ui {
 	// Month Change
 	monthChange(e, navigate) {
 		
-		let totalDays;
-
-		// Total days for each month
-		switch(this.dateNames.monthsShort[navigate.month]) {
-			case 'Jan':
-			case 'Mar':
-			case 'May':
-			case 'Jul':
-			case 'Aug':	
-			case 'Oct':
-			case 'Dec':
-				totalDays = 31;
-				break;
-
-			case 'Apr':
-			case 'Nov':
-			case 'Jun':
-			case 'Sep':
-				totalDays = 30;
-				break;
-
-			// Total days for leap years
-			case 'Feb':
-				if ((navigate.year % 4 == 0) && (navigate.year % 100 != 0) || (navigate.year % 400 == 0)) totalDays = 29;
-				else totalDays = 28;
-				break;
-		}
-
 		// Separate functionality
-		this.populateDates(navigate, totalDays);
+		this.populateDates(navigate);
 
 		// Select the current day when we change month, or when we load :)
 		if(this.calendar_month.textContent.includes(this.dateNames.months[this.currentDate.month]) && this.calendar_month.textContent.includes(this.currentDate.year)) document.querySelectorAll('tbody td').forEach(day => { if(day.textContent == navigate.monthDay) day.classList.add('selected') });
@@ -149,10 +122,13 @@ class Ui {
 	}
 
 	// Populate days ( DRY )
-	populateDates(navigate, totalDays) {
+	populateDates(date) {
+
+		// Calculate total days
+		let totalDays = this.totalDays(date);
 
 		// Get the first day of the month
-		const startingDay = new Date(navigate.year, navigate.month, 1).getDay();
+		const startingDay = new Date(date.year, date.month, 1).getDay();
 
 		let weekDays = '';
 		let monthDays = '';
@@ -184,23 +160,28 @@ class Ui {
 		this.monthDays.innerHTML = monthDays;
 
 		// Set the month
-		this.calendar_month.textContent = `${this.dateNames.months[navigate.month]} ${navigate.year}`;
+		this.calendar_month.textContent = `${this.dateNames.months[date.month]} ${date.year}`;
 	}
 
-	showHideModal(e, navigate) {
+	showHideModal(e) {
 		// Show modal && calendar ( because in html files the time and calendar is in the same modal element )
 		if(e.currentTarget === this.date_input) {
 			this.modals.classList.add('visible-flex');
 			this.date_modal.classList.add('visible-flex');
 
-			// Highlight current day ( reset the calendar )
+			// Highlight current day
 			document.querySelectorAll('tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.add('selected') });
 		}
 
 		// Hide modal && calendar ( because in html files the time and calendar is in the same modal element ) DRY
-		if(e.target.parentElement.classList.contains('close-modal') || e.target.classList.contains('close-modal') || e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn) {
+		if(e.target.parentElement.classList.contains('close-modal') || e.target.classList.contains('close-modal') || e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn || e.target === this.today_date_btn) {
+
 			this.modals.classList.remove('visible-flex');
 			this.date_modal.classList.remove('visible-flex');
+
+			// Reset the calendar days acording to the current month
+			this.populateDates(this.currentDate);
+
 		}
 	}
 
@@ -208,10 +189,10 @@ class Ui {
 
 		// Set today date
 		if(e.target === this.today_date_btn) {
-			// Set the input date and close the modal
+			// Set the input date
 			this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`;
-			this.modals.classList.remove('visible-flex');
-			this.date_modal.classList.remove('visible-flex');
+			
+			this.resetCalendar();
 		}
 
 		// Show confirm popup box and show selected date in the table
@@ -221,7 +202,7 @@ class Ui {
 			document.querySelectorAll('tbody td').forEach(day => day.classList.remove('selected'));
 			e.target.classList.add('selected');
 
-			// Show the buttons / confirm info pop up
+			// Show the buttons && confirm info pop up
 			this.date_confirm_popup.classList.add('visible-block');
 			document.querySelectorAll('[data-date-confirm]').forEach(btn => btn.classList.add('visible-block'));
 
@@ -233,18 +214,69 @@ class Ui {
 		if(e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn) {
 			// Change the input value and hide the modal
 			this.date_input.value = this.date_confirm_info.textContent;
-			this.showHideModal(e);
-
-			// Hide the buttons / confirm info pop up
-			this.date_confirm_popup.classList.remove('visible-block');
-			document.querySelectorAll('[data-date-confirm]').forEach(btn => btn.classList.remove('visible-block'));
-
-			// Remove all hightlighted dates
-			document.querySelectorAll('tbody td').forEach(day => day.classList.remove('selected'));
+			
+			this.resetCalendar();
 		}
 
+		if(e.target.parentElement === this.reset_date_btn || e.target === this.reset_date_btn) {
 
+			this.resetCalendar();
+			
+			// Reset the calendar days acording to the current month
+			this.populateDates(this.currentDate);
+			
+		}
 
+	}
+
+	// DRY
+	resetCalendar() {
+		// Hide the buttons / confirm info pop up
+		this.date_confirm_popup.classList.remove('visible-block');
+		document.querySelectorAll('[data-date-confirm]').forEach(btn => btn.classList.remove('visible-block'));
+
+		// Remove all hightlighted dates
+		document.querySelectorAll('tbody td').forEach(day => day.classList.remove('selected'));
+
+		// Reset the calendar month
+		this.calendar_month.textContent = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.year}`;
+
+		// Highlight current day
+		document.querySelectorAll('tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.add('selected') });
+	}
+
+	// DRY
+	totalDays(date = null) {
+
+		let totalDays;
+
+		// Total days for each month
+		switch(this.dateNames.monthsShort[date.month]) {
+			case 'Jan':
+			case 'Mar':
+			case 'May':
+			case 'Jul':
+			case 'Aug':	
+			case 'Oct':
+			case 'Dec':
+				totalDays = 31;
+				break;
+
+			case 'Apr':
+			case 'Nov':
+			case 'Jun':
+			case 'Sep':
+				totalDays = 30;
+				break;
+
+			// Total days for leap years
+			case 'Feb':
+				if ((date.year % 4 == 0) && (date.year % 100 != 0) || (date.year % 400 == 0)) totalDays = 29;
+				else totalDays = 28;
+				break;
+		}
+
+		return totalDays;
 	}
 
 }

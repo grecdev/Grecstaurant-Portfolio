@@ -4,13 +4,11 @@
 import { ui } from './ui.js';
 
 // Get the current date
-const date = new Date();
-
 const current = {
-	year: date.getFullYear(),
-	month: date.getMonth(),
-	monthDay: date.getDate(),
-	weekDay: date.getDay()
+	year: new Date().getFullYear(),
+	month: new Date().getMonth(),
+	monthDay: new Date().getDate(),
+	weekDay: new Date().getDay()
 }
 
 // Event Listeners
