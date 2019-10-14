@@ -21,7 +21,7 @@ window.addEventListener('scroll', (e) => {
 
 document.addEventListener('DOMContentLoaded', (e) => {
 
-	ui.monthChange(e, current);
+	ui.monthChange(current);
 
 	e.stopPropagation();
 });

@@ -19,7 +19,7 @@ ui.next_month_btn.addEventListener('click', (e) => {
 		navigate.year++;
 	}
 
-	ui.monthChange(e, navigate);
+	ui.monthChange(navigate);
 
 	e.stopPropagation();
 });
@@ -34,7 +34,7 @@ ui.prev_month_btn.addEventListener('click', (e) => {
 		navigate.year--;
 	}
 
-	ui.monthChange(e, navigate);
+	ui.monthChange(navigate);
 
 	e.stopPropagation();
 });
@@ -49,7 +49,7 @@ ui.date_input.addEventListener('click', (e) => {
 // I put directly on the modal so don't have to manny listeners ( reduce memory usage )
 ui.modals.addEventListener('click', (e) => {
 
-	ui.showHideModal(e);
+	ui.showHideModal(e, navigate);
 
 	ui.setDate(e, navigate);
 

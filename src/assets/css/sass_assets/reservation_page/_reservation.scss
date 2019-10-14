@@ -140,7 +140,7 @@
 	
 				th { border-bottom: none }
 	
-				td:hover {
+				td.filled-date:hover {
 					background: lighten($primary-dark, 20%);
 					cursor: pointer;
 				}

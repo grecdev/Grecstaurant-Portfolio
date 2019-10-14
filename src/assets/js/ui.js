@@ -10,7 +10,7 @@ class Ui {
 		this.header = document.querySelector('header');
 		this.calendar_month = document.querySelector('.calendar-month');
 		this.weekDays = document.querySelector('thead tr');
-		this.monthDays = document.querySelector('tbody');
+		this.table_body = document.querySelector('tbody');
 		this.modals = document.getElementById('modals');
 		this.date_modal = document.querySelector('.date-modal');
 		this.date_confirm_popup = document.querySelector('.date-info-confirmation');
@@ -111,13 +111,17 @@ class Ui {
 	}
 
 	// Month Change
-	monthChange(e, navigate) {
+	monthChange(navigate) {
 		
 		// Separate functionality
 		this.populateDates(navigate);
 
 		// Select the current day when we change month, or when we load :)
-		if(this.calendar_month.textContent.includes(this.dateNames.months[this.currentDate.month]) && this.calendar_month.textContent.includes(this.currentDate.year)) document.querySelectorAll('tbody td').forEach(day => { if(day.textContent == navigate.monthDay) day.classList.add('selected') });
+		if(this.calendar_month.textContent.includes(this.dateNames.months[this.currentDate.month]) && this.calendar_month.textContent.includes(this.currentDate.year)) {
+
+			document.querySelectorAll('table tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.replace('filled-date', 'selected') })
+			
+		}
 
 	}
 
@@ -139,16 +143,16 @@ class Ui {
 		let day = 1;
 
 		// this loop is for is weeks (rows)
-    for (var i = 0; i <= 7; i++) {
+    for (var rows = 0; rows <= 7; rows++) {
 			// this loop is for weekdays (cells)
-			for (var j = 1; j <= 7; j++) {
+			for (var cells = 1; cells <= 7; cells++) {
 				monthDays += '<td>';
 
-					if (day <= totalDays && (i > 0 || j >= startingDay + 1)) {
-						monthDays += day;
-						day++;
-					}
-					monthDays += '</td>';
+				if (day <= totalDays && (rows > 0 || cells >= startingDay + 1)) {
+					monthDays += day;
+					day++;
+				}
+				monthDays += '</td>';
 			}
 			// stop making rows if we've run out of days
 			if (day > totalDays) break
@@ -157,24 +161,36 @@ class Ui {
 		
 		// Add html
 		this.weekDays.innerHTML = weekDays;
-		this.monthDays.innerHTML = monthDays;
+		this.table_body.innerHTML = monthDays;
 
 		// Set the month
 		this.calendar_month.textContent = `${this.dateNames.months[date.month]} ${date.year}`;
+
+		// So we apply hover styling only on the cells that have dates
+		document.querySelectorAll('table tbody td').forEach(day => {
+
+			if(day.textContent === '') day.className = 'empty-date'
+			else day.className = 'filled-date'
+
+		});
 	}
 
-	showHideModal(e) {
+	showHideModal(e, navigate) {
 		// Show modal && calendar ( because in html files the time and calendar is in the same modal element )
 		if(e.currentTarget === this.date_input) {
 			this.modals.classList.add('visible-flex');
 			this.date_modal.classList.add('visible-flex');
 
 			// Highlight current day
-			document.querySelectorAll('tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.add('selected') });
+			document.querySelectorAll('table tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.add('selected') });
 		}
 
 		// Hide modal && calendar ( because in html files the time and calendar is in the same modal element ) DRY
 		if(e.target.parentElement.classList.contains('close-modal') || e.target.classList.contains('close-modal') || e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn || e.target === this.today_date_btn) {
+
+			// Reset the navigate object so we start increment / decrement from the current month / year
+			navigate.month = this.currentDate.month;
+			navigate.year = this.currentDate.year;
 
 			this.modals.classList.remove('visible-flex');
 			this.date_modal.classList.remove('visible-flex');
@@ -182,6 +198,7 @@ class Ui {
 			// Reset the calendar days acording to the current month
 			this.populateDates(this.currentDate);
 
+			this.resetCalendar();
 		}
 	}
 
@@ -191,15 +208,13 @@ class Ui {
 		if(e.target === this.today_date_btn) {
 			// Set the input date
 			this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`;
-			
-			this.resetCalendar();
 		}
 
 		// Show confirm popup box and show selected date in the table
 		if(e.target.tagName === 'TD' && e.target.textContent.length > 0) {
 
 			// Highlight selected date
-			document.querySelectorAll('tbody td').forEach(day => day.classList.remove('selected'));
+			document.querySelectorAll('table tbody td').forEach(day => day.classList.remove('selected'));
 			e.target.classList.add('selected');
 
 			// Show the buttons && confirm info pop up
@@ -212,19 +227,22 @@ class Ui {
 
 		// Confirm Date
 		if(e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn) {
-			// Change the input value and hide the modal
+			// Change the input value
 			this.date_input.value = this.date_confirm_info.textContent;
-			
-			this.resetCalendar();
 		}
 
+		// Reset date
 		if(e.target.parentElement === this.reset_date_btn || e.target === this.reset_date_btn) {
 
 			this.resetCalendar();
 			
 			// Reset the calendar days acording to the current month
 			this.populateDates(this.currentDate);
-			
+
+			// Highlight current day
+			document.querySelectorAll('table tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.add('selected') });
+
+			this.date_input.value = 'Pick Date';
 		}
 
 	}
@@ -236,13 +254,10 @@ class Ui {
 		document.querySelectorAll('[data-date-confirm]').forEach(btn => btn.classList.remove('visible-block'));
 
 		// Remove all hightlighted dates
-		document.querySelectorAll('tbody td').forEach(day => day.classList.remove('selected'));
+		document.querySelectorAll('table tbody td').forEach(day => day.classList.remove('selected'));
 
 		// Reset the calendar month
 		this.calendar_month.textContent = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.year}`;
-
-		// Highlight current day
-		document.querySelectorAll('tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.add('selected') });
 	}
 
 	// DRY
@@ -282,3 +297,4 @@ class Ui {
 }
 
 export const ui = new Ui();
+
