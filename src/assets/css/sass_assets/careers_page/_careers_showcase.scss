@@ -1,0 +1,5 @@
+#careers-showcase {
+	height: 65vh;
+	background: url('../imgs/careers-showcase.jpg') no-repeat center/cover;
+	@include flex(column, center, flex-start);
+}

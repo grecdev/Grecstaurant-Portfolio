@@ -1,0 +1,23 @@
+#available {
+
+	.available-container { @include flex(row, space-between, center) }
+
+	.available-box {
+		width: 30%;
+		background: $primary-red;
+		border-radius: $border-radius-primary;
+		padding: 3rem 1rem;
+		position: relative;
+
+		.available-icon {
+			width: 70px;
+			position: absolute;
+			top: -35px;
+			left: 0;
+		}
+	}
+
+	.available-box:first-child .available-icon { left: 10px }
+	.available-box:nth-child(2) .available-icon { left: 15px }
+	.available-box:last-child .available-icon { left: 20px }
+}

@@ -21,7 +21,28 @@ window.addEventListener('scroll', (e) => {
 
 document.addEventListener('DOMContentLoaded', (e) => {
 
-	ui.monthChange(current);
+	// For reservation page only
+	if(location.pathname.includes('reservation')) ui.monthChange(current)
+
+	e.stopPropagation();
+});
+
+// Regex validation for number inputs ( so we can type only numbers )
+ui.phone_input.addEventListener('blur', (e) => {
+
+	ui.regexValidation(e);
+
+	console.log(e.target);
+
+	e.stopPropagation();
+});
+
+// Regex validation for email inputs
+ui.email_input.addEventListener('blur', (e) => {
+
+	ui.regexValidation(e);
+
+	console.log(e.target);
 
 	e.stopPropagation();
 });

@@ -1,0 +1,12 @@
+#benefits {
+
+	.benefits-container {
+		@include flex(row, space-between, center);
+
+		.benefits-box {
+			width: 45%;
+			text-align: center;
+		}
+	}
+
+}

@@ -4,8 +4,6 @@
 	position: relative;
 	@include flex(column, center, center);
 
-	&.overlay-bg::after { background: rgba(0, 0, 0, .5) }
-
 	&::before {
 		content: '';
 		position: absolute;

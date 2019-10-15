@@ -188,9 +188,13 @@ svg {
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: rgba(0, 0, 0, .3);
 	}
 }
+
+/* Different levels of overlay opacity */
+.overlay-light::after { background: rgba(0, 0, 0, .4) } 
+.overlay-dark::after { background: rgba(0, 0, 0, .6) } 
+.overlay-normal::after { background: rgba(0, 0, 0, .5) } 
 
 /* Padding resets */
 .body-padding-bottom { padding-bottom: 10rem }
@@ -207,7 +211,19 @@ svg {
 	}
 }
 
+.showcase-banner {
+	background: url('../imgs/about-banner.png') no-repeat;
+	padding: 1rem 2rem;
+}
+
 /** Show / Hide elements **/
 .visible-flex { display: flex !important }
 .visible-block { display: block !important }
 .visible-none { display: none !important }
+
+/** Alerts **/
+.regex-alert {
+	background: $primary-pink;
+	padding: .5rem;
+	border-radius: $border-radius-primary;
+}

@@ -1,0 +1,103 @@
+#career-form {
+
+	.career-form-description { margin-bottom: 3rem }
+
+	form {
+		@include grid(repeat(2, 1fr), 1rem);
+
+		.form-box {
+			@include flex(column, center, flex-start);
+			width: 90%;
+			margin: 1rem 0;
+			
+			label {
+				display: inline-block;
+				color: $primary-red;
+				transition: color 200ms ease-in-out;
+			}
+
+			input {
+				width: 100%;
+				border: none;
+				padding: 0;
+				outline: none;
+				background: none;
+				color: $primary-white;
+				border-bottom: 2px solid $primary-red;
+				padding: .5rem .5rem 1rem .5rem;
+				font-size: 1rem;
+				transition: border 200ms ease-in-out;
+
+				&:focus { border-color: $primary-white }
+			}
+		}
+
+		.employee-time {
+			@include flex(row, flex-start, center);
+			width: 100%;
+
+			label {
+				margin: 0 2rem;
+				position: relative;
+				cursor: pointer;
+
+				&::after {
+					content: '';
+					position: absolute;
+					top: 50%;
+					transform: translateY(-50%);
+					left: 95px;
+					width: 15px;
+					height: 15px;
+					border-radius: 50%;
+					background: $primary-red;
+					transition: background 200ms ease-in-out;
+				}
+			}
+
+			input { display: none }
+
+			input:checked + label::after { background: $primary-white }
+		}
+
+		.upload-cv {
+			position: relative;
+			border-bottom: 2px solid $primary-red;
+			padding-bottom: 2rem;
+			
+			& > * { cursor: pointer }
+
+			input {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+
+				/* IE 8 */
+				-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+
+				/* IE 5-7 */
+				filter: alpha(opacity=0);
+			
+				/* Netscape or and older firefox browsers */
+				-moz-opacity: 0.0;
+
+				/* older Safari browsers */
+				-khtml-opacity: 0.0;
+
+				&:focus { display: none }
+			}
+
+			.upload-icon {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 20px;
+				color: $primary-red;
+			}
+		}
+	}
+
+}

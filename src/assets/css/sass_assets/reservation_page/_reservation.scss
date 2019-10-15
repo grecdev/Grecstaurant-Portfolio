@@ -14,52 +14,48 @@
 				margin: 1rem 0;
 				position: relative;
 			}
+		}
 
-			input, select, textarea {
-				width: 100%;
-				border: 1px solid $primary-red;
-				outline: none;
-				background: none;
-				padding: .5rem;
-				color: $primary-white;
-				font-family: inherit;
-				border-radius: $border-radius-primary;
-				transition: border-color 300ms ease-in-out;
-			}
+		/** Inputs **/
+		input, select, textarea {
+			width: 100%;
+			border: 1.7px solid $primary-red;
+			outline: none;
+			background: none;
+			padding: .5rem;
+			color: $primary-white;
+			font-family: inherit;
+			border-radius: $border-radius-primary;
+			transition: border-color 300ms ease-in-out;
 
-			::placeholder { color: $primary-white }
+			&:focus { border-color: $primary-white }
+		}
 
-			/* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
-			select::-ms-expand { display: none }
+		::placeholder { color: $primary-white }
 
-			select {
-				-webkit-appearance: none;
-				-moz-appearance: none;
-				appearance: none; /* Remove default arrow */
+		/* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+		select::-ms-expand { display: none }
 
-				option { background: $primary-dark }
-			}
+		select {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none; /* Remove default arrow */
 
-			/** Add custom arrow **/
-			.select-icon {
-				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
-				right: 15px;
-				font-size: 13.33px;
-				z-index: -1;
-			}
+			option { background: $primary-dark }
+		}
 
+		/** Add custom arrow **/
+		.select-icon {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 15px;
+			font-size: 13.33px;
+			z-index: -1;
 		}
 
 		fieldset:first-child input,
 		fieldset:first-child select { cursor: pointer }
-
-		fieldset:nth-child(2) input:focus,
-		fieldset:last-child textarea:focus,
-		fieldset:first-child select:focus {
-			border-color: $primary-white;
-		}
 
 		/** Textarea **/
 		fieldset:last-child {
@@ -88,7 +84,8 @@
 	background: rgba(0, 0, 0, .6);
 	@include flex(column, center, center);
 	display: none;
-
+	padding: 2rem;
+	
 	.close-modal {
 		position: absolute;
 		top: 10px;
@@ -115,7 +112,7 @@
 	
 			.calendar-header {
 				@include flex(row, space-between, center);
-				width: 65%;
+				width: 80%;
 	
 				.calendar-month { font-size: 1.5rem }
 		
@@ -166,6 +163,31 @@
 				display: none;
 
 				span { font-style: italic }
+			}
+		}
+	}
+
+	/** Time modal **/
+	.time-modal {
+		background: $primary-dark;
+		position: relative;
+		display: none;
+
+		li {
+			border-left: 1.5px solid $primary-red;
+			border-right: 1.5px solid $primary-red;
+			padding: .65rem;
+
+			&:nth-child(odd) {
+				border-top: 1.5px solid $primary-red;
+				border-bottom: 1.5px solid $primary-red;
+			}
+
+			&:last-child { border-bottom: 1.5px solid $primary-red }
+
+			&:hover {
+				background: lighten($primary-dark, 20%);
+				cursor: pointer;
 			}
 		}
 	}

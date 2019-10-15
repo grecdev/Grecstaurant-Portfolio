@@ -13,15 +13,23 @@ class Ui {
 		this.table_body = document.querySelector('tbody');
 		this.modals = document.getElementById('modals');
 		this.date_modal = document.querySelector('.date-modal');
+		this.time_modal = document.querySelector('.time-modal');
 		this.date_confirm_popup = document.querySelector('.date-info-confirmation');
 		this.date_confirm_info = document.querySelector('.date-info-confirmation span');
+		this.number_error = document.querySelector('.number-error');
+		this.email_error = document.querySelector('.email-error');
+		this.reservation_form = document.querySelector('#reservation form');
 		// Buttons
 		this.prev_month_btn = document.getElementById('prev-month');
 		this.next_month_btn = document.getElementById('next-month');
-		this.date_input = document.getElementById('full-date');
 		this.today_date_btn = document.getElementById('today-date');
 		this.confirm_date_btn = document.getElementById('confirm-date');
 		this.reset_date_btn = document.getElementById('reset-date');
+		// Inputs
+		this.phone_input = document.querySelector('.phone-number');
+		this.date_input = document.getElementById('full-date');
+		this.time_input = document.getElementById('full-time');
+		this.email_input = document.querySelector('input[type="email"]');
 		// Days / Months
 		// So we can dynamically implement with JS
 		this.dateNames = {
@@ -186,20 +194,38 @@ class Ui {
 		}
 
 		// Hide modal && calendar ( because in html files the time and calendar is in the same modal element ) DRY
-		if(e.target.parentElement.classList.contains('close-modal') || e.target.classList.contains('close-modal') || e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn || e.target === this.today_date_btn) {
-
+		if(e.target.parentElement.classList.contains('close-modal') || e.target.classList.contains('close-modal') || e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn || e.target === this.today_date_btn || e.target === this.modals) {
+			
 			// Reset the navigate object so we start increment / decrement from the current month / year
 			navigate.month = this.currentDate.month;
 			navigate.year = this.currentDate.year;
 
 			this.modals.classList.remove('visible-flex');
 			this.date_modal.classList.remove('visible-flex');
+			this.time_modal.classList.remove('visible-block');
 
 			// Reset the calendar days acording to the current month
 			this.populateDates(this.currentDate);
 
 			this.resetCalendar();
 		}
+		
+		// Show modal && time picker ( because in html files the time and calendar is in the same modal element )
+		if(e.currentTarget === this.time_input) {
+			this.modals.classList.add('visible-flex');
+			this.time_modal.classList.add('visible-block');
+		}
+
+		if(e.target.parentElement === this.time_modal) {
+			// Change the time input value
+			this.time_input.value = e.target.textContent;
+
+			// Hide modals
+			this.modals.classList.remove('visible-flex');
+			this.date_modal.classList.remove('visible-flex');
+			this.time_modal.classList.remove('visible-block');
+		}
+
 	}
 
 	setDate(e, navigate) {
@@ -294,6 +320,121 @@ class Ui {
 		return totalDays;
 	}
 
+	regexValidation(e) {
+		// Regex
+		const numberRegex = /^(\+?)(\d{2,}|\(\d{2,}\))\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})$/;
+		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
+
+		// Number input valdiation
+		if(e.target === this.phone_input) {
+			// Error
+			if(!numberRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number');
+			// Correct number
+			else this.alert(null, 'success', 'number');
+
+			// Empty input
+			if(this.phone_input.value === '') this.alert('Phone Number is required, please type one.', 'error', 'number');
+			
+		}
+
+		// Email input validation
+		if(e.target === this.email_input) {
+			// Error
+			if(!emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email');
+			else this.alert(null, 'success', 'email');
+			// Empty input
+			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email');
+		}
+	}
+
+	// DRY
+	alert(message, alertType, inputType) {
+		// message = obviously
+		// alertType = error / success
+		// inputType = on which input we need the error, because if we don't do this, it adds for both email and number (personal preference, can be changed of course) :)
+		// Error
+		if(alertType === 'error') {
+			// Create element
+			const p = document.createElement('p');
+
+			// Add custom text
+			p.appendChild(document.createTextNode(message));
+	
+			// Add the error to specific inputs
+			/* 
+				We check for inputs && page because on the reservation page we insert it on the bottom of the form 
+				not like the separate inputs from careers pages (see in html after error appear)
+			*/
+			// For careers page
+			if(location.pathname.includes('careers')) {
+
+				if(inputType === 'number') {
+					// Phone number error
+					this.phone_input.style.borderColor = '#e44c65'; // $primary-red
+
+					this.phone_input.previousElementSibling.style.color = '#e44c65'; // $primary-red
+
+					p.classList.add('regex-alert', 'number-alert');
+
+					this.number_error.insertAdjacentElement('beforeend', p);
+
+					// Remove error when going to other inputs
+					if(document.body.contains(document.querySelector('.email-alert'))) document.querySelector('.email-alert').remove()
+
+					// Remove error if we have more than 1
+					if(document.querySelectorAll('.number-alert').length > 1) document.querySelector('.number-alert').remove();
+				}
+
+				if(inputType === 'email') {
+					// Email error
+					this.email_input.style.borderColor = '#e44c65'; // $primary-red
+
+					this.email_input.previousElementSibling.style.color = '#e44c65'; // $primary-red
+
+					p.classList.add('regex-alert', 'email-alert');
+
+					this.email_error.insertAdjacentElement('beforeend', p);
+
+					// Remove error when going to other inputs
+					if(document.body.contains(document.querySelector('.number-alert'))) document.querySelector('.number-alert').remove();
+
+					// Remove error if we have more than 1
+					if(document.querySelectorAll('.email-alert').length > 1) document.querySelector('.email-alert').remove();
+				}
+			}
+		}
+		// Success validation
+		else if(alertType === 'success') {
+
+			if(inputType === 'number') {
+				
+				this.phone_input.style.borderColor = '#82C4B0'; // $primary-green
+				this.phone_input.previousElementSibling.style.color = '#82C4B0'; // $primary-green
+
+				setTimeout(() => {
+					this.phone_input.style = '';
+					this.phone_input.previousElementSibling.style = '';
+				}, 1250);
+	
+				// Remove error
+				if(document.body.contains(document.querySelector('.number-alert'))) document.querySelector('.number-alert').remove();
+			}
+			else if(inputType === 'email') {
+
+				this.email_input.style.borderColor = '#82C4B0'; // $primary-green
+				this.email_input.previousElementSibling.style.color = '#82C4B0'; // primary-green
+
+				setTimeout(() => {
+					this.email_input.style.borderColor = '';
+					this.email_input.previousElementSibling.style = '';
+				}, 1250);
+	
+				// Remove error
+				if(document.body.contains(document.querySelector('.email-alert'))) document.querySelector('.email-alert').remove();
+			}
+		}
+
+	}
 }
 
 export const ui = new Ui();

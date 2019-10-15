@@ -42,9 +42,6 @@
 		}
 	}
 
-	/** Darken the overlay a little bit **/
-	.offer-box.overlay-bg::after { background: rgba(0, 0, 0, .5) }
-
 	.offer-box:first-child {
 		background: url('../imgs/steak-offer.jpg') no-repeat center/cover;
 		padding-bottom: 0;

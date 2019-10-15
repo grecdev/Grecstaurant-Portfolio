@@ -26,7 +26,7 @@
 				<ul>
 					<li><a href="contact.html">Contact</a></li>
 					<li class="active-page"><a href="reservation.html">Reservation</a></li>
-					<li><a>Careers</a></li>
+					<li><a href="careers.html">Careers</a></li>
 				</ul>
 
 			</nav>
@@ -45,7 +45,7 @@
 			</div>
 
 			<form>
-				<div class="form-box">
+				<div class="form-box mb-sm">
 					<fieldset>
 	
 						<div class="field-box">
@@ -101,15 +101,17 @@
 						</div>
 	
 						<div class="field-box">
-							<input type="text" autocomplete="off" id="phone" placeholder="Phone" name="phone">
+							<input class="phone-number" type="text" autocomplete="off" id="phone" placeholder="Phone" name="phone">
 						</div>
+
 					</fieldset>
 	
 					<fieldset>
 						<textarea name="message" id="message" placeholder="Your message"></textarea>
 					</fieldset>
+					
 				</div>
-
+				
 				<button type="submit" class="btn btn-red">Book a table</button>
 			</form>
 			
@@ -120,6 +122,7 @@
 	<!-- Popup modals for reservation inputs -->
 	<div id="modals">
 
+		<!-- Date picker -->
 		<div class="date-modal">
 			<button class="highlight-red close-modal" type="button"><i class="fas fa-window-close"></i></button>
 			
@@ -157,7 +160,23 @@
 			</div>
 		</div>
 
-		<div class="time-modal"></div>
+		<!-- time modal -->
+		<ul class="time-modal">
+			<li aria-label="8:00 AM" role="option">8:00 AM</li>
+			<li aria-label="9:00 AM" role="option">9:00 AM</li>
+			<li aria-label="10:00 AM" role="option">10:00 AM</li>
+			<li aria-label="11:00 AM" role="option">11:00 AM</li>
+			<li aria-label="12:00 PM" role="option">12:00 PM</li>
+			<li aria-label="13:00 PM" role="option">13:00 PM</li>
+			<li aria-label="14:00 PM" role="option">14:00 PM</li>
+			<li aria-label="15:00 PM" role="option">15:00 PM</li>
+			<li aria-label="16:00 PM" role="option">16:00 PM</li>
+			<li aria-label="17:00 PM" role="option">17:00 PM</li>
+			<li aria-label="18:00 PM" role="option">18:00 PM</li>
+			<li aria-label="19:00 PM" role="option">19:00 PM</li>
+			<li aria-label="20:00 PM" role="option">20:00 PM</li>
+			<li aria-label="21:00 PM" role="option">21:00 PM</li>
+		</ul>
 
 	</div>
 	<!-- popup modals for reservation inputs -->
