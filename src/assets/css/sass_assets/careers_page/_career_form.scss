@@ -3,12 +3,17 @@
 	.career-form-description { margin-bottom: 3rem }
 
 	form {
-		@include grid(repeat(2, 1fr), 1rem);
-
+		
 		.form-box {
-			@include flex(column, center, flex-start);
-			width: 90%;
-			margin: 1rem 0;
+			@include flex(row, space-between, center);
+			margin-bottom: 4rem;
+
+			fieldset {
+				width: 45%;
+				height: 300px;
+
+				.field-box { margin: 2rem 0 }
+			}
 			
 			label {
 				display: inline-block;
@@ -97,7 +102,23 @@
 				right: 20px;
 				color: $primary-red;
 			}
+
+			p {
+				position: absolute;
+				bottom: 7px;
+				left: 5px;
+				font-style: italic;
+				font-size: .9rem;
+			}
+		}
+
+		button {
+			width: 50%;
+			margin: 0 auto;
+			display: block;
 		}
 	}
-
 }
+
+/* I use !important because we don't always know on which element we asign the class */
+.reset-label::after { background: $primary-red !important }

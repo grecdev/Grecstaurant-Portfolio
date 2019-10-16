@@ -64,4 +64,6 @@ if(location.pathname.includes('reservation')) {
 	
 		e.stopPropagation();
 	});
+
+	
 }

@@ -18,7 +18,8 @@ class Ui {
 		this.date_confirm_info = document.querySelector('.date-info-confirmation span');
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
-		this.reservation_form = document.querySelector('#reservation form');
+		this.form = document.querySelector('form');
+		this.upload_placeholder = document.querySelector('.upload-value');
 		// Buttons
 		this.prev_month_btn = document.getElementById('prev-month');
 		this.next_month_btn = document.getElementById('next-month');
@@ -30,6 +31,7 @@ class Ui {
 		this.date_input = document.getElementById('full-date');
 		this.time_input = document.getElementById('full-time');
 		this.email_input = document.querySelector('input[type="email"]');
+		this.upload_input = document.getElementById('upload');
 		// Days / Months
 		// So we can dynamically implement with JS
 		this.dateNames = {
@@ -341,17 +343,56 @@ class Ui {
 		if(e.target === this.email_input) {
 			// Error
 			if(!emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email');
+			// Correct email
 			else this.alert(null, 'success', 'email');
 			// Empty input
 			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email');
+		}
+
+		if(e.target === ui.form) {
+
+			// Empty input
+			if(this.email_input.value === '' || this.phone_input.value === '') {
+
+				this.alert('Email and Number phone are required, please fill the input fields.', 'error', 'both');
+
+				// Disable the event
+				return false;
+			}
+
+			if(emailRegex.test(this.email_input.value) || numberRegex.test(this.phone_input.value)) {
+
+				this.alert(null, 'success', 'email');
+
+				// Reset all inputs
+				const inputs = document.querySelectorAll('input');
+				const radioLabels = document.querySelectorAll('.radio-label');
+
+				inputs.forEach(input => {
+
+					if(input.getAttribute('type') === 'text' || input.getAttribute('type') === 'email' || input.getAttribute('type') === 'file') input.value = '';
+					if(input.getAttribute('type') === 'radio') input.value = 'off';
+
+				});
+
+				// Reset label colors
+				radioLabels.forEach(label => label.classList.add('reset-label'));
+				// Reset upload placeholder
+				this.upload_placeholder.textContent = '';
+
+				// Enable the event ( submit the form )
+				return true;
+			}
 		}
 	}
 
 	// DRY
 	alert(message, alertType, inputType) {
+
 		// message = obviously
 		// alertType = error / success
 		// inputType = on which input we need the error, because if we don't do this, it adds for both email and number (personal preference, can be changed of course) :)
+
 		// Error
 		if(alertType === 'error') {
 			// Create element
@@ -401,6 +442,31 @@ class Ui {
 					// Remove error if we have more than 1
 					if(document.querySelectorAll('.email-alert').length > 1) document.querySelector('.email-alert').remove();
 				}
+
+				// Add error for both inputs when submit the form
+				if(inputType === 'both') {
+
+					const p_num = document.createElement('p');
+					const p_email = document.createElement('p');
+
+					p_num.appendChild(document.createTextNode(message));
+					p_email.appendChild(document.createTextNode(message));
+
+					// Phone number error
+					this.phone_input.style.borderColor = '#e44c65'; // $primary-red
+					this.phone_input.previousElementSibling.style.color = '#e44c65'; // $primary-red
+
+					p_num.classList.add('regex-alert', 'number-alert');
+					this.number_error.insertAdjacentElement('beforeend', p_num);
+
+					// Email error
+					this.email_input.style.borderColor = '#e44c65'; // $primary-red
+					this.email_input.previousElementSibling.style.color = '#e44c65'; // $primary-red
+
+					p_email.classList.add('regex-alert', 'email-alert');
+					this.email_error.insertAdjacentElement('beforeend', p_email);
+
+				}
 			}
 		}
 		// Success validation
@@ -433,7 +499,15 @@ class Ui {
 				if(document.body.contains(document.querySelector('.email-alert'))) document.querySelector('.email-alert').remove();
 			}
 		}
+	}
 
+	uploadFile() {
+		// Get the character after the backslash
+		const uploadValue = ui.upload_input.value.lastIndexOf("\\") + 1;
+		// "Placholder of the upload input"
+		const uploadInfo = document.querySelector('.upload-value');
+		// Apply the file name
+		uploadInfo.textContent = ui.upload_input.value.slice(uploadValue);
 	}
 }
 

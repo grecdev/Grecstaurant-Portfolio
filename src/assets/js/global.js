@@ -32,8 +32,6 @@ ui.phone_input.addEventListener('blur', (e) => {
 
 	ui.regexValidation(e);
 
-	console.log(e.target);
-
 	e.stopPropagation();
 });
 
@@ -42,7 +40,25 @@ ui.email_input.addEventListener('blur', (e) => {
 
 	ui.regexValidation(e);
 
-	console.log(e.target);
+	e.stopPropagation();
+});
 
+// For pages that have the input type file
+// Cause erros and disable others listeners if we don't check (disable so you can see)
+if(document.body.contains(document.querySelector('input[type="file"'))) {
+	// File name placeholder
+	ui.upload_input.addEventListener('change', (e) => {
+	
+		ui.uploadFile();
+	
+		e.stopPropagation();
+	});
+}
+
+ui.form.addEventListener('submit', (e) => {
+
+	ui.regexValidation(e);
+
+	e.preventDefault();	
 	e.stopPropagation();
 });

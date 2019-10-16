@@ -128,45 +128,56 @@
 				<p>We will contact you, if you fulfill our needs.</p>
 			</div>
 
-			<form>
+			<form name="careerForm">
 				<div class="form-box">
-					<label for="employee-lastName">Last Name</label>
-					<input id="employee-lastName" autocomplete="off" name="last-name" type="text">
-				</div>
 
-				<div class="form-box">
-					<label for="employee-firstName">First Name</label>
-					<input id="employee-firstName" autocomplete="off" name="first-name" type="text">
-				</div>
-			
-				<div class="form-box email-error">
-					<label for="employee-email">Email</label>
-					<input class="mb-md" id="employee-email" type="email" name="email" required autocomplete="off">
-				</div>
+					<fieldset>
+						<div class="field-box">
+							<label for="employee-lastName">Last Name</label>
+							<input id="employee-lastName" autocomplete="off" name="last-name" type="text">
+						</div>
 
-				<div class="form-box number-error">
-					<label for="employee-phone">Phone Number</label>
-					<input class="phone-number mb-md" id="employee-phone" type="text" name="phone-number" autocomplete="off">
-				</div>
-			
-				<div class="form-box employee-time">
-					<input id="employee-fullTime" type="radio" name="employee-time">
-					<label for="employee-fullTime">Full Time</label>
+						<div class="field-box email-error">
+							<label for="employee-email">Email</label>
+							<input class="mb-md" id="employee-email" type="email" name="email" autocomplete="off">
+						</div>
 
-					<input id="employee-partTime" type="radio" name="employee-time">
-					<label for="employee-partTime">Part Time</label>
+						<div class="field-box employee-time">
+							<input id="employee-fullTime" type="radio" name="employee-time">
+							<label for="employee-fullTime" class="radio-label">Full Time</label>
+		
+							<input id="employee-partTime" type="radio" name="employee-time">
+							<label for="employee-partTime" class="radio-label">Part Time</label>
+		
+							<input id="employee-weekendTime" type="radio" name="employee-time">
+							<label for="employee-weekendTime" class="radio-label">Weekend</label>
+						</div>
 
-					<input id="employee-weekendTime" type="radio" name="employee-time">
-					<label for="employee-weekendTime">Weekend</label>
-				</div>
+					</fieldset>
 
-				<div class="form-box upload-cv">
-					<label for="upload">Send your CV</label>
-					<input id="upload" type="file" name="cv">
-					<i class="fas fa-upload upload-icon"></i>
+					<fieldset>
+						<div class="field-box">
+							<label for="employee-firstName">First Name</label>
+							<input id="employee-firstName" autocomplete="off" name="first-name" type="text">
+						</div>
+					
+						<div class="field-box number-error">
+							<label for="employee-phone">Phone Number</label>
+							<input class="phone-number mb-md" id="employee-phone" type="text" name="phone-number" autocomplete="off">
+						</div>
+					
+						<div class="field-box upload-cv">
+							<label for="upload">Send your CV</label>
+							<input id="upload" type="file" name="cv">
+							<p class="upload-value"></p>
+							<i class="fas fa-upload upload-icon"></i>
+						</div>
+					</fieldset>
 				</div>
+				
+				<button type="submit" class="btn btn-red">Send</button>
+
 			</form>
-
 		</div>
 	</section>
 	<!-- career form -->
