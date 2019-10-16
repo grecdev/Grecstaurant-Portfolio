@@ -20,6 +20,7 @@ class Ui {
 		this.email_error = document.querySelector('.email-error');
 		this.form = document.querySelector('form');
 		this.upload_placeholder = document.querySelector('.upload-value');
+		this.career_container = document.querySelector('#career-form .container');
 		// Buttons
 		this.prev_month_btn = document.getElementById('prev-month');
 		this.next_month_btn = document.getElementById('next-month');
@@ -32,6 +33,8 @@ class Ui {
 		this.time_input = document.getElementById('full-time');
 		this.email_input = document.querySelector('input[type="email"]');
 		this.upload_input = document.getElementById('upload');
+		this.lastName_input = document.getElementById('employee-lastName');
+		this.firstName_input = document.getElementById('employee-firstName');
 		// Days / Months
 		// So we can dynamically implement with JS
 		this.dateNames = {
@@ -324,8 +327,14 @@ class Ui {
 
 	regexValidation(e) {
 		// Regex
-		const numberRegex = /^(\+?)(\d{2,}|\(\d{2,}\))\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})$/;
+		const numberRegex = /^(\+?)(\d{2,}|\(\d{2,}\))\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})$/g;
 		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
+		const nameRegex = /[aA-zZ]/g;
+
+		/*
+			I use a variable 'state', becuase i want to check if radio inputs are checked. See below.
+		*/
+		let checked = false;
 
 		// Number input valdiation
 		if(e.target === this.phone_input) {
@@ -349,34 +358,45 @@ class Ui {
 			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email');
 		}
 
+		// Submiting the form
 		if(e.target === ui.form) {
 
-			// Empty input
-			if(this.email_input.value === '' || this.phone_input.value === '') {
+			const inputs = document.querySelectorAll('input');
+			const radioInputs = document.querySelectorAll('input[type="radio"]');
 
-				this.alert('Email and Number phone are required, please fill the input fields.', 'error', 'both');
+			radioInputs.forEach(radio => {
 
-				// Disable the event
-				return false;
-			}
+				// If the inputs are checked we enable the 'state'
+				if(radio.checked) checked = true;
 
-			if(emailRegex.test(this.email_input.value) || numberRegex.test(this.phone_input.value)) {
+			});
 
-				this.alert(null, 'success', 'email');
+			inputs.forEach(input => {
+				
+				// Empty input
+				// If inputs are not filled, or the radio inputs are not checked (see checked variable 'state')
+				if(input.value === '' || checked === false) {
 
-				// Reset all inputs
-				const inputs = document.querySelectorAll('input');
-				const radioLabels = document.querySelectorAll('.radio-label');
+					this.alert('All fields are required. Please fill all of them', 'error', 'all');
+
+					// Disable the event
+					return false;
+				}
+			});
+
+			// If all inputs are filled
+			// Here you can see why i made a variable 'state'
+			if(emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && nameRegex.test(this.lastName_input) && nameRegex.test(this.firstName_input) && this.upload_input.value.length > 0 && checked === true) {
+
+				this.alert('Contact detailes succesfull sent', 'success', 'all');
 
 				inputs.forEach(input => {
 
 					if(input.getAttribute('type') === 'text' || input.getAttribute('type') === 'email' || input.getAttribute('type') === 'file') input.value = '';
-					if(input.getAttribute('type') === 'radio') input.value = 'off';
+					if(input.getAttribute('type') === 'radio') input.checked = false;
 
 				});
 
-				// Reset label colors
-				radioLabels.forEach(label => label.classList.add('reset-label'));
 				// Reset upload placeholder
 				this.upload_placeholder.textContent = '';
 
@@ -389,18 +409,19 @@ class Ui {
 	// DRY
 	alert(message, alertType, inputType) {
 
+		// We put the created element here because it's global and we use the inner closures
+		// Create element
+		const p = document.createElement('p');
+
+		// Add custom text
+		p.appendChild(document.createTextNode(message));
+
 		// message = obviously
 		// alertType = error / success
 		// inputType = on which input we need the error, because if we don't do this, it adds for both email and number (personal preference, can be changed of course) :)
 
 		// Error
-		if(alertType === 'error') {
-			// Create element
-			const p = document.createElement('p');
-
-			// Add custom text
-			p.appendChild(document.createTextNode(message));
-	
+		if(alertType === 'error') {	
 			// Add the error to specific inputs
 			/* 
 				We check for inputs && page because on the reservation page we insert it on the bottom of the form 
@@ -411,16 +432,19 @@ class Ui {
 
 				if(inputType === 'number') {
 					// Phone number error
-					this.phone_input.style.borderColor = '#e44c65'; // $primary-red
+					this.phone_input.classList.add('input-error');
+					this.phone_input.previousElementSibling.classList.add('label-error');
 
-					this.phone_input.previousElementSibling.style.color = '#e44c65'; // $primary-red
-
+					// Add the element to the DOM
 					p.classList.add('regex-alert', 'number-alert');
-
 					this.number_error.insertAdjacentElement('beforeend', p);
 
 					// Remove error when going to other inputs
 					if(document.body.contains(document.querySelector('.email-alert'))) document.querySelector('.email-alert').remove()
+
+					// Reset styling
+					this.email_input.classList.remove('input-error');
+					this.email_input.previousElementSibling.classList.remove('label-error');
 
 					// Remove error if we have more than 1
 					if(document.querySelectorAll('.number-alert').length > 1) document.querySelector('.number-alert').remove();
@@ -428,44 +452,35 @@ class Ui {
 
 				if(inputType === 'email') {
 					// Email error
-					this.email_input.style.borderColor = '#e44c65'; // $primary-red
+					this.email_input.classList.add('input-error');
+					this.email_input.previousElementSibling.classList.add('label-error');
 
-					this.email_input.previousElementSibling.style.color = '#e44c65'; // $primary-red
-
+					// Add element to the DOM
 					p.classList.add('regex-alert', 'email-alert');
-
 					this.email_error.insertAdjacentElement('beforeend', p);
 
 					// Remove error when going to other inputs
 					if(document.body.contains(document.querySelector('.number-alert'))) document.querySelector('.number-alert').remove();
+
+					// Reset styling
+					this.phone_input.classList.remove('input-error');
+					this.phone_input.previousElementSibling.classList.remove('label-error');
 
 					// Remove error if we have more than 1
 					if(document.querySelectorAll('.email-alert').length > 1) document.querySelector('.email-alert').remove();
 				}
 
 				// Add error for both inputs when submit the form
-				if(inputType === 'both') {
+				if(inputType === 'all') {
+					// Add styling
+					p.classList.add('regex-alert', 'text-center');
 
-					const p_num = document.createElement('p');
-					const p_email = document.createElement('p');
+					// Add to the DOM
+					this.career_container.insertAdjacentElement('beforeend', p);
 
-					p_num.appendChild(document.createTextNode(message));
-					p_email.appendChild(document.createTextNode(message));
+					if(document.querySelectorAll('.regex-alert').length > 1) document.querySelector('.regex-alert').remove();
 
-					// Phone number error
-					this.phone_input.style.borderColor = '#e44c65'; // $primary-red
-					this.phone_input.previousElementSibling.style.color = '#e44c65'; // $primary-red
-
-					p_num.classList.add('regex-alert', 'number-alert');
-					this.number_error.insertAdjacentElement('beforeend', p_num);
-
-					// Email error
-					this.email_input.style.borderColor = '#e44c65'; // $primary-red
-					this.email_input.previousElementSibling.style.color = '#e44c65'; // $primary-red
-
-					p_email.classList.add('regex-alert', 'email-alert');
-					this.email_error.insertAdjacentElement('beforeend', p_email);
-
+					setTimeout(() => p.remove(), 2500);
 				}
 			}
 		}
@@ -473,30 +488,50 @@ class Ui {
 		else if(alertType === 'success') {
 
 			if(inputType === 'number') {
-				
-				this.phone_input.style.borderColor = '#82C4B0'; // $primary-green
-				this.phone_input.previousElementSibling.style.color = '#82C4B0'; // $primary-green
+				// Remove error styling
+				this.phone_input.classList.remove('input-error');
+				this.phone_input.previousElementSibling.classList.remove('label-error');
 
+				// Success validation
+				this.phone_input.classList.add('input-success');
+				this.phone_input.previousElementSibling.classList.add('label-success');
+
+				// Reset the styling
 				setTimeout(() => {
-					this.phone_input.style = '';
-					this.phone_input.previousElementSibling.style = '';
+					this.phone_input.classList.remove('input-success');
+					this.phone_input.previousElementSibling.classList.remove('label-success');
 				}, 1250);
 	
 				// Remove error
 				if(document.body.contains(document.querySelector('.number-alert'))) document.querySelector('.number-alert').remove();
 			}
 			else if(inputType === 'email') {
+				// Remove error styling
+				this.email_input.classList.remove('input-error');
+				this.email_input.previousElementSibling.classList.remove('label-error');
 
-				this.email_input.style.borderColor = '#82C4B0'; // $primary-green
-				this.email_input.previousElementSibling.style.color = '#82C4B0'; // primary-green
+				// Success validation
+				this.email_input.classList.add('input-success');
+				this.email_input.previousElementSibling.classList.add('label-success');
 
+				// Reset the styling
 				setTimeout(() => {
-					this.email_input.style.borderColor = '';
-					this.email_input.previousElementSibling.style = '';
+					this.email_input.classList.remove('input-success');
+					this.email_input.previousElementSibling.classList.remove('label-success');
 				}, 1250);
 	
 				// Remove error
 				if(document.body.contains(document.querySelector('.email-alert'))) document.querySelector('.email-alert').remove();
+			}
+
+			if(inputType === 'all') {
+				// Add styling
+				p.classList.add('success-sent');
+
+				// Add to the DOM
+				this.career_container.insertAdjacentElement('beforeend', p);
+
+				setTimeout(() => p.remove(), 2000);
 			}
 		}
 	}

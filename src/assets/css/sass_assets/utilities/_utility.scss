@@ -227,3 +227,22 @@ svg {
 	padding: .5rem;
 	border-radius: $border-radius-primary;
 }
+
+/** Alert styling / Form regex styling **/
+/* I use !important because we don't always know on which element we asign the class */
+.reset-label::after { background: $primary-red !important }
+
+.label-error { color: $primary-pink !important }
+.input-error { border-color: $primary-pink !important }
+
+.label-success { color: $primary-green !important }
+.input-success { border-color: $primary-green !important }
+
+.success-sent {
+	background: #82C4B0;
+	padding: .5rem;
+	border-radius: $border-radius-primary;
+	text-align: center;
+	margin: 1rem auto;
+	width: 50%;
+}

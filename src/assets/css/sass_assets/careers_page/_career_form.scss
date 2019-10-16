@@ -6,7 +6,7 @@
 		
 		.form-box {
 			@include flex(row, space-between, center);
-			margin-bottom: 4rem;
+			margin-bottom: 6rem;
 
 			fieldset {
 				width: 45%;
@@ -40,6 +40,7 @@
 		.employee-time {
 			@include flex(row, flex-start, center);
 			width: 100%;
+			position: relative;
 
 			label {
 				margin: 0 2rem;
@@ -60,7 +61,15 @@
 				}
 			}
 
-			input { display: none }
+			input {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 0;
+				height: 0;
+				opacity: 0;
+				// display: none;
+			}
 
 			input:checked + label::after { background: $primary-white }
 		}
@@ -114,11 +123,8 @@
 
 		button {
 			width: 50%;
-			margin: 0 auto;
+			margin: 0 auto 1rem;
 			display: block;
 		}
 	}
 }
-
-/* I use !important because we don't always know on which element we asign the class */
-.reset-label::after { background: $primary-red !important }
