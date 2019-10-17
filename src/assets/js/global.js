@@ -27,24 +27,21 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	e.stopPropagation();
 });
 
-// Regex validation for number inputs ( so we can type only numbers )
-ui.phone_input.addEventListener('blur', (e) => {
+// Events for all inputs ( i can't put blur event on from )
+document.querySelectorAll('input[type="text"]').forEach(input => {
 
-	ui.regexValidation(e);
+	input.addEventListener('blur', (e) => {
 
-	e.stopPropagation();
-});
+		ui.regexValidation(e);
 
-// Regex validation for email inputs
-ui.email_input.addEventListener('blur', (e) => {
+		e.stopPropagation();
 
-	ui.regexValidation(e);
+	});
 
-	e.stopPropagation();
 });
 
 // For pages that have the input type file
-// Cause erros and disable others listeners if we don't check (disable so you can see)
+// Cause erros and disable others listeners if we don't check (disable the if statement so you can see)
 if(document.body.contains(document.querySelector('input[type="file"'))) {
 	// File name placeholder
 	ui.upload_input.addEventListener('change', (e) => {

@@ -16,8 +16,12 @@ class Ui {
 		this.time_modal = document.querySelector('.time-modal');
 		this.date_confirm_popup = document.querySelector('.date-info-confirmation');
 		this.date_confirm_info = document.querySelector('.date-info-confirmation span');
+		// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
+		this.lastName_error = document.querySelector('.lastName-error');
+		this.firstName_error = document.querySelector('.firstName-error');
+		/////
 		this.form = document.querySelector('form');
 		this.upload_placeholder = document.querySelector('.upload-value');
 		this.career_container = document.querySelector('#career-form .container');
@@ -31,7 +35,7 @@ class Ui {
 		this.phone_input = document.querySelector('.phone-number');
 		this.date_input = document.getElementById('full-date');
 		this.time_input = document.getElementById('full-time');
-		this.email_input = document.querySelector('input[type="email"]');
+		this.email_input = document.getElementById('employee-email');
 		this.upload_input = document.getElementById('upload');
 		this.lastName_input = document.getElementById('employee-lastName');
 		this.firstName_input = document.getElementById('employee-firstName');
@@ -329,33 +333,49 @@ class Ui {
 		// Regex
 		const numberRegex = /^(\+?)(\d{2,}|\(\d{2,}\))\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})$/g;
 		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
-		const nameRegex = /[aA-zZ]/g;
+		const nameRegex = /[aA-zZ]{3,}/g;
 
-		/*
-			I use a variable 'state', becuase i want to check if radio inputs are checked. See below.
-		*/
+		// I use a variable 'state', becuase i want to check if radio inputs are checked. See below.
 		let checked = false;
 
-		// Number input valdiation
-		if(e.target === this.phone_input) {
+		if(e.target === this.lastName_input) {
 			// Error
-			if(!numberRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number');
+			if(!nameRegex.test(this.lastName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'lastName', false, e.target);
 			// Correct number
-			else this.alert(null, 'success', 'number');
+			else this.alert(null, 'success', null, false, e.target);
 
 			// Empty input
-			if(this.phone_input.value === '') this.alert('Phone Number is required, please type one.', 'error', 'number');
-			
+			if(this.lastName_input.value === '') this.alert('Last Name is required, please type one.', 'error', 'lastName', false, e.target);
 		}
 
-		// Email input validation
+		if(e.target === this.firstName_input) {
+			// Error
+			if(!nameRegex.test(this.firstName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'firstName', false, e.target);
+			// Correct number
+			else this.alert(null, 'success', null, false, e.target);
+
+			// Empty input
+			if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
+		}
+
+		if(e.target === this.phone_input) {
+			// Error
+			if(!numberRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
+			// Correct number
+			else this.alert(null, 'success', null, false, e.target);
+
+			// Empty input
+			if(this.phone_input.value === '') this.alert('Phone Number is required, please type one.', 'error', 'number', false, e.target);
+		}
+
 		if(e.target === this.email_input) {
 			// Error
-			if(!emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email');
-			// Correct email
-			else this.alert(null, 'success', 'email');
+			if(!emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email', false, e.target);
+			// Correct number
+			else this.alert(null, 'success', null, false, e.target);
+
 			// Empty input
-			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email');
+			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email', false, e.target);
 		}
 
 		// Submiting the form
@@ -364,12 +384,8 @@ class Ui {
 			const inputs = document.querySelectorAll('input');
 			const radioInputs = document.querySelectorAll('input[type="radio"]');
 
-			radioInputs.forEach(radio => {
-
-				// If the inputs are checked we enable the 'state'
-				if(radio.checked) checked = true;
-
-			});
+			// If the inputs are checked we enable the 'state'
+			radioInputs.forEach(radio => { if(radio.checked) checked = true });
 
 			inputs.forEach(input => {
 				
@@ -377,7 +393,7 @@ class Ui {
 				// If inputs are not filled, or the radio inputs are not checked (see checked variable 'state')
 				if(input.value === '' || checked === false) {
 
-					this.alert('All fields are required. Please fill all of them', 'error', 'all');
+					this.alert('All fields are required.', 'error', null, true, null);
 
 					// Disable the event
 					return false;
@@ -385,10 +401,10 @@ class Ui {
 			});
 
 			// If all inputs are filled
-			// Here you can see why i made a variable 'state'
-			if(emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && nameRegex.test(this.lastName_input) && nameRegex.test(this.firstName_input) && this.upload_input.value.length > 0 && checked === true) {
+			// Here you can see why i made a variable 'state' - checked
+			if(emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && nameRegex.test(this.lastName_input.value) && nameRegex.test(this.firstName_input.value) && this.upload_input.value.length > 0 && checked === true) {
 
-				this.alert('Contact detailes succesfull sent', 'success', 'all');
+				this.alert('Contact detailes succesfull sent', 'success', null, true, null);
 
 				inputs.forEach(input => {
 
@@ -407,7 +423,13 @@ class Ui {
 	}
 
 	// DRY
-	alert(message, alertType, inputType) {
+	alert(message, alertType, inputType, multiple, target) {
+
+		// message = obviously
+		// alertType = error / success
+		// inputType = where we insert the error
+		// target = when we need to use the event object
+		// multiple = true (when submiting the form and check all inputs) / false (single input)
 
 		// We put the created element here because it's global and we use the inner closures
 		// Create element
@@ -416,115 +438,59 @@ class Ui {
 		// Add custom text
 		p.appendChild(document.createTextNode(message));
 
-		// message = obviously
-		// alertType = error / success
-		// inputType = on which input we need the error, because if we don't do this, it adds for both email and number (personal preference, can be changed of course) :)
-
 		// Error
-		if(alertType === 'error') {	
-			// Add the error to specific inputs
-			/* 
-				We check for inputs && page because on the reservation page we insert it on the bottom of the form 
-				not like the separate inputs from careers pages (see in html after error appear)
-			*/
-			// For careers page
-			if(location.pathname.includes('careers')) {
+		if(alertType === 'error') {
+			// Remove error, so we have only one
+			document.querySelectorAll('.regex-alert').forEach(error => error.remove());
+	
+			// Add the error styling
+			p.classList.add('regex-alert', 'text-center');
+			
+			// Add error for individual input
+			if(!multiple) {
+				// Add the error to specific inputs
+				target.classList.add('input-error');
+				target.previousElementSibling.classList.add('label-error');
+	
+				// Add the error for individual inputs
+				if(inputType === 'number') this.number_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'email') this.email_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'lastName') this.lastName_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'firstName') this.firstName_error.insertAdjacentElement('beforeend', p);
+			}
 
-				if(inputType === 'number') {
-					// Phone number error
-					this.phone_input.classList.add('input-error');
-					this.phone_input.previousElementSibling.classList.add('label-error');
+			// Add error for all inputs when submit the form
+			if(multiple) {
+				// Add to the DOM
+				this.career_container.insertAdjacentElement('beforeend', p);
 
-					// Add the element to the DOM
-					p.classList.add('regex-alert', 'number-alert');
-					this.number_error.insertAdjacentElement('beforeend', p);
-
-					// Remove error when going to other inputs
-					if(document.body.contains(document.querySelector('.email-alert'))) document.querySelector('.email-alert').remove()
-
-					// Reset styling
-					this.email_input.classList.remove('input-error');
-					this.email_input.previousElementSibling.classList.remove('label-error');
-
-					// Remove error if we have more than 1
-					if(document.querySelectorAll('.number-alert').length > 1) document.querySelector('.number-alert').remove();
-				}
-
-				if(inputType === 'email') {
-					// Email error
-					this.email_input.classList.add('input-error');
-					this.email_input.previousElementSibling.classList.add('label-error');
-
-					// Add element to the DOM
-					p.classList.add('regex-alert', 'email-alert');
-					this.email_error.insertAdjacentElement('beforeend', p);
-
-					// Remove error when going to other inputs
-					if(document.body.contains(document.querySelector('.number-alert'))) document.querySelector('.number-alert').remove();
-
-					// Reset styling
-					this.phone_input.classList.remove('input-error');
-					this.phone_input.previousElementSibling.classList.remove('label-error');
-
-					// Remove error if we have more than 1
-					if(document.querySelectorAll('.email-alert').length > 1) document.querySelector('.email-alert').remove();
-				}
-
-				// Add error for both inputs when submit the form
-				if(inputType === 'all') {
-					// Add styling
-					p.classList.add('regex-alert', 'text-center');
-
-					// Add to the DOM
-					this.career_container.insertAdjacentElement('beforeend', p);
-
-					if(document.querySelectorAll('.regex-alert').length > 1) document.querySelector('.regex-alert').remove();
-
-					setTimeout(() => p.remove(), 2500);
-				}
+				// Remove the alert
+				setTimeout(() => p.remove(), 2500);
 			}
 		}
 		// Success validation
 		else if(alertType === 'success') {
 
-			if(inputType === 'number') {
+			if(!multiple) {
 				// Remove error styling
-				this.phone_input.classList.remove('input-error');
-				this.phone_input.previousElementSibling.classList.remove('label-error');
-
+				target.classList.remove('input-error');
+				target.previousElementSibling.classList.remove('label-error');
+				
 				// Success validation
-				this.phone_input.classList.add('input-success');
-				this.phone_input.previousElementSibling.classList.add('label-success');
+				target.classList.add('input-success');
+				target.previousElementSibling.classList.add('label-success');
 
 				// Reset the styling
 				setTimeout(() => {
-					this.phone_input.classList.remove('input-success');
-					this.phone_input.previousElementSibling.classList.remove('label-success');
+					target.classList.remove('input-success');
+					target.previousElementSibling.classList.remove('label-success');
 				}, 1250);
 	
-				// Remove error
-				if(document.body.contains(document.querySelector('.number-alert'))) document.querySelector('.number-alert').remove();
+				// Remove error, so we have only one
+				document.querySelectorAll('.regex-alert').forEach(error => error.remove());
 			}
-			else if(inputType === 'email') {
-				// Remove error styling
-				this.email_input.classList.remove('input-error');
-				this.email_input.previousElementSibling.classList.remove('label-error');
-
-				// Success validation
-				this.email_input.classList.add('input-success');
-				this.email_input.previousElementSibling.classList.add('label-success');
-
-				// Reset the styling
-				setTimeout(() => {
-					this.email_input.classList.remove('input-success');
-					this.email_input.previousElementSibling.classList.remove('label-success');
-				}, 1250);
-	
-				// Remove error
-				if(document.body.contains(document.querySelector('.email-alert'))) document.querySelector('.email-alert').remove();
-			}
-
-			if(inputType === 'all') {
+			
+			if(multiple) {
 				// Add styling
 				p.classList.add('success-sent');
 
