@@ -217,6 +217,7 @@ svg {
 }
 
 /** Show / Hide elements **/
+/* I use !important because we don't always know on which element we asign the class ( so we can't make a high element specifity ) */
 .visible-flex { display: flex !important }
 .visible-block { display: block !important }
 .visible-none { display: none !important }
@@ -229,10 +230,11 @@ svg {
 }
 
 /** Alert styling / Form regex styling **/
-/* I use !important because we don't always know on which element we asign the class */
+/* I use !important because we don't always know on which element we asign the class ( so we can't make a high element specifity ) */
 .reset-label::after { background: $primary-red !important }
 
 .label-error { color: $primary-pink !important }
+.label-error::after { background: $primary-pink !important }
 .input-error { border-color: $primary-pink !important }
 
 .label-success { color: $primary-green !important }

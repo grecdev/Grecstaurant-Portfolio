@@ -42,7 +42,7 @@ document.querySelectorAll('input[type="text"]').forEach(input => {
 
 // For pages that have the input type file
 // Cause erros and disable others listeners if we don't check (disable the if statement so you can see)
-if(document.body.contains(document.querySelector('input[type="file"'))) {
+if(document.body.contains(document.querySelector('input[type="file"]'))) {
 	// File name placeholder
 	ui.upload_input.addEventListener('change', (e) => {
 	

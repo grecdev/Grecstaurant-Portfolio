@@ -333,10 +333,13 @@ class Ui {
 		// Regex
 		const numberRegex = /^(\+?)(\d{2,}|\(\d{2,}\))\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})$/g;
 		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
-		const nameRegex = /[aA-zZ]{3,}/g;
+		const nameRegex = /[aA-zZ]{3,}/;
 
-		// I use a variable 'state', becuase i want to check if radio inputs are checked. See below.
+		// Variable 'state'
+		// If radio inputs are checked. See below.
 		let checked = false;
+		// Disable or enable the form submission
+		let submit;
 
 		if(e.target === this.lastName_input) {
 			// Error
@@ -387,28 +390,50 @@ class Ui {
 			// If the inputs are checked we enable the 'state'
 			radioInputs.forEach(radio => { if(radio.checked) checked = true });
 
+			// Empty input
 			inputs.forEach(input => {
-				
-				// Empty input
-				// If inputs are not filled, or the radio inputs are not checked (see checked variable 'state')
-				if(input.value === '' || checked === false) {
+				// Text inputs
+				if(!input.classList.contains('correct-filled') && input.getAttribute('type') === 'text') {
+					// Add the error
+					input.classList.add('input-error');
+					input.previousElementSibling.classList.add('label-error');
+
+					setTimeout(() => {
+						input.classList.remove('input-error');
+						input.previousElementSibling.classList.remove('label-error');
+					}, 2500);
 
 					this.alert('All fields are required.', 'error', null, true, null);
 
 					// Disable the event
-					return false;
+					submit = false;
+				}
+
+				// For radio && file upload
+				// If radio inputs are not checked (see checked variable 'state') or CV is not uploaded
+				if(input.getAttribute('type') === 'radio' && !checked || input.getAttribute('type') === 'file' && input.value === '') {
+					// Add the error to the parent div.
+					input.parentElement.classList.add('input-error');
+
+					setTimeout(() => input.parentElement.classList.remove('input-error'), 2500);
+
+					this.alert('All fields are required.', 'error', null, true, null);
+
+					// Disable the event
+					submit = false;
 				}
 			});
 
 			// If all inputs are filled
 			// Here you can see why i made a variable 'state' - checked
-			if(emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && nameRegex.test(this.lastName_input.value) && nameRegex.test(this.firstName_input.value) && this.upload_input.value.length > 0 && checked === true) {
+			//  emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) &&  && this.upload_input.value.length > 0 && checked === true
+			if(nameRegex.test(this.lastName_input.value) && nameRegex.test(this.firstName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
 
-				this.alert('Contact detailes succesfull sent', 'success', null, true, null);
+				this.alert('Contact details succesfull sent', 'success', null, true, null);
 
 				inputs.forEach(input => {
 
-					if(input.getAttribute('type') === 'text' || input.getAttribute('type') === 'email' || input.getAttribute('type') === 'file') input.value = '';
+					if(input.getAttribute('type') === 'text' || input.getAttribute('type') === 'file') input.value = '';
 					if(input.getAttribute('type') === 'radio') input.checked = false;
 
 				});
@@ -417,14 +442,15 @@ class Ui {
 				this.upload_placeholder.textContent = '';
 
 				// Enable the event ( submit the form )
-				return true;
+				submit =  true;
 			}
+
+			return submit;
 		}
 	}
 
 	// DRY
 	alert(message, alertType, inputType, multiple, target) {
-
 		// message = obviously
 		// alertType = error / success
 		// inputType = where we insert the error
@@ -477,7 +503,7 @@ class Ui {
 				target.previousElementSibling.classList.remove('label-error');
 				
 				// Success validation
-				target.classList.add('input-success');
+				target.classList.add('input-success', 'correct-filled');
 				target.previousElementSibling.classList.add('label-success');
 
 				// Reset the styling
@@ -497,18 +523,18 @@ class Ui {
 				// Add to the DOM
 				this.career_container.insertAdjacentElement('beforeend', p);
 
-				setTimeout(() => p.remove(), 2000);
+				setTimeout(() => p.remove(), 2500);
 			}
 		}
 	}
 
 	uploadFile() {
 		// Get the character after the backslash
-		const uploadValue = ui.upload_input.value.lastIndexOf("\\") + 1;
+		const uploadIndex = ui.upload_input.value.lastIndexOf("\\") + 1;
 		// "Placholder of the upload input"
 		const uploadInfo = document.querySelector('.upload-value');
 		// Apply the file name
-		uploadInfo.textContent = ui.upload_input.value.slice(uploadValue);
+		uploadInfo.textContent = ui.upload_input.value.slice(uploadIndex);
 	}
 }
 
