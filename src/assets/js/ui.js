@@ -21,6 +21,7 @@ class Ui {
 		this.email_error = document.querySelector('.email-error');
 		this.lastName_error = document.querySelector('.lastName-error');
 		this.firstName_error = document.querySelector('.firstName-error');
+		this.fullName_error = document.querySelector('.fullName-error');
 		/////
 		this.form = document.querySelector('form');
 		this.upload_placeholder = document.querySelector('.upload-value');
@@ -35,10 +36,12 @@ class Ui {
 		this.phone_input = document.querySelector('.phone-number');
 		this.date_input = document.getElementById('full-date');
 		this.time_input = document.getElementById('full-time');
-		this.email_input = document.getElementById('employee-email');
+		this.email_input = document.querySelector('.email-input');
 		this.upload_input = document.getElementById('upload');
 		this.lastName_input = document.getElementById('employee-lastName');
 		this.firstName_input = document.getElementById('employee-firstName');
+		this.fullName_input = document.getElementById('fullName');
+		this.people_input = document.getElementById('people');
 		// Days / Months
 		// So we can dynamically implement with JS
 		this.dateNames = {
@@ -135,9 +138,7 @@ class Ui {
 
 		// Select the current day when we change month, or when we load :)
 		if(this.calendar_month.textContent.includes(this.dateNames.months[this.currentDate.month]) && this.calendar_month.textContent.includes(this.currentDate.year)) {
-
 			document.querySelectorAll('table tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.replace('filled-date', 'selected') })
-			
 		}
 
 	}
@@ -333,7 +334,7 @@ class Ui {
 		// Regex
 		const numberRegex = /^(\+?)(\d{2,}|\(\d{2,}\))\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})$/g;
 		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
-		const nameRegex = /[aA-zZ]{3,}/;
+		const nameRegex = /^[aA-zZ\s-]{3,}$/;
 
 		// Variable 'state'
 		// If radio inputs are checked. See below.
@@ -341,26 +342,13 @@ class Ui {
 		// Disable or enable the form submission
 		let submit;
 
-		if(e.target === this.lastName_input) {
-			// Error
-			if(!nameRegex.test(this.lastName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'lastName', false, e.target);
-			// Correct number
-			else this.alert(null, 'success', null, false, e.target);
+		const inputs = document.querySelectorAll('input');
+		const radioInputs = document.querySelectorAll('input[type="radio"]');
+		// I choose to pick the parent div because not all the elements are inputs ( we have a select attribute )
+		// So i get the parent div and the first child, and with this logic we get all inputs + select attribute ( see for reservation page statement )
+		const fieldBox = document.querySelectorAll('.field-box');
 
-			// Empty input
-			if(this.lastName_input.value === '') this.alert('Last Name is required, please type one.', 'error', 'lastName', false, e.target);
-		}
-
-		if(e.target === this.firstName_input) {
-			// Error
-			if(!nameRegex.test(this.firstName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'firstName', false, e.target);
-			// Correct number
-			else this.alert(null, 'success', null, false, e.target);
-
-			// Empty input
-			if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
-		}
-
+		// Global inputs
 		if(e.target === this.phone_input) {
 			// Error
 			if(!numberRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
@@ -381,71 +369,138 @@ class Ui {
 			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email', false, e.target);
 		}
 
-		// Submiting the form
-		if(e.target === ui.form) {
-
-			const inputs = document.querySelectorAll('input');
-			const radioInputs = document.querySelectorAll('input[type="radio"]');
-
-			// If the inputs are checked we enable the 'state'
-			radioInputs.forEach(radio => { if(radio.checked) checked = true });
-
-			// Empty input
-			inputs.forEach(input => {
-				// Text inputs
-				if(!input.classList.contains('correct-filled') && input.getAttribute('type') === 'text') {
-					// Add the error
-					input.classList.add('input-error');
-					input.previousElementSibling.classList.add('label-error');
-
-					setTimeout(() => {
-						input.classList.remove('input-error');
-						input.previousElementSibling.classList.remove('label-error');
-					}, 2500);
-
-					this.alert('All fields are required.', 'error', null, true, null);
-
-					// Disable the event
-					submit = false;
-				}
-
-				// For radio && file upload
-				// If radio inputs are not checked (see checked variable 'state') or CV is not uploaded
-				if(input.getAttribute('type') === 'radio' && !checked || input.getAttribute('type') === 'file' && input.value === '') {
-					// Add the error to the parent div.
-					input.parentElement.classList.add('input-error');
-
-					setTimeout(() => input.parentElement.classList.remove('input-error'), 2500);
-
-					this.alert('All fields are required.', 'error', null, true, null);
-
-					// Disable the event
-					submit = false;
-				}
-			});
-
-			// If all inputs are filled
-			// Here you can see why i made a variable 'state' - checked
-			//  emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) &&  && this.upload_input.value.length > 0 && checked === true
-			if(nameRegex.test(this.lastName_input.value) && nameRegex.test(this.firstName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
-
-				this.alert('Contact details succesfull sent', 'success', null, true, null);
-
-				inputs.forEach(input => {
-
-					if(input.getAttribute('type') === 'text' || input.getAttribute('type') === 'file') input.value = '';
-					if(input.getAttribute('type') === 'radio') input.checked = false;
-
-				});
-
-				// Reset upload placeholder
-				this.upload_placeholder.textContent = '';
-
-				// Enable the event ( submit the form )
-				submit =  true;
+		// Exclusive for reservation page
+		if(location.pathname.includes('reservation')) {
+			if(e.target === this.fullName_input) {
+				// Error
+				if(!nameRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
+				// Correct number
+				else this.alert(null, 'success', null, false, e.target);
+	
+				// Empty input
+				if(this.fullName_input.value === '') this.alert('Name is required, please type one.', 'error', 'fullName', false, e.target);
 			}
 
-			return submit;
+			if(e.target === this.form) {
+				
+				fieldBox.forEach(box => {
+					
+					if(box.children[0].value === '') {
+
+						// Add error
+						box.children[0].classList.add('input-error');
+						this.alert('All fields are required.', 'error', null, true, null);
+
+						// Remove the highlight input errors
+						setTimeout(() => box.children[0].classList.remove('input-error'), 2500);
+
+						// Don't submit the form
+						submit = false;
+					}
+
+				});
+				
+				if(numberRegex.test(this.phone_input.value) && emailRegex.test(this.email_input.value) && nameRegex.test(this.fullName_input.value) && this.people_input.value.length > 0 && this.time_input.value.length > 0 && this.date_input.value.length > 0) {
+
+					fieldBox.forEach(box => box.children[0].value = '');
+
+					// Textarea
+					document.getElementById('message').value = '';
+
+					this.alert('Contact details succesfull sent', 'success', null, true, null);
+	
+					// Submit the form
+					submit = true;
+				}
+
+				return submit;
+			}
+		}
+
+		// Exclusive for careers page
+		if(location.pathname.includes("careers")) {
+			if(e.target === this.lastName_input) {
+				// Error
+				if(!nameRegex.test(this.lastName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'lastName', false, e.target);
+				// Correct number
+				else this.alert(null, 'success', null, false, e.target);
+	
+				// Empty input
+				if(this.lastName_input.value === '') this.alert('Last Name is required, please type one.', 'error', 'lastName', false, e.target);
+			}
+	
+			if(e.target === this.firstName_input) {
+				// Error
+				if(!nameRegex.test(this.firstName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'firstName', false, e.target);
+				// Correct number
+				else this.alert(null, 'success', null, false, e.target);
+	
+				// Empty input
+				if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
+			}
+	
+			// Submiting the form
+			if(e.target === this.form) {
+	
+				// If the inputs are checked we enable the 'state'
+				radioInputs.forEach(radio => { if(radio.checked) checked = true });
+	
+				// Empty input
+				inputs.forEach(input => {
+					// Text inputs
+					if(!input.classList.contains('correct-filled') && input.getAttribute('type') === 'text') {
+						// Add the error
+						input.classList.add('input-error');
+						input.previousElementSibling.classList.add('label-error');
+	
+						setTimeout(() => {
+							input.classList.remove('input-error');
+							input.previousElementSibling.classList.remove('label-error');
+						}, 2500);
+	
+						this.alert('All fields are required.', 'error', null, true, null);
+	
+						// Disable the event
+						submit = false;
+					}
+	
+					// For radio && file upload
+					// If radio inputs are not checked (see checked variable 'state') or CV is not uploaded
+					if(input.getAttribute('type') === 'radio' && !checked || input.getAttribute('type') === 'file' && input.value === '') {
+						// Add the error to the parent div.
+						input.parentElement.classList.add('input-error');
+	
+						setTimeout(() => input.parentElement.classList.remove('input-error'), 2500);
+	
+						this.alert('All fields are required.', 'error', null, true, null);
+	
+						// Disable the event
+						submit = false;
+					}
+				});
+	
+				// If all inputs are filled
+				// Here you can see why i made a variable 'state' - checked
+				if(nameRegex.test(this.lastName_input.value) && nameRegex.test(this.firstName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
+	
+					this.alert('Contact details succesfull sent', 'success', null, true, null);
+	
+					inputs.forEach(input => {
+	
+						if(input.getAttribute('type') === 'text' || input.getAttribute('type') === 'file') input.value = '';
+						if(input.getAttribute('type') === 'radio') input.checked = false;
+	
+					});
+	
+					// Reset upload placeholder
+					this.upload_placeholder.textContent = '';
+					
+					// Enable the event ( submit the form )
+					submit =  true;
+				}
+	
+				return submit;
+			}
 		}
 	}
 
@@ -476,19 +531,23 @@ class Ui {
 			if(!multiple) {
 				// Add the error to specific inputs
 				target.classList.add('input-error');
-				target.previousElementSibling.classList.add('label-error');
+				// If we have label for inputs
+				// For reservation we use placeholder attribute instead of label so that's why we check it
+				if(document.body.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-error');
 	
 				// Add the error for individual inputs
 				if(inputType === 'number') this.number_error.insertAdjacentElement('beforeend', p);
 				if(inputType === 'email') this.email_error.insertAdjacentElement('beforeend', p);
 				if(inputType === 'lastName') this.lastName_error.insertAdjacentElement('beforeend', p);
 				if(inputType === 'firstName') this.firstName_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'fullName') this.fullName_error.insertAdjacentElement('beforeend', p);
 			}
 
 			// Add error for all inputs when submit the form
 			if(multiple) {
 				// Add to the DOM
-				this.career_container.insertAdjacentElement('beforeend', p);
+				if(location.pathname.includes('careers')) this.career_container.insertAdjacentElement('beforeend', p);
+				if(location.pathname.includes('reservation')) this.form.insertAdjacentElement('beforeend', p);
 
 				// Remove the alert
 				setTimeout(() => p.remove(), 2500);
@@ -500,16 +559,19 @@ class Ui {
 			if(!multiple) {
 				// Remove error styling
 				target.classList.remove('input-error');
-				target.previousElementSibling.classList.remove('label-error');
+				// For reservation we use placeholder attribute instead of label so that's why we check it
+				if(document.body.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-error');
 				
 				// Success validation
 				target.classList.add('input-success', 'correct-filled');
-				target.previousElementSibling.classList.add('label-success');
+				// For reservation we use placeholder attribute instead of label so that's why we check it
+				if(document.body.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-success');
 
 				// Reset the styling
 				setTimeout(() => {
 					target.classList.remove('input-success');
-					target.previousElementSibling.classList.remove('label-success');
+					// For reservation we use placeholder attribute instead of label so that's why we check it
+					if(document.body.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-success');
 				}, 1250);
 	
 				// Remove error, so we have only one
@@ -521,7 +583,8 @@ class Ui {
 				p.classList.add('success-sent');
 
 				// Add to the DOM
-				this.career_container.insertAdjacentElement('beforeend', p);
+				if(location.pathname.includes('careers')) this.career_container.insertAdjacentElement('beforeend', p);
+				if(location.pathname.includes('reservation')) this.form.insertAdjacentElement('beforeend', p);
 
 				setTimeout(() => p.remove(), 2500);
 			}

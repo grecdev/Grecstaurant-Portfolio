@@ -2,13 +2,17 @@
 
 	form {
 
+		.regex-alert { margin-top: 1rem }
+		
 		.form-box {
-			@include flex(row, space-between, center);
+			@include flex(row, space-between, flex-start);
 			flex-wrap: wrap;
+			height: 100%;
 		}
 
 		fieldset {
 			width: 48%;
+			height: 100%;
 
 			.field-box {
 				margin: 1rem 0;

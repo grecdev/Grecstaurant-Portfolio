@@ -57,7 +57,7 @@
 						</div>
 	
 						<div class="field-box">
-							<select name="people">
+							<select id="people" name="people">
 								<option value="" selected disabled>How manny people</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -92,22 +92,22 @@
 					</fieldset>
 	
 					<fieldset>
-						<div class="field-box">
-							<input type="text" autocomplete="off" id="name" placeholder="Name" name="name">
+						<div class="field-box fullName-error">
+							<input type="text" id="fullName" autocomplete="off" placeholder="Full Name" name="fullName">
 						</div>
 	
-						<div class="field-box">
-							<input type="email" autocomplete="off" id="email" placeholder="Email" name="email" required>
+						<div class="field-box email-error">
+							<input class="email-input" type="text" autocomplete="off" placeholder="Email" name="email">
 						</div>
 	
-						<div class="field-box">
-							<input class="phone-number" type="text" autocomplete="off" id="phone" placeholder="Phone" name="phone">
+						<div class="field-box number-error">
+							<input class="phone-number" type="text" autocomplete="off" placeholder="Phone" name="phone">
 						</div>
 
 					</fieldset>
 	
 					<fieldset>
-						<textarea name="message" id="message" placeholder="Your message"></textarea>
+						<textarea id="message" name="message" placeholder="Your message"></textarea>
 					</fieldset>
 					
 				</div>
