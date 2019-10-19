@@ -241,10 +241,8 @@ class Ui {
 	setDate(e, navigate) {
 
 		// Set today date
-		if(e.target === this.today_date_btn) {
-			// Set the input date
-			this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`;
-		}
+		// Set the input date
+		if(e.target === this.today_date_btn) this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`
 
 		// Show confirm popup box and show selected date in the table
 		if(e.target.tagName === 'TD' && e.target.textContent.length > 0) {
@@ -262,13 +260,14 @@ class Ui {
 		}
 
 		// Confirm Date
-		if(e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn) {
-			// Change the input value
-			this.date_input.value = this.date_confirm_info.textContent;
-		}
+		if(e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn) this.date_input.value = this.date_confirm_info.textContent
 
 		// Reset date
 		if(e.target.parentElement === this.reset_date_btn || e.target === this.reset_date_btn) {
+
+			// Reset the navigate object so we start increment / decrement from the current month / year
+			navigate.month = this.currentDate.month;
+			navigate.year = this.currentDate.year;
 
 			this.resetCalendar();
 			
