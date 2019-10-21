@@ -1,27 +1,28 @@
-function test() {
+"use strict";
 
-	const apiKey = 'cefbf2515b638a980576cdd26a6a10ee';
-	const apiId = '121b9f67';
+// MODEL ( the link in open method )
 
-	return new Promise((resolve, reject) => {
+class Http {
+	constructor() {
+		this.xhr = new XMLHttpRequest();
+	}
 
-		const xhr = new XMLHttpRequest();
+	getMenu() {
+		return new Promise((resolve, reject) => {
+			this.xhr.open('GET', 'https://grecdev.github.io/json-api/restaurant-foods.json', 'true');
 	
-		xhr.open('GET', `https://api.edamam.com/search?q=burger&app_id=${apiId}&app_key=${apiKey}`, true);
+			this.xhr.onload = () => {
+				const response = JSON.parse(this.xhr.responseText);
 	
-		xhr.onload = () => {
+				if(this.xhr.status >= 400) reject(response);
+				else resolve(response);
+			}
 
-			const response = JSON.parse(xhr.responseText);
+			this.xhr.error = () => { reject('Some error') }
 	
-			if(xhr.status >= 400) reject(response)
-			else resolve(response);
-	
-		}
-
-		xhr.onerror = () => { reject('something went wrong') }
-	
-	
-		xhr.send();
-
-	});
+			this.xhr.send();
+		});
+	}
 }
+
+export const http = new Http();

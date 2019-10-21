@@ -2,6 +2,7 @@
 // Global functionality
 
 import { ui } from './ui.js';
+import { http } from './http/xhr.js';
 
 // Get the current date
 const current = {
@@ -23,6 +24,20 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 	// For reservation page only
 	if(location.pathname.includes('reservation')) ui.monthChange(current)
+
+	// For menu page only
+	if(location.pathname.includes('menu')) {
+		http.getMenu()
+			.then(data => {
+	
+				// When we load / enter the page show the pizza menu
+				const menuType = 'pizza';
+				
+				ui.populateMenu(data, menuType);
+	
+			})
+			.catch(err => console.log(err));
+	}
 
 	e.stopPropagation();
 });

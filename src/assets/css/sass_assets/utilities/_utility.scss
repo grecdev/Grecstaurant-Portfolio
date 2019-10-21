@@ -134,6 +134,7 @@ svg {
 .text-right { text-align: right }
 
 /* Margins / Paddings */
+.mb-xs { margin-bottom: .8rem }
 .mb-sm { margin-bottom: 1rem }
 .mb-md { margin-bottom: 1.4rem }
 .mb-lg { margin-bottom: 1.7rem }
@@ -193,8 +194,8 @@ svg {
 
 /* Different levels of overlay opacity */
 .overlay-light::after { background: rgba(0, 0, 0, .4) } 
-.overlay-dark::after { background: rgba(0, 0, 0, .6) } 
 .overlay-normal::after { background: rgba(0, 0, 0, .5) } 
+.overlay-dark::after { background: rgba(0, 0, 0, .6) } 
 
 /* Padding resets */
 .body-padding-bottom { padding-bottom: 10rem }

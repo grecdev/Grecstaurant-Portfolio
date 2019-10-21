@@ -1,5 +1,7 @@
 "use strict";
 
+// VIEW
+
 class Ui {
 
 	constructor() {
@@ -16,6 +18,7 @@ class Ui {
 		this.time_modal = document.querySelector('.time-modal');
 		this.date_confirm_popup = document.querySelector('.date-info-confirmation');
 		this.date_confirm_info = document.querySelector('.date-info-confirmation span');
+		this.foodMenu_container = document.querySelector('.food-menu-container');
 		// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
@@ -32,6 +35,7 @@ class Ui {
 		this.today_date_btn = document.getElementById('today-date');
 		this.confirm_date_btn = document.getElementById('confirm-date');
 		this.reset_date_btn = document.getElementById('reset-date');
+		this.menu_categories = document.querySelector('.menu-categories');
 		// Inputs
 		this.phone_input = document.querySelector('.phone-number');
 		this.date_input = document.getElementById('full-date');
@@ -610,6 +614,31 @@ class Ui {
 		const uploadInfo = document.querySelector('.upload-value');
 		// Apply the file name
 		uploadInfo.textContent = ui.upload_input.value.slice(uploadIndex);
+	}
+
+	populateMenu(data, menuType) {
+		// menuType = dataset from menu categories
+		let html = '';
+
+		const foods = data[menuType];
+
+		foods.forEach(food => {
+			html += `
+				<div class="food-menu-box">
+					<div class="food-box-header mb-xs">
+						<h4 class="heading-title heading-xs">${food.name}</h4>
+
+						<p class="description">${food.price}</p>
+					</div>
+
+					<div class="food-box-description">
+						<p>${food.incredients}</p>
+					</div>
+				</div>
+			`;
+		});
+
+		ui.foodMenu_container.innerHTML = html;
 	}
 }
 
