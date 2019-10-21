@@ -52,10 +52,12 @@ if(document.body.contains(document.querySelector('input[type="file"]'))) {
 	});
 }
 
-ui.form.addEventListener('submit', (e) => {
-
-	ui.regexValidation(e);
-
-	e.preventDefault();	
-	e.stopPropagation();
-});
+if(document.body.contains(ui.form)) {
+	ui.form.addEventListener('submit', (e) => {
+	
+		ui.regexValidation(e);
+	
+		e.preventDefault();	
+		e.stopPropagation();
+	});
+}

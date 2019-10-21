@@ -132,7 +132,6 @@ class Ui {
 
 	// Month Change
 	monthChange(navigate) {
-		
 		// Separate functionality
 		this.populateDates(navigate);
 
@@ -140,12 +139,10 @@ class Ui {
 		if(this.calendar_month.textContent.includes(this.dateNames.months[this.currentDate.month]) && this.calendar_month.textContent.includes(this.currentDate.year)) {
 			document.querySelectorAll('table tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.replace('filled-date', 'selected') })
 		}
-
 	}
 
 	// Populate days ( DRY )
 	populateDates(date) {
-
 		// Calculate total days
 		let totalDays = this.totalDays(date);
 
@@ -187,8 +184,24 @@ class Ui {
 		// So we apply hover styling only on the cells that have dates
 		document.querySelectorAll('table tbody td').forEach(day => {
 
-			if(day.textContent === '') day.className = 'empty-date'
-			else day.className = 'filled-date'
+			// date = navigate ( see the argument in monthChange method )
+			// If we go past the current date
+			if(date.month <= this.currentDate.month && date.year <= this.currentDate.year || date.month > this.currentDate.month && date.year < this.currentDate.year) {
+				day.style.color = '#666';
+				day.className = 'disabled-date';
+			}
+
+			// Enable the reset date button (so the user don't have to close the modal and click in the date input over and over again)
+			// for lazy users (like myself)
+			if(date.month < this.currentDate.month && date.year <= this.currentDate.year) document.querySelectorAll('[data-date-confirm]')[1].classList.add('visible-block')
+
+			// If we want to set a date in the future
+			if(date.month >= this.currentDate.month && date.year >= this.currentDate.year && day.textContent >= this.currentDate.day || date.month < this.currentDate.month && date.year > this.currentDate.year || date.month > this.currentDate.month && date.year >= this.currentDate.year || date.month === this.currentDate.month && date.year > this.currentDate.year) {
+				day.style.color = '#fff';
+				day.className = 'available-date';
+			}
+			
+			if(day.textContent === '') day.className = 'disabled-date';
 
 		});
 	}
@@ -245,7 +258,7 @@ class Ui {
 		if(e.target === this.today_date_btn) this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`
 
 		// Show confirm popup box and show selected date in the table
-		if(e.target.tagName === 'TD' && e.target.textContent.length > 0) {
+		if(e.target.className === 'available-date') {
 
 			// Highlight selected date
 			document.querySelectorAll('table tbody td').forEach(day => day.classList.remove('selected'));
