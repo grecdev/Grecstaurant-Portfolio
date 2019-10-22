@@ -37,16 +37,17 @@
 	<!-- Foods menu showcase -->
 	<section id="food-menu-showcase" class="mb-sm">
 		<div class="container overlay-bg overlay-light">
-			<div class="showcase-banner"><h2 class="heading-lg">Foods</h1></div>
+			<div class="showcase-banner"><h2 class="heading-lg">Check our menu</h1></div>
 		</div>
 	</section>
 	<!-- foods menu showcase -->
 	
 	<!-- Food menu -->
 	<section id="food-menu">
-		<div class="food-type">
+		<div class="food-legend">
 			<p><span class="vegetarian-food"><i class="fab fa-envira"></i></span>Vegetarian</p>
 			<p><span class="spicy-food"><i class="fas fa-pepper-hot"></i></span>Spicy</p>
+			<p><img class="cart-icon" src="./assets/imgs/add-to-cart.svg" alt="add-icon">Add to cart</p>
 		</div>
 
 		<div class="container">
@@ -56,12 +57,67 @@
 				<a role="button" data-menu-type="burger">Burgers</a>
 				<a role="button" data-menu-type="pasta">Pasta</a>
 				<a role="button" data-menu-type="salad">Salads</a>
+				<a role="button" data-menu-type="drink">Drinks</a>
 			</div>
 
 			<div class="food-menu-container"></div>
 		</div>
 	</section>
 	<!-- food menu -->
+
+	<section id="online-order">
+		<div class="container">
+
+			<div class="section-header text-center mb-lg">
+				<h3 class="heading-title heading-sm mb-xs"><span class="highlight-red">Order</span> online</h3>
+				<hr>
+			</div>
+
+			<div class="online-order-container">
+
+				<p class="cart-empty-description text-center">Your cart is currently empty.</p>
+
+				<div class="online-order-header order-row mb-lg">
+					<p class="order-group-left">Foods</p>
+
+					<div class="order-group-right">
+						<p class="order-header-price">Price</p>
+						<p class="order-header-quantity">Quantity</p>
+						<p class="order-header-total">Total</p>
+					</div>
+				</div>
+
+				<div class="online-order-products">
+
+					<div class="order-box order-row">
+						<div class="order-group-left order-name"><p>HAM & BACON</p></div>
+
+						<div class="order-group-right">
+							<div class="order-price"><p>40,50 $</p></div>
+	
+							<div class="order-quantity">
+								<button type="button" class="increment-quantity">-</button>
+								<input type="text" class="quantity-number text-center" value="1">
+								<button type="button" class="decrement-quantity">+</button>
+
+								<span class="text-center">Remove</span>
+							</div>
+	
+							<div class="order-product-total">40,50 $</div>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="online-order-footer order-row">
+					<div class="order-footer-description">SUBTOTAL</div>
+
+					<div class="order-total-payment">0,00 $</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<!-- Footer -->
 	<footer>

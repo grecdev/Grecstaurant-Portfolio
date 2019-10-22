@@ -1,0 +1,54 @@
+#online-order {
+
+	.online-order-container {
+
+		/** Global layout **/
+		.order-group-right {
+			@include flex(row, space-between, flex-start);
+			width: 45%;
+		}
+
+		.order-group-left { width: 55% }
+		.order-row { @include flex(row, space-between, flex-start) }
+
+		.cart-empty-description {
+			font-size: 1.2rem;
+			color: lighten($primary-dark, 45%);
+			text-transform: uppercase;
+		}
+
+		.online-order-header {
+			border-bottom: 1.3px solid $primary-red;
+			padding-bottom: .5rem;	
+		}
+
+		.order-quantity {
+			@include flex(row, center, center);
+			flex-wrap: wrap;
+
+			button, input {
+				border: 1.5px solid $primary-red;
+				background: none;
+				outline: none;
+				color: $primary-white;
+				height: 30px;
+				padding: 0 .5rem;
+
+				&:focus { border-color: lighten($primary-red, 20%) }
+			}
+
+			span {
+				width: 100%;
+				margin-top: .5rem;
+				font-size: .8rem;
+			}
+
+			.quantity-number {
+				width: 30%;
+				margin: 0 1rem;
+			}
+		}
+
+
+	}
+}

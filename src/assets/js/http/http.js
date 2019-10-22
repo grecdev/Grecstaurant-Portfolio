@@ -1,6 +1,6 @@
 "use strict";
 
-// MODEL ( the link in open method )
+// MODEL
 
 class Http {
 	constructor() {

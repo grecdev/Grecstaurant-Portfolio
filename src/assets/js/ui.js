@@ -1,5 +1,9 @@
 "use strict";
 
+const test = require('../imgs/add-to-cart.svg');
+
+console.log(test);
+
 // VIEW
 
 class Ui {
@@ -617,27 +621,30 @@ class Ui {
 	}
 
 	populateMenu(data, menuType) {
-		// menuType = dataset from menu categories
+		// If we don't asign any value to the html var we get an undefined text
 		let html = '';
 
 		const foods = data[menuType];
-
+		
 		foods.forEach(food => {
 			html += `
 				<div class="food-menu-box">
-					<div class="food-box-header mb-xs">
-						<h4 class="heading-title heading-xs">${food.name}</h4>
+					<div class="food-box-header">
+						<h4 class="heading-title heading-xs food-name">${food.name}</h4>
 
-						<p class="description">${food.price}</p>
+						<a role="button" class="add-cart cart-icon"><img src="${test}" alt="add-icon"></a>
 					</div>
 
 					<div class="food-box-description">
+						<p class="description food-price mb-xs">${food.price}</p>
+
 						<p>${food.incredients}</p>
 					</div>
 				</div>
 			`;
 		});
 
+		// Apply the markup to the DOM
 		ui.foodMenu_container.innerHTML = html;
 	}
 }
