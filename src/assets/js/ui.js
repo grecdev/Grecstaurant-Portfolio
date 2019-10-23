@@ -1,8 +1,7 @@
 "use strict";
 
-const test = require('../imgs/add-to-cart.svg');
-
-console.log(test);
+const img = require('../imgs/add-to-cart.svg');
+import { ls } from './localStorage.js';
 
 // VIEW
 
@@ -23,6 +22,10 @@ class Ui {
 		this.date_confirm_popup = document.querySelector('.date-info-confirmation');
 		this.date_confirm_info = document.querySelector('.date-info-confirmation span');
 		this.foodMenu_container = document.querySelector('.food-menu-container');
+		this.online_products = document.querySelector('.online-order-products');
+		this.onlineOrder_container = document.querySelector('.online-order-container');
+		this.cartEmpty_description = document.querySelector('.cart-empty-description');
+		this.subtotal = document.querySelector('.order-total-payment');
 		// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
@@ -40,6 +43,7 @@ class Ui {
 		this.confirm_date_btn = document.getElementById('confirm-date');
 		this.reset_date_btn = document.getElementById('reset-date');
 		this.menu_categories = document.querySelector('.menu-categories');
+		this.removeItem_btn = document.querySelector('.remove-item');
 		// Inputs
 		this.phone_input = document.querySelector('.phone-number');
 		this.date_input = document.getElementById('full-date');
@@ -620,6 +624,7 @@ class Ui {
 		uploadInfo.textContent = ui.upload_input.value.slice(uploadIndex);
 	}
 
+	// Populate UI (DRY)
 	populateMenu(data, menuType) {
 		// If we don't asign any value to the html var we get an undefined text
 		let html = '';
@@ -632,7 +637,7 @@ class Ui {
 					<div class="food-box-header">
 						<h4 class="heading-title heading-xs food-name">${food.name}</h4>
 
-						<a role="button" class="add-cart cart-icon"><img src="${test}" alt="add-icon"></a>
+						<a role="button" class="add-cart cart-icon"><img src="${img}" alt="add-icon"></a>
 					</div>
 
 					<div class="food-box-description">
@@ -647,7 +652,95 @@ class Ui {
 		// Apply the markup to the DOM
 		ui.foodMenu_container.innerHTML = html;
 	}
+
+	// Add items to cart / show it when the page loads
+	addToCart(e, Cart_item) {
+		// Default values
+		let ID;
+
+		// Get food details
+		const foodName = e.target.parentElement.previousElementSibling.textContent;
+		const foodPrice = e.target.parentElement.parentElement.nextElementSibling.children[0].textContent;
+
+		// Get the items so we can access id
+		const items = ls.getLocalStorage();
+
+		// Create an id for each object so we can remove the specific food
+		if(items.length > 0) ID = items[items.length - 1].id + 1;
+		else ID = 0;
+
+		// Instantiate new object
+		const itemObj = new Cart_item(ID, foodName, foodPrice);
+
+		// Push item to the LS
+		ls.setLocalStorage(itemObj);
+
+		// Populate the cart
+		this.populateCart();
+	}
+
+	// DRY
+	populateCart() {
+		// Default values
+		let total;
+		let html = '';
+
+		// Get items array
+		const items = ls.getLocalStorage();
+
+		// Show the cart products
+		if(items.length > 0) {
+			this.cartEmpty_description.classList.add('visible-none')
+			this.onlineOrder_container.classList.add('visible-block');
+		} else {
+			this.cartEmpty_description.classList.remove('visible-none')
+			this.onlineOrder_container.classList.remove('visible-block');
+		}
+
+		items.forEach(item => {
+			// Add object data to html
+			html += `
+				<div class="order-box order-row mb-md">
+					<div class="order-group-left order-name" data-item-id="${item.id}"><p>${item.name}</p></div>
+
+					<div class="order-group-right">
+						<div class="order-price"><p>${item.price}</p></div>
+
+						<div class="order-quantity">
+							<button type="button" class="increment-quantity">-</button>
+							<input type="text" class="quantity-number text-center" value="1">
+							<button type="button" class="decrement-quantity">+</button>
+
+							<span class="text-center remove-item">Remove</span>
+						</div>
+
+						<div class="order-product-total">${item.price}</div>
+					</div>
+
+				</div>
+			`;
+		});
+
+		total = items.reduce((total, item) => total + parseFloat(item.price), 0);
+
+		const priceFormated = `${total.toFixed(2)} $`;
+
+		// Display subtotal
+		this.subtotal.textContent = priceFormated;
+
+		// Insert html to the DOM
+		this.online_products.innerHTML = html;
+	}
+
+	// Remove item from UI and localStorage
+	removeCartItem(e) {
+		// Get the element id
+		const itemId = parseFloat(e.target.parentElement.parentElement.previousElementSibling.dataset.itemId);
+
+		ls.removeLocalStorage(itemId);
+
+		this.populateCart();
+	}
 }
 
 export const ui = new Ui();
-

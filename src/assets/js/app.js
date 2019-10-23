@@ -1,3 +1,5 @@
+"use strict";
+
 import "../css/style.scss";
 
 require('es6-promise').polyfill();

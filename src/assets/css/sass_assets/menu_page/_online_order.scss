@@ -1,6 +1,13 @@
 #online-order {
 
+	.cart-empty-description {
+		font-size: 1.2rem;
+		color: lighten($primary-dark, 45%);
+		text-transform: uppercase;
+	}
+	
 	.online-order-container {
+		display: none;
 
 		/** Global layout **/
 		.order-group-right {
@@ -11,15 +18,9 @@
 		.order-group-left { width: 55% }
 		.order-row { @include flex(row, space-between, flex-start) }
 
-		.cart-empty-description {
-			font-size: 1.2rem;
-			color: lighten($primary-dark, 45%);
-			text-transform: uppercase;
-		}
-
-		.online-order-header {
+		.online-order-header, .order-box {
 			border-bottom: 1.3px solid $primary-red;
-			padding-bottom: .5rem;	
+			padding: 1rem 0;	
 		}
 
 		.order-quantity {
@@ -33,14 +34,18 @@
 				color: $primary-white;
 				height: 30px;
 				padding: 0 .5rem;
-
-				&:focus { border-color: lighten($primary-red, 20%) }
 			}
+			
+			input:focus, button:hover { border-color: lighten($primary-red, 20%) }
 
+			/* Remove text */
 			span {
-				width: 100%;
+				width: 43%;
 				margin-top: .5rem;
-				font-size: .8rem;
+				font-size: .7rem;
+				cursor: pointer;
+
+				&:hover { color: darken($primary-white, 15%)}
 			}
 
 			.quantity-number {
@@ -49,6 +54,6 @@
 			}
 		}
 
-
+		.online-order-footer { margin-top: 5rem }
 	}
 }

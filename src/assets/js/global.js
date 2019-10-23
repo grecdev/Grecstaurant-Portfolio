@@ -27,14 +27,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 	// For menu page only
 	if(location.pathname.includes('menu')) {
+		// Model + View + Controller
 		http.getMenu()
-		.then(data => {
-
-			// When we load show the pizza menu
-			ui.populateMenu(data, 'pizza');
-
-		})
+		// When we load show the pizza menu
+		.then(data => ui.populateMenu(data, 'pizza'))
 		.catch(err => console.log(err));
+
+		// Populate cart
+		ui.populateCart();
 	}
 
 	e.stopPropagation();
