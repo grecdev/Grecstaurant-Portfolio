@@ -149,7 +149,7 @@ class Ui {
 
 		// Select the current day when we change month, or when we load :)
 		if(this.calendar_month.textContent.includes(this.dateNames.months[this.currentDate.month]) && this.calendar_month.textContent.includes(this.currentDate.year)) {
-			document.querySelectorAll('table tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.replace('filled-date', 'selected') })
+			document.querySelectorAll('table tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.add('selected') })
 		}
 	}
 
@@ -205,7 +205,8 @@ class Ui {
 
 			// Enable the reset date button (so the user don't have to close the modal and click in the date input over and over again)
 			// for lazy users (like myself)
-			if(date.month < this.currentDate.month && date.year <= this.currentDate.year) document.querySelectorAll('[data-date-confirm]')[1].classList.add('visible-block')
+			if(date.month < this.currentDate.month && date.year <= this.currentDate.year) document.querySelectorAll('[data-date-confirm]')[1].classList.add('visible-block');
+			else document.querySelectorAll('[data-date-confirm]')[1].classList.remove('visible-block');
 
 			// If we want to set a date in the future
 			if(date.month >= this.currentDate.month && date.year >= this.currentDate.year && day.textContent >= this.currentDate.day || date.month < this.currentDate.month && date.year > this.currentDate.year || date.month > this.currentDate.month && date.year >= this.currentDate.year || date.month === this.currentDate.month && date.year > this.currentDate.year) {
