@@ -23,15 +23,39 @@ class LocalStorage {
 		localStorage.setItem('cart-items', JSON.stringify(this.itemArray));
 	}
 
-	removeLocalStorage(itemDelete) {
+	removeLocalStorage(itemId) {
 		// Get the local storage
 		this.itemArray = this.getLocalStorage();
 
-		// Remove the item from local storage acording to the dataset id from UI
-		this.itemArray.forEach((arrItem, index) => { if(arrItem.id === itemDelete) this.itemArray.splice(index, 1) });
+		// Get the arrItem acording to the item id
+		this.itemArray.forEach((arrItem, index) => { if(arrItem.id === itemId) this.itemArray.splice(index, 1) });
 
 		// The items array add it to local storage as JSON object
 		localStorage.setItem('cart-items', JSON.stringify(this.itemArray));;
+	}
+
+	updateLocalStorage(quantity, itemId, price, totalPrice) {
+		// Get the local storage
+		this.itemArray = this.getLocalStorage();
+
+		// Modifify the object keys
+		this.itemArray.forEach((arrItem, index) => {
+			// Get the arrItem acording to the item id
+			if(arrItem.id === itemId) {
+				// Modify the quantity and price
+				arrItem.quantity = parseFloat(quantity);
+				arrItem.price = price;
+				arrItem.totalPrice = totalPrice;
+
+				// Remove the item that we want to update id
+				// And add the new item in the same place as the old / removed item.
+				this.itemArray.splice(index, 1, arrItem);
+			}
+
+		});
+
+		// The items array add it to local storage as JSON object
+		localStorage.setItem('cart-items', JSON.stringify(this.itemArray));
 	}
 }
 

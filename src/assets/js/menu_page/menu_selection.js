@@ -35,6 +35,8 @@ if(location.pathname.includes('menu')) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.quantity = 1;
+		this.totalPrice = price;
 	}
 
 	ui.foodMenu_container.addEventListener('click', (e) => {
@@ -47,12 +49,23 @@ if(location.pathname.includes('menu')) {
 
 	ui.online_products.addEventListener('click', (e) => {
 
-		if(e.target.classList.contains('remove-item')) {
+		// Removing cart item
+		if(e.target.classList.contains('remove-item')) ui.removeCartItem(e);
 
-			ui.removeCartItem(e);
+		// Quantity change when we modify by increment / decrement buttons
+		if(e.target.tagName === 'BUTTON') ui.changeQuantity(e);
 
-		}
+		// Select the value so we can directly change it.
+		if(e.target.classList.contains('quantity-number')) e.target.setSelectionRange(0, e.target.value);
+		
+		e.stopPropagation();
+	});
 
+	ui.online_products.addEventListener('keyup', (e) => {
+
+		// Quantity change when we modify by keyboard
+		if(e.target.tagName === 'INPUT') ui.changeQuantity(e);
+		
 		e.stopPropagation();
 	});
 }

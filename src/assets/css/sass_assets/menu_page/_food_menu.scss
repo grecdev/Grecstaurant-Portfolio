@@ -13,9 +13,6 @@
 	position: relative;
 
 	.container { max-width: 1350px }
-	
-	.vegetarian-food { color: $primary-green }
-	.spicy-food { color: $primary-pink }
 	.cart-icon { width: 30px }
 
 	.food-legend {
@@ -77,11 +74,7 @@
 		width: 31%;
 		margin: 1rem 0;
 
-		.food-box-header {
-			@include flex(row, space-between, center);
-
-			h4 span { margin-left: .6rem }
-		}
+		.food-box-header { @include flex(row, space-between, center) }
 		
 		
 		.food-box-description {

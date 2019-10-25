@@ -660,7 +660,8 @@ class Ui {
 		let ID;
 
 		// Get food details
-		const foodName = e.target.parentElement.previousElementSibling.textContent;
+		// I use innerHTML for foodName so we get the icon aswell (looks more nicely in the shopping cart)
+		const foodName = e.target.parentElement.previousElementSibling.innerHTML;
 		const foodPrice = e.target.parentElement.parentElement.nextElementSibling.children[0].textContent;
 
 		// Get the items so we can access id
@@ -700,6 +701,8 @@ class Ui {
 
 		items.forEach(item => {
 			// Add object data to html
+			// data-quantity attribute is used for obvious product quantity which will be send to the server
+			// and the value attribute is for mockup
 			html += `
 				<div class="order-box order-row mb-md">
 					<div class="order-group-left order-name" data-item-id="${item.id}"><p>${item.name}</p></div>
@@ -708,26 +711,28 @@ class Ui {
 						<div class="order-price"><p>${item.price}</p></div>
 
 						<div class="order-quantity">
-							<button type="button" class="increment-quantity">-</button>
-							<input type="text" class="quantity-number text-center" value="1">
-							<button type="button" class="decrement-quantity">+</button>
+							<button type="button" class="decrement-quantity">-</button>
+							<input type="text" class="quantity-number text-center" value="${item.quantity}">
+							<button type="button" class="increment-quantity">+</button>
 
 							<span class="text-center remove-item">Remove</span>
 						</div>
 
-						<div class="order-product-total">${item.price}</div>
+						<div class="order-product-total">${item.totalPrice}</div>
 					</div>
 
 				</div>
 			`;
 		});
 
-		total = items.reduce((total, item) => total + parseFloat(item.price), 0);
+		// Calculate the total item price (NOT SUBTOTAL OF ALL ITEMS)
+		total = items.reduce((total, item) => total + parseFloat(item.totalPrice), 0);
 
-		const priceFormated = `${total.toFixed(2)} $`;
+		// Format the price
+		const subtotal = `${total.toFixed(2)} $`;
 
 		// Display subtotal
-		this.subtotal.textContent = priceFormated;
+		this.subtotal.textContent = subtotal;
 
 		// Insert html to the DOM
 		this.online_products.innerHTML = html;
@@ -741,6 +746,94 @@ class Ui {
 		ls.removeLocalStorage(itemId);
 
 		this.populateCart();
+	}
+
+	changeQuantity(e) {
+		// Get the input text acording to the " - " && " + " buttons
+		const decrementQuantity = e.target.nextElementSibling;
+		const incrementQuantity = e.target.previousElementSibling;
+
+		const itemId = parseFloat(e.target.parentElement.parentElement.previousElementSibling.dataset.itemId);
+		let initialPrice = e.target.parentElement.previousElementSibling.textContent;
+		let totalPrice = e.target.parentElement.nextElementSibling.textContent;
+
+		// This of course is for mockup purposes.
+		let minStock = 1;
+		let maxStock = 10;
+
+		if(e.type === 'click') {
+			if(e.target.classList.contains('decrement-quantity')) {
+				// Increment until is out of stock
+				if(decrementQuantity.value > minStock) {
+					// Increment the value
+					decrementQuantity.value--;
+
+					// Calculate the item total
+					const itemTotal = parseFloat(decrementQuantity.value) * parseFloat(initialPrice);
+
+					// Format the price
+					totalPrice = itemTotal.toFixed(2) + " $";
+					
+					// Update the item in local storage
+					ls.updateLocalStorage(decrementQuantity.value, itemId, initialPrice, totalPrice);
+				}
+			}
+	
+			if(e.target.classList.contains('increment-quantity')) {
+				// Increment until is out of stock
+				if(incrementQuantity.value < maxStock) {
+					// Increment the value
+					incrementQuantity.value++;
+
+					// Calculate the item total
+					const itemTotal = parseFloat(incrementQuantity.value) * parseFloat(initialPrice);
+
+					// Format the price
+					totalPrice = itemTotal.toFixed(2) + " $";
+					
+					// Update the item in local storage
+					ls.updateLocalStorage(incrementQuantity.value, itemId, initialPrice, totalPrice);					
+				}
+				// If more than 10 out of stock
+				else {
+					incrementQuantity.classList.add('input-error');
+	
+					// Remove error if is under 10 products
+					setTimeout(() => incrementQuantity.classList.remove('input-error'), 2000);
+				}
+
+				// If the client puts a higher number reset the increment value to the max value
+				if(incrementQuantity.value > maxStock) incrementQuantity.value = maxStock;
+			}
+
+			// I put this here because it applies for both decrement / increment button
+			ui.populateCart();
+		}
+
+		// Calculate the price when insert number by keyboard aswell :)
+		if(e.type === 'keyup') {
+			const regex = /[aA-zZ]/;
+			const numRegex = /[^aA-zZ]/g;
+
+			// If we type numbers in the quantity input reset the value
+			// if(regex.test(e.target.value)) e.target.value = minStock;
+
+			// // If the client puts a higher number reset the increment value to the max value
+			// if(e.target.value > maxStock) e.target.value = maxStock;
+
+			// // Calculate the item total
+			// const itemTotal = parseFloat(e.target.value) * parseFloat(initialPrice);
+
+			// // Format the price
+			// totalPrice = itemTotal.toFixed(2) + " $";
+			
+			// // Update the item in local storage
+			// ls.updateLocalStorage(e.target.value, itemId, initialPrice, totalPrice);
+
+			// if(numRegex.test(e.target.value)) ui.populateCart();
+
+			console.log(regex.test(e.target.value));
+		}
 	}
 }
 

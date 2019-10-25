@@ -51,9 +51,12 @@
 			.quantity-number {
 				width: 30%;
 				margin: 0 1rem;
+
+				&::placeholder { color: $primary-white }
 			}
 		}
 
 		.online-order-footer { margin-top: 5rem }
 	}
 }
+

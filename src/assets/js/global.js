@@ -74,3 +74,8 @@ if(document.body.contains(ui.form)) {
 		e.stopPropagation();
 	});
 }
+
+////////// IN PROGRESS
+import { ls } from './localStorage.js';
+
+// ls.updateLocalStorage(123, "666 $", 2);

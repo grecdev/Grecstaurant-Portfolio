@@ -249,3 +249,8 @@ svg {
 	margin: 1rem auto;
 	width: 50%;
 }
+
+/** Because we use the classes globally ( in food menu and in shopping cart ) **/
+.vegetarian-food, .spicy-food { margin-left: .4rem }
+.vegetarian-food { color: $primary-green }
+.spicy-food { color: $primary-pink }
