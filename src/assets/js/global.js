@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	// For menu page only
 	if(location.pathname.includes('menu')) {
 		// Model + View + Controller
-		http.getMenu()
+		http.getMenuXhr()
 		// When we load show the pizza menu
 		.then(data => ui.populateMenu(data, 'pizza'))
 		.catch(err => console.log(err));

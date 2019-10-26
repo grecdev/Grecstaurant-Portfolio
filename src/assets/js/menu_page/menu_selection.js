@@ -22,7 +22,7 @@ if(location.pathname.includes('menu')) {
 			e.target.classList.add('active-menu');
 
 			// Model + View + Controller
-			http.getMenu()
+			http.getMenuXhr()
 			.then(data => ui.populateMenu(data, menuType))
 			.catch(err => console.log(err));
 		}

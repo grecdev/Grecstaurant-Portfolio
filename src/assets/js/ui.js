@@ -205,7 +205,7 @@ class Ui {
 
 			// Enable the reset date button (so the user don't have to close the modal and click in the date input over and over again)
 			// for lazy users (like myself)
-			if(date.month < this.currentDate.month && date.year <= this.currentDate.year) document.querySelectorAll('[data-date-confirm]')[1].classList.add('visible-block');
+			if(date.month < this.currentDate.month && date.year <= this.currentDate.year || date.year < this.currentDate.year) document.querySelectorAll('[data-date-confirm]')[1].classList.add('visible-block');
 			else document.querySelectorAll('[data-date-confirm]')[1].classList.remove('visible-block');
 
 			// If we want to set a date in the future
@@ -776,6 +776,9 @@ class Ui {
 					
 					// Update the item in local storage
 					ls.updateLocalStorage(decrementQuantity.value, itemId, initialPrice, totalPrice);
+
+					// I put this here because if i put for both buttons it reset the HTML code and doesn't apply the error
+					ui.populateCart();
 				}
 			}
 	
@@ -793,6 +796,9 @@ class Ui {
 					
 					// Update the item in local storage
 					ls.updateLocalStorage(incrementQuantity.value, itemId, initialPrice, totalPrice);					
+
+					// I put this here because if i put for both buttons it reset the HTML code and doesn't apply the error
+					ui.populateCart();
 				}
 				// If more than 10 out of stock
 				else {
@@ -805,34 +811,40 @@ class Ui {
 				// If the client puts a higher number reset the increment value to the max value
 				if(incrementQuantity.value > maxStock) incrementQuantity.value = maxStock;
 			}
-
-			// I put this here because it applies for both decrement / increment button
-			ui.populateCart();
 		}
 
 		// Calculate the price when insert number by keyboard aswell :)
 		if(e.type === 'keyup') {
 			const regex = /[aA-zZ]/;
-			const numRegex = /[^aA-zZ]/g;
 
-			// If we type numbers in the quantity input reset the value
-			// if(regex.test(e.target.value)) e.target.value = minStock;
+			// If we type letters in the quantity input reset the value
+			if(regex.test(e.target.value)) {
+				e.target.value = minStock;
 
-			// // If the client puts a higher number reset the increment value to the max value
-			// if(e.target.value > maxStock) e.target.value = maxStock;
+				e.target.classList.add('input-error');
+	
+				setTimeout(() => e.target.classList.remove('input-error'), 2000);
+			}
 
-			// // Calculate the item total
-			// const itemTotal = parseFloat(e.target.value) * parseFloat(initialPrice);
+			// If the client puts a higher number reset the increment value to the max value
+			if(e.target.value > maxStock) {
+				e.target.value = maxStock;
 
-			// // Format the price
-			// totalPrice = itemTotal.toFixed(2) + " $";
+				e.target.classList.add('input-error');
+	
+				setTimeout(() => e.target.classList.remove('input-error'), 2000);
+			}
+
+			// Calculate the item total
+			const itemTotal = parseFloat(e.target.value) * parseFloat(initialPrice);
+
+			// Format the price
+			totalPrice = itemTotal.toFixed(2) + " $";
+
+			// Update the item in local storage
+			ls.updateLocalStorage(e.target.value, itemId, initialPrice, totalPrice);
 			
-			// // Update the item in local storage
-			// ls.updateLocalStorage(e.target.value, itemId, initialPrice, totalPrice);
-
-			// if(numRegex.test(e.target.value)) ui.populateCart();
-
-			console.log(regex.test(e.target.value));
+			setTimeout(() => ui.populateCart(), 500);
 		}
 	}
 }
