@@ -69,13 +69,33 @@ if(document.body.contains(ui.form)) {
 	ui.form.addEventListener('submit', (e) => {
 	
 		ui.regexValidation(e);
-	
+
 		e.preventDefault();	
 		e.stopPropagation();
 	});
 }
 
-////////// IN PROGRESS
-import { ls } from './localStorage.js';
+function test() {
+	return new Promise((resolve, reject) => {
 
-// ls.updateLocalStorage(123, "666 $", 2);
+		const xhr = new XMLHttpRequest();
+
+		xhr.open('GET', 'https://restcountries.eu/rest/v2/region/europe', true);
+
+		xhr.onload = () => {
+			const response = JSON.parse(xhr.responseText);
+
+			if(xhr.status >= 400) reject(response)
+			else resolve(response);
+		}
+
+		xhr.onerror = () => { throw new Error('Something went wrong') }
+
+		xhr.send();
+
+	});
+}
+
+// test()
+// .then(data => console.log(data))
+// .catch(err => console.log(err));

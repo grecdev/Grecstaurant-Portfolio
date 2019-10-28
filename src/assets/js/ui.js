@@ -1,10 +1,10 @@
 "use strict";
 
-const img = require('../imgs/add-to-cart.svg');
+const img = (image) => require(`../imgs/${image}`);
+
 import { ls } from './localStorage.js';
 
 // VIEW
-
 class Ui {
 
 	constructor() {
@@ -26,13 +26,16 @@ class Ui {
 		this.onlineOrder_container = document.querySelector('.online-order-container');
 		this.cartEmpty_description = document.querySelector('.cart-empty-description');
 		this.subtotal = document.querySelector('.order-total-payment');
-		// Divs where we insert the error for specific input
+		///////////// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
 		this.lastName_error = document.querySelector('.lastName-error');
 		this.firstName_error = document.querySelector('.firstName-error');
 		this.fullName_error = document.querySelector('.fullName-error');
-		/////
+		this.address_error = document.querySelector('.address-error');
+		this.city_error = document.querySelector('.city-error');
+		this.postalCode_error = document.querySelector('.postalCode-error');
+		/////////////////////
 		this.form = document.querySelector('form');
 		this.upload_placeholder = document.querySelector('.upload-value');
 		this.career_container = document.querySelector('#career-form .container');
@@ -50,10 +53,15 @@ class Ui {
 		this.time_input = document.getElementById('full-time');
 		this.email_input = document.querySelector('.email-input');
 		this.upload_input = document.getElementById('upload');
-		this.lastName_input = document.getElementById('employee-lastName');
-		this.firstName_input = document.getElementById('employee-firstName');
+		this.lastName_input = document.querySelector('.lastName-input');
+		this.firstName_input = document.querySelector('.firstName-input');
 		this.fullName_input = document.getElementById('fullName');
 		this.people_input = document.getElementById('people');
+		this.address_input = document.querySelector('.address-input');
+		this.city_input = document.querySelector('.city-input');
+		this.postalCode_input = document.getElementById('postal-code');
+		this.countryRegion_input = document.getElementById('countryRegion');
+		this.country_input = document.getElementById('country');
 		// Days / Months
 		// So we can dynamically implement with JS
 		this.dateNames = {
@@ -193,7 +201,7 @@ class Ui {
 		// Set the month
 		this.calendar_month.textContent = `${this.dateNames.months[date.month]} ${date.year}`;
 
-		// So we apply hover styling only on the cells that have dates
+		// Hover styling only on the cells that have dates
 		document.querySelectorAll('table tbody td').forEach(day => {
 
 			// date = navigate ( see the argument in monthChange method )
@@ -203,10 +211,17 @@ class Ui {
 				day.className = 'disabled-date';
 			}
 
-			// Enable the reset date button (so the user don't have to close the modal and click in the date input over and over again)
-			// for lazy users (like myself)
-			if(date.month < this.currentDate.month && date.year <= this.currentDate.year || date.year < this.currentDate.year) document.querySelectorAll('[data-date-confirm]')[1].classList.add('visible-block');
-			else document.querySelectorAll('[data-date-confirm]')[1].classList.remove('visible-block');
+			// Enable the reset date button (so the user don't have to close the modal and click on the date input over and over again) for lazy users (like myself)
+			if(date.month < this.currentDate.month && date.year <= this.currentDate.year || date.year < this.currentDate.year) {
+				document.querySelectorAll('[data-date-confirm]').forEach(confirmBtn => confirmBtn.classList.remove('visible-block'));
+				document.querySelectorAll('[data-date-confirm]')[1].classList.add('visible-block');
+
+				this.date_confirm_popup.classList.remove('visible-block');
+			}
+			else if(date.month === this.currentDate.month && date.year === this.currentDate.year) {
+				document.querySelectorAll('[data-date-confirm]').forEach(confirmBtn => confirmBtn.classList.remove('visible-block'));
+				this.date_confirm_popup.classList.remove('visible-block');
+			}
 
 			// If we want to set a date in the future
 			if(date.month >= this.currentDate.month && date.year >= this.currentDate.year && day.textContent >= this.currentDate.day || date.month < this.currentDate.month && date.year > this.currentDate.year || date.month > this.currentDate.month && date.year >= this.currentDate.year || date.month === this.currentDate.month && date.year > this.currentDate.year) {
@@ -261,14 +276,12 @@ class Ui {
 			this.date_modal.classList.remove('visible-flex');
 			this.time_modal.classList.remove('visible-block');
 		}
-
 	}
 
 	setDate(e, navigate) {
-
 		// Set today date
 		// Set the input date
-		if(e.target === this.today_date_btn) this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`
+		if(e.target === this.today_date_btn) this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`;
 
 		// Show confirm popup box and show selected date in the table
 		if(e.target.className === 'available-date') {
@@ -290,7 +303,6 @@ class Ui {
 
 		// Reset date
 		if(e.target.parentElement === this.reset_date_btn || e.target === this.reset_date_btn) {
-
 			// Reset the navigate object so we start increment / decrement from the current month / year
 			navigate.month = this.currentDate.month;
 			navigate.year = this.currentDate.year;
@@ -305,7 +317,6 @@ class Ui {
 
 			this.date_input.value = 'Pick Date';
 		}
-
 	}
 
 	// DRY
@@ -322,7 +333,7 @@ class Ui {
 	}
 
 	// DRY
-	totalDays(date = null) {
+	totalDays(date) {
 
 		let totalDays;
 
@@ -359,7 +370,9 @@ class Ui {
 		// Regex
 		const numberRegex = /^(\+?)(\d{2,}|\(\d{2,}\))\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})$/g;
 		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
-		const nameRegex = /^[aA-zZ\s-]{3,}$/;
+		const letterRegex = /^[aA-zZ\s-]{3,}$/;
+		const postalCodeRegex = /^\d{5}$|^\d{5}-\d{4}$/;
+		const addressRegex = /^[\w\W]{5,}$/;
 
 		// Variable 'state'
 		// If radio inputs are checked. See below.
@@ -369,15 +382,15 @@ class Ui {
 
 		const inputs = document.querySelectorAll('input');
 		const radioInputs = document.querySelectorAll('input[type="radio"]');
-		// I choose to pick the parent div because not all the elements are inputs ( we have a select attribute )
-		// So i get the parent div and the first child, and with this logic we get all inputs + select attribute ( see for reservation page statement )
+		// I choose to pick the parent div because not all the elements are inputs ( we have a select or textarea attribute)
+		// So i get the parent div and the first child (depends on the markup)
 		const fieldBox = document.querySelectorAll('.field-box');
 
 		// Global inputs
 		if(e.target === this.phone_input) {
 			// Error
 			if(!numberRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
-			// Correct number
+			// Correct
 			else this.alert(null, 'success', null, false, e.target);
 
 			// Empty input
@@ -387,19 +400,101 @@ class Ui {
 		if(e.target === this.email_input) {
 			// Error
 			if(!emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email', false, e.target);
-			// Correct number
+			// Correct
 			else this.alert(null, 'success', null, false, e.target);
 
 			// Empty input
 			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email', false, e.target);
 		}
 
-		// Exclusive for reservation page
+		if(e.target === this.lastName_input) {
+			// Error
+			if(!letterRegex.test(this.lastName_input.value)) this.alert('Invalid Last Name, please type again.', 'error', 'lastName', false, e.target);
+			// Correct
+			else this.alert(null, 'success', null, false, e.target);
+			// Empty input
+			if(this.lastName_input.value === '') this.alert('Last Name is required, please type one.', 'error', 'lastName', false, e.target);
+		}
+
+		if(e.target === this.firstName_input) {
+			// Error
+			if(!letterRegex.test(this.firstName_input.value)) this.alert('Invalid First Name, please type again.', 'error', 'firstName', false, e.target);
+			// Correct
+			else this.alert(null, 'success', null, false, e.target);
+			// Empty input
+			if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
+		}
+
+		// Menu page
+		if(location.pathname.includes('menu')) {
+
+			if(e.target === this.address_input) {
+				// Error
+				if(!addressRegex.test(this.address_input.value)) this.alert('Invalid Address, please type again.', 'error', 'address', false, e.target);
+				// Correct
+				else this.alert(null, 'success', null, false, e.target);
+				// Empty input
+				if(this.address_input.value === '') this.alert('Address is required, please type one.', 'error', 'address', false, e.target);
+			}
+
+			if(e.target === this.city_input) {
+				// Error
+				if(!letterRegex.test(this.city_input.value)) this.alert('Invalid City, please type again.', 'error', 'city', false, e.target);
+				// Correct
+				else this.alert(null, 'success', null, false, e.target);
+				// Empty input
+				if(this.city_input.value === '') this.alert('City is required, please type one.', 'error', 'city', false, e.target);
+			}
+			
+			if(e.target === this.postalCode_input) {
+				// Error
+				if(!postalCodeRegex.test(this.postalCode_input.value)) this.alert('Invalid Postal Code, please type again.', 'error', 'postalCode', false, e.target);
+				// Correct
+				else this.alert(null, 'success', null, false, e.target);
+				// Empty input
+				if(this.postalCode_input.value === '') this.alert('Postal Code is required, please type one.', 'error', 'postalCode', false, e.target);
+			}
+
+			if(e.target === this.form) {
+				// Loop trough all field boxes and loop trough all childrens (because we have 2 inputs in 1 single fieldbox)
+				// Submit error
+				fieldBox.forEach(box => {
+
+					Array.from(box.children).forEach(children => {
+						
+						if(children.value === '') {
+	
+							children.classList.add('input-error');
+							this.alert('All fields are required.', 'error', null, true, null);
+							
+							setTimeout(() => children.classList.remove('input-error'), 2500);
+
+							// Don't submit the form
+							submit = false;
+						}
+
+					});
+				});
+
+				// letterRegex.test(this.address_input.value) && letterRegex.test(this.city_input.value) && letterRegex.test(this.firstName_input.value) && letterRegex.test(this.lastName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && postalCodeRegex.test(this.postalCode_input.value)
+				if(letterRegex.test(this.address_input.value) && letterRegex.test(this.city_input.value) && letterRegex.test(this.firstName_input.value) && letterRegex.test(this.lastName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && postalCodeRegex.test(this.postalCode_input.value)) {
+
+					fieldBox.forEach(box => Array.from(box.children).forEach(children => children.value = ''));
+
+					submit = true;
+				}
+
+				console.log(submit);
+				return submit
+			}
+		}
+
+		// Reservation page
 		if(location.pathname.includes('reservation')) {
 			if(e.target === this.fullName_input) {
 				// Error
-				if(!nameRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
-				// Correct number
+				if(!letterRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
+				// Correct
 				else this.alert(null, 'success', null, false, e.target);
 	
 				// Empty input
@@ -408,6 +503,7 @@ class Ui {
 
 			if(e.target === this.form) {
 				
+				// Submit error
 				fieldBox.forEach(box => {
 					
 					if(box.children[0].value === '') {
@@ -425,14 +521,15 @@ class Ui {
 
 				});
 				
-				if(numberRegex.test(this.phone_input.value) && emailRegex.test(this.email_input.value) && nameRegex.test(this.fullName_input.value) && this.people_input.value.length > 0 && this.time_input.value.length > 0 && this.date_input.value.length > 0) {
+				// Submit success
+				if(numberRegex.test(this.phone_input.value) && emailRegex.test(this.email_input.value) && letterRegex.test(this.fullName_input.value) && this.people_input.value.length > 0 && this.time_input.value.length > 0 && this.date_input.value.length > 0) {
 
 					fieldBox.forEach(box => box.children[0].value = '');
 
 					// Textarea
 					document.getElementById('message').value = '';
 
-					this.alert('Contact details succesfull sent', 'success', null, true, null);
+					this.alert('Reservation successful registered', 'success', null, true, null);
 	
 					// Submit the form
 					submit = true;
@@ -442,32 +539,12 @@ class Ui {
 			}
 		}
 
-		// Exclusive for careers page
+		// Careers page
 		if(location.pathname.includes("careers")) {
-			if(e.target === this.lastName_input) {
-				// Error
-				if(!nameRegex.test(this.lastName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'lastName', false, e.target);
-				// Correct number
-				else this.alert(null, 'success', null, false, e.target);
-	
-				// Empty input
-				if(this.lastName_input.value === '') this.alert('Last Name is required, please type one.', 'error', 'lastName', false, e.target);
-			}
-	
-			if(e.target === this.firstName_input) {
-				// Error
-				if(!nameRegex.test(this.firstName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'firstName', false, e.target);
-				// Correct number
-				else this.alert(null, 'success', null, false, e.target);
-	
-				// Empty input
-				if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
-			}
 	
 			// Submiting the form
 			if(e.target === this.form) {
-	
-				// If the inputs are checked we enable the 'state'
+				// If the inputs are checked we enable the checked varaible / 'state'
 				radioInputs.forEach(radio => { if(radio.checked) checked = true });
 	
 				// Empty input
@@ -490,7 +567,7 @@ class Ui {
 					}
 	
 					// For radio && file upload
-					// If radio inputs are not checked (see checked variable 'state') or CV is not uploaded
+					// If radio inputs are not checked (see checked variable / 'state') or CV is not uploaded
 					if(input.getAttribute('type') === 'radio' && !checked || input.getAttribute('type') === 'file' && input.value === '') {
 						// Add the error to the parent div.
 						input.parentElement.classList.add('input-error');
@@ -505,11 +582,12 @@ class Ui {
 				});
 	
 				// If all inputs are filled
-				// Here you can see why i made a variable 'state' - checked
-				if(nameRegex.test(this.lastName_input.value) && nameRegex.test(this.firstName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
+				// Here you can see why i made a variable checked / 'state'
+				if(letterRegex.test(this.lastName_input.value) && letterRegex.test(this.firstName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
 	
 					this.alert('Contact details succesfull sent', 'success', null, true, null);
 	
+					// Reset all inputs
 					inputs.forEach(input => {
 	
 						if(input.getAttribute('type') === 'text' || input.getAttribute('type') === 'file') input.value = '';
@@ -523,7 +601,7 @@ class Ui {
 					// Enable the event ( submit the form )
 					submit =  true;
 				}
-	
+				
 				return submit;
 			}
 		}
@@ -534,8 +612,8 @@ class Ui {
 		// message = obviously
 		// alertType = error / success
 		// inputType = where we insert the error
-		// target = when we need to use the event object
 		// multiple = true (when submiting the form and check all inputs) / false (single input)
+		// target = when we need to use the event object
 
 		// We put the created element here because it's global and we use the inner closures
 		// Create element
@@ -566,13 +644,17 @@ class Ui {
 				if(inputType === 'lastName') this.lastName_error.insertAdjacentElement('beforeend', p);
 				if(inputType === 'firstName') this.firstName_error.insertAdjacentElement('beforeend', p);
 				if(inputType === 'fullName') this.fullName_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'address') this.address_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'city') this.city_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'postalCode') this.postalCode_error.insertAdjacentElement('beforeend', p);
 			}
 
 			// Add error for all inputs when submit the form
 			if(multiple) {
 				// Add to the DOM
 				if(location.pathname.includes('careers')) this.career_container.insertAdjacentElement('beforeend', p);
-				if(location.pathname.includes('reservation')) this.form.insertAdjacentElement('beforeend', p);
+				if(location.pathname.includes('reservation') || location.pathname.includes('menu')) this.form.insertAdjacentElement('beforeend', p);
+
 
 				// Remove the alert
 				setTimeout(() => p.remove(), 2500);
@@ -638,7 +720,7 @@ class Ui {
 					<div class="food-box-header">
 						<h4 class="heading-title heading-xs food-name">${food.name}</h4>
 
-						<a role="button" class="add-cart cart-icon"><img src="${img}" alt="add-icon"></a>
+						<a role="button" class="add-cart cart-icon"><img src="${img('add-to-cart.svg')}" alt="add-icon"></a>
 					</div>
 
 					<div class="food-box-description">
@@ -660,7 +742,7 @@ class Ui {
 		let ID;
 
 		// Get food details
-		// I use innerHTML for foodName so we get the icon aswell (looks more nicely in the shopping cart)
+		// I use innerHTML for foodName so we get the icon aswell
 		const foodName = e.target.parentElement.previousElementSibling.innerHTML;
 		const foodPrice = e.target.parentElement.parentElement.nextElementSibling.children[0].textContent;
 
@@ -833,6 +915,12 @@ class Ui {
 				e.target.classList.add('input-error');
 	
 				setTimeout(() => e.target.classList.remove('input-error'), 2000);
+			} else if(e.target.value < minStock) {
+				e.target.value = minStock;
+
+				e.target.classList.add('input-error');
+	
+				setTimeout(() => e.target.classList.remove('input-error'), 2000);
 			}
 
 			// Calculate the item total
@@ -844,7 +932,7 @@ class Ui {
 			// Update the item in local storage
 			ls.updateLocalStorage(e.target.value, itemId, initialPrice, totalPrice);
 			
-			setTimeout(() => ui.populateCart(), 500);
+			setTimeout(() => this.populateCart(), 250);
 		}
 	}
 }

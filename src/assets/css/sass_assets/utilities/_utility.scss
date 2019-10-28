@@ -254,3 +254,40 @@ svg {
 .vegetarian-food, .spicy-food { margin-left: .4rem }
 .vegetarian-food { color: $primary-green }
 .spicy-food { color: $primary-pink }
+
+/** I make a class for inputs because we have same styling on different pages **/
+.input-field {
+	border: 1.7px solid $primary-red;
+	outline: none;
+	background: none;
+	padding: .5rem;
+	color: $primary-white;
+	font-family: inherit;
+	border-radius: $border-radius-primary;
+	transition: border-color 300ms ease-in-out;
+
+	&:focus { border-color: $primary-white }
+	
+	&::placeholder { color: $primary-white }
+}
+
+/* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+select::-ms-expand { display: none }
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none; /* Remove default arrow */
+
+	option { background: $primary-dark }
+}
+
+/** Add custom arrow **/
+.select-icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 15px;
+	font-size: 13.33px;
+	z-index: -1;
+}

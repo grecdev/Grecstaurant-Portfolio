@@ -56,7 +56,18 @@
 			}
 		}
 
-		.online-order-footer { margin-top: 5rem }
+		.online-order-footer {
+			margin-top: 5rem;
+			position: relative;
+			padding: 2rem 0;
+			
+
+			button {
+				position: absolute;
+				right: -17px;
+				bottom: -20px;
+			}
+		}
 	}
 }
 

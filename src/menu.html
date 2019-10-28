@@ -94,10 +94,95 @@
 					<div class="order-footer-description">SUBTOTAL</div>
 
 					<div class="order-total-payment">0,00 $</div>
+
+					<button type="button" id="checkout-order" class="btn btn-red">Checkout</button>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<!-- Checkout modal -->
+	<section id="checkout-modal">
+		<div class="checkout-wrapper">
+
+			<div class="address-container">
+				<h3 class="heading-title heading-xs mb-md text-center">Shipping Address</h3>
+
+				<form name="checkout-form">
+
+					<div class="field-box firstName-error lastName-error">
+						<input autocomplete="off" type="text" placeholder="First Name" class="input-field firstName-input" name="first-name">
+						<input autocomplete="off" type="text" placeholder="Last Name" class="input-field lastName-input" name="last-name">
+					</div>
+					
+					<div class="field-box email-error">
+						<input autocomplete="off" type="text" placeholder="Email" class="input-field email-input" name="email">
+					</div>
+
+					<div class="field-box address-error">
+						<input autocomplete="off" type="text" placeholder="Address" class="input-field address-input" name="address">
+					</div>
+
+					<div class="field-box city-error">
+						<input autocomplete="off" type="text" placeholder="City" class="input-field city-input" name="city">
+					</div>
+
+					<div class="select-box postalCode-error">
+						<div class="field-box">
+							<select name="country/region" id="countryRegion" class="input-field">
+								<option disabled selected value="">Region / Country</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+							</select>
+	
+							<div class="select-icon"><i class="fas fa-caret-down"></i></div>
+						</div>
+
+						<div class="field-box">
+							<select name="country" id="country" class="input-field">
+								<option disabled selected value="">Country</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+							</select>
+	
+							<div class="select-icon"><i class="fas fa-caret-down"></i></div>
+						</div>
+
+						<div class="field-box">
+							<input autocomplete="off" id="postal-code" type="text" name="postal-code" placeholder="Postal Code" class="input-field">
+						</div>
+					</div>
+					
+					<div class="field-box number-error">
+						<input autocomplete="off" type="text" name="phone-number" class="input-field phone-number" placeholder="Phone Number">
+					</div>
+
+					<button class="btn btn-red" type="submit">Continue to Shipping <i class="fas fa-angle-right"></i></button>
+				</form>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- checkout modal -->
 
 	<!-- Footer -->
 	<footer>
@@ -105,9 +190,8 @@
 
 			<ul class="mb-lg">
 				<li><a href="https://www.linkedin.com/in/alexandru-constanin-grecu-7a570b14a/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-				<li><a><i class="fab fa-instagram"></i></a></li>
+				<li><a href="https://www.instagram.com/grecdev1/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a></li>
 				<li><a href="https://github.com/grecdev" target="_blank"><i class="fab fa-github"></i></a></li>
-				<li><a><i class="fab fa-facebook"></i></a></li>
 			</ul>
 
 			<p>Grecstaurant | All rights reserved &copy;</p>
