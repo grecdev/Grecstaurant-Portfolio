@@ -1,6 +1,5 @@
 #checkout {
 	@include flex(row, space-between, stretch);
-	// height: 77.5vh;
 
 	h2 { font-size: 2rem }
 
@@ -63,50 +62,72 @@
 	/** Payment **/
 	.payment-container {
 		
-		.contact-review {
+		.contact-review .contact-box {
 
-			.contact-box {
-				@include flex(row, space-between, center);
-				font-size: .9rem;
-				border-bottom: 1px solid $primary-red;
+			@include flex(row, space-between, center);
+			font-size: .9rem;
+			border-bottom: 1px solid $primary-red;
 
-				.address-preview { width: 80% }
+			.address-preview { width: 80% }
 
-				.shipping-method span { font-weight: bold }
+			.shipping-method span { font-weight: bold }
 
-				&:last-child { border: none }
-			}
+			&:last-child { border: none }
 		}
 
 		/** Payment Form **/
 		form {
 
+			.radio-custom-checked,
+			.radio-disabled-checked {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				position: relative;
+				@include flex(column, center, center);
+				margin-right: .5rem;
+			}
+			
+			.radio-disabled-checked {
+				background: $primary-white;
+				border: 1.5px solid #000;
+
+				&::after {
+					content: '';
+					position: relative;
+					width: 5px;
+					height: 5px;
+					border-radius: 50%;
+					background: #000;
+				}
+			}
+
+			.radio-custom-checked {
+				background: #000;
+
+				&::after {
+					content: '';
+					position: relative;
+					width: 5px;
+					height: 5px;
+					border-radius: 50%;
+					background: $primary-white;
+				}
+			}
+
+			.payment-header,
+			.payment-header-group label { cursor: pointer }
+
 			.payment-header {
 				@include flex(row, space-between, center);
 				background: lighten($primary-dark, 10%);
+				transition: background 150ms ease-in-out;
+
+				&:hover { background: lighten($primary-dark, 15%); }
 
 				.payment-header-group {
 					@include flex(row, flex-start, center);
 					position: relative;
-
-					.checked {
-						width: 20px;
-						height: 20px;
-						background: #000;
-						border-radius: 50%;
-						position: relative;
-						@include flex(column, center, center);
-						margin-right: .5rem;
-
-						&::after {
-							content: '';
-							position: relative;
-							width: 5px;
-							height: 5px;
-							border-radius: 50%;
-							background: $primary-white;
-						}
-					}
 				
 					.visa-logo,
 					.master-logo,
@@ -123,7 +144,8 @@
 				}
 			}
 
-			.payment-box {
+			 /** Card form **/
+			.payment-card .payment-box {
 				
 				.field-box {
 					position: relative;
@@ -202,6 +224,20 @@
 				.input-icon {
 					right: 20px;
 					z-index: 1;
+				}
+			}
+
+			/** Paypal box **/
+			.payment-paypal {
+
+				.payment-header .payment-header-group label { width: 95px }
+
+				.payment-box {
+					padding: 1.5rem 5rem;
+					img {
+						width: 200px;
+						margin: 0 auto 1rem;
+					}
 				}
 			}
 		}

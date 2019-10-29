@@ -121,14 +121,15 @@
 
 				<form name="payment-form">
 
+					<!-- Payment card-->
 					<div class="payment-card">
 
 						<div class="payment-header p-1">
 
 							<div class="payment-header-group">
-								<input type="radio" id="credit-card" class="radio-disabled" name="payment-method" value="card-payment">
+								<input type="radio" class="radio-disabled" id="credit-card" name="payment-method" value="card-payment">
 
-								<div class="radio-custom checked"></div>
+								<div class="radio-custom-checked"></div>
 
 								<label for="credit-card">Credit Card</label>
 							</div>
@@ -150,14 +151,14 @@
 							</div>
 
 							<div class="field-box fullName-error mb-sm">
-								<input type="text" placeholder="Name on card" name="full-name" id="fullName" class="input-field">
+								<input type="text" placeholder="Name on card" name="card-name" id="card-name" class="input-field">
 							</div>
 
 							<div class="field-box expirationDate-error securityCode-error">
-								<input type="text" placeholder="Expiration date (MM / YY)" name="full-name" id="expiration-date" class="input-field mb-sm">
+								<input type="text" placeholder="Expiration date (MM / YY)" name="expiration-date" id="expiration-date" class="input-field mb-sm">
 
 								<div class="security-code-box">
-									<input type="text" placeholder="Security Code" name="full-name" id="security-code" class="input-field">
+									<input type="text" placeholder="Security Code" name="security-code" id="security-code" class="input-field">
 
 									<div class="security-code-icon"><i class="fas fa-question-circle"></i></div>
 
@@ -170,6 +171,32 @@
 						</div>
 
 					</div>
+					<!-- payment card -->
+
+					<!-- Payment paypal -->
+					<div class="payment-paypal">
+
+						<div class="payment-header p-1">
+
+							<div class="payment-header-group">
+								<input type="radio" id="credit-card" class="radio-disabled" name="payment-method" value="card-payment">
+
+								<div class="radio-disabled-checked"></div>
+
+								<label for="credit-card"><img src="./assets/imgs/paypal-logo.png" alt="paypal-logo"></label>
+							</div>
+
+						</div>
+
+						<div class="payment-box">
+							<img src="assets/imgs/redirect-paypal.svg" alt="redirect-paypal">
+							<p class="text-center">
+								After clicking “Complete order”, you will be redirected to PayPal to complete your purchase securely.
+							</p>
+						</div>
+
+					</div>
+					<!-- payment paypal -->
 					
 					<div class="order-row p-1">
 						<a class="shipping-return" role="button"><i class="fas fa-chevron-left"></i> Return to shipping</a>
