@@ -170,10 +170,10 @@ svg {
 	}
 
 	&-green {
-		background: darken($primary-green, 10%);
+		background: darken($primary-green, 15%);
 		color: $primary-white;
 
-		&:hover { background: darken($primary-green, 5%) }
+		&:hover { background: darken($primary-green, 10%) }
 	}
 
 	&-confirm {

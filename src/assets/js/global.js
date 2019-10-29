@@ -20,17 +20,6 @@ window.addEventListener('scroll', (e) => {
 	e.stopPropagation();
 });
 
-// Disable characters from inputs that require only numbers
-// Here i can add the event directly to the input becuase the elements are already in the DOM (not inserted with JavaScript)
-ui.letterDisabled_input.forEach(input => {
-	input.addEventListener('keydown', (e) => {
-
-		ui.disableLetters(e);
-	
-		e.stopPropagation();
-	});
-});
-
 document.addEventListener('DOMContentLoaded', (e) => {
 
 	// For reservation page only
@@ -51,11 +40,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	e.stopPropagation();
 });
 
-
-
 // Events for all inputs ( i can't put blur event on from )
 document.querySelectorAll('input[type="text"]').forEach(input => {
-
 	input.addEventListener('blur', (e) => {
 
 		ui.regexValidation(e);
@@ -63,10 +49,18 @@ document.querySelectorAll('input[type="text"]').forEach(input => {
 		e.stopPropagation();
 
 	});
-
 });
 
+// Disable characters from inputs that require only numbers
+// Here i can add the event directly to the input becuase the elements are already in the DOM (not inserted with JavaScript)
+ui.letterDisabled_input.forEach(input => {
+	input.addEventListener('keydown', (e) => {
 
+		ui.disableLetters(e);
+	
+		e.stopPropagation();
+	});
+});
 
 // For pages that have the input type file
 // Cause erros and disable others listeners if we don't check (disable the if statement so you can see)
@@ -90,27 +84,26 @@ if(document.body.contains(ui.form)) {
 	});
 }
 
-function test() {
-	return new Promise((resolve, reject) => {
+//// IN PROGRESS
+document.querySelector('form[name="payment-form"]').addEventListener('click', (e) => {
 
-		const xhr = new XMLHttpRequest();
+	if(e.target.closest('.payment-card')) {
+		document.querySelector('.payment-paypal .payment-box').classList.remove('visible-block');
+		document.querySelector('.payment-card .payment-box').classList.remove('visible-none');
 
-		xhr.open('GET', 'https://restcountries.eu/rest/v2/region/europe', true);
+		document.getElementById('card-payment').nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
+		document.getElementById('credit-card').nextElementSibling.classList.replace('radio-custom-disabled', 'radio-custom-checked');
+	}
 
-		xhr.onload = () => {
-			const response = JSON.parse(xhr.responseText);
+	if(e.target.closest('.payment-paypal')) {
+		
+		document.querySelector('.payment-card .payment-box').classList.add('visible-none');
+		document.querySelector('.payment-paypal .payment-box').classList.add('visible-block');
 
-			if(xhr.status >= 400) reject(response)
-			else resolve(response);
-		}
+		document.getElementById('credit-card').nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
+		document.getElementById('card-payment').nextElementSibling.classList.replace('radio-custom-disabled', 'radio-custom-checked');
 
-		xhr.onerror = () => { throw new Error('Something went wrong') }
+	}
 
-		xhr.send();
-
-	});
-}
-
-// test()
-// .then(data => console.log(data))
-// .catch(err => console.log(err));
+	e.stopPropagation();
+});
