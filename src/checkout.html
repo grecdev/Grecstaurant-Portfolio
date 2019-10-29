@@ -100,19 +100,19 @@
 				</div>
 
 				<div class="contact-review mb-md">
-					<div class="contact-box mb-sm">
+					<div class="contact-box mb-sm p-1">
 						<p>Contact</p>
 
 						<p class="email-preview">grecdev1@gmail.com</p>
 					</div>
 
-					<div class="contact-box mb-sm">
+					<div class="contact-box mb-sm p-1">
 						<p>Ship to</p>
 
 						<p class="address-preview text-right">Bucuresti romania soseaua salaj, 123123123131 Bucuresti B, Romania</p>
 					</div>
 
-					<div class="contact-box mb-sm">
+					<div class="contact-box mb-sm p-1">
 						<p>Method</p>
 
 						<p class="shipping-method">Free Insured Shipping &amp; Handling | <span>Free</span></p>
@@ -123,10 +123,10 @@
 
 					<div class="payment-card">
 
-						<div class="payment-header">
+						<div class="payment-header p-1">
 
 							<div class="payment-header-group">
-								<input type="radio" id="credit-card" class="radio-disabled" name="payment-method">
+								<input type="radio" id="credit-card" class="radio-disabled" name="payment-method" value="card-payment">
 
 								<div class="radio-custom checked"></div>
 
@@ -141,17 +141,37 @@
 
 						</div>
 
-						<div class="payment-box">
+						<div class="payment-box p-1">
 
-							<div class="field-box card-error">
-								<input type="text" placeholder="Card Number" id="card-number" class="letter-disabled input-field">
+							<div class="field-box card-error mb-sm">
+								<input type="text" placeholder="Card Number" id="card-number" class="letter-disabled input-field" name="card-number">
+
+								<div class="input-icon" title="All transactions are secure and encrypted."><i class="fas fa-lock"></i></div>
+							</div>
+
+							<div class="field-box fullName-error mb-sm">
+								<input type="text" placeholder="Name on card" name="full-name" id="fullName" class="input-field">
+							</div>
+
+							<div class="field-box expirationDate-error securityCode-error">
+								<input type="text" placeholder="Expiration date (MM / YY)" name="full-name" id="expiration-date" class="input-field mb-sm">
+
+								<div class="security-code-box">
+									<input type="text" placeholder="Security Code" name="full-name" id="security-code" class="input-field">
+
+									<div class="security-code-icon"><i class="fas fa-question-circle"></i></div>
+
+									<div class="security-code-popup text-center">
+										<p>3-digit security code usually found on the back of your card. American Express cards have a 4-digit code located on the front.</p>
+									</div>
+								</div>
 							</div>
 
 						</div>
 
 					</div>
 					
-					<div class="order-row">
+					<div class="order-row p-1">
 						<a class="shipping-return" role="button"><i class="fas fa-chevron-left"></i> Return to shipping</a>
 
 						<button class="btn btn-green" type="submit">Complete Order</button>

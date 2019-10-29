@@ -140,6 +140,8 @@ svg {
 .mb-md { margin-bottom: 1.4rem }
 .mb-lg { margin-bottom: 1.7rem }
 
+.p-1 { padding: 1rem }
+
 /** Buttons **/
 .btn {
 	padding: .5rem 1rem;
@@ -298,11 +300,10 @@ select {
 }
 
 /** Add custom arrow **/
-.select-icon {
+.input-icon {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	right: 15px;
 	font-size: 13.33px;
 	z-index: -1;
 }

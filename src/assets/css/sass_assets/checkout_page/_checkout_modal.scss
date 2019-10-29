@@ -1,6 +1,6 @@
 #checkout {
 	@include flex(row, space-between, stretch);
-	height: 77.5vh;
+	// height: 77.5vh;
 
 	h2 { font-size: 2rem }
 
@@ -13,6 +13,12 @@
 	}
 
 	form { width: 100% }
+
+	.contact-review,
+	form {
+		border: 1px solid $primary-red;
+		border-radius: $border-radius-primary;
+	}
 
 	.address-container,
 	.payment-container {
@@ -57,19 +63,12 @@
 	/** Payment **/
 	.payment-container {
 		
-		.contact-review,
-		form {
-			border: 1px solid $primary-red;
-			border-radius: $border-radius-primary;
-		}
-
 		.contact-review {
 
 			.contact-box {
 				@include flex(row, space-between, center);
 				font-size: .9rem;
 				border-bottom: 1px solid $primary-red;
-				padding: 1rem;
 
 				.address-preview { width: 80% }
 
@@ -85,7 +84,6 @@
 			.payment-header {
 				@include flex(row, space-between, center);
 				background: lighten($primary-dark, 10%);
-				padding: 1rem;
 
 				.payment-header-group {
 					@include flex(row, flex-start, center);
@@ -124,8 +122,89 @@
 					.amex-logo { background: url('../imgs/amex-logo.svg') no-repeat center/cover }
 				}
 			}
-		}
 
+			.payment-box {
+				
+				.field-box {
+					position: relative;
+
+					&:last-child {
+						@include flex(row, space-between, flex-start);
+					
+						input,
+						.security-code-box { width: 48% }
+
+						.security-code-box input { width: 100% }
+
+						.security-code-box {
+							position: relative;
+
+							.security-code-icon {
+								position: absolute;
+								top: 50%;
+								transform: translateY(-50%);
+								right: 10px;
+								cursor: pointer;
+
+								&:hover + .security-code-popup {
+									transform: scale(1);
+									opacity: 1;
+									transition: 
+										transform 300ms ease-in-out,
+										opacity 300ms ease-in-out;
+								}
+							}
+
+							.security-code-popup {
+								background: #111;
+								padding: .85rem;
+								font-size: .7rem;
+								position: absolute;
+								right: -93px;
+    						top: -100px;
+								border-radius: $border-radius-primary;
+								width: 220px;
+								z-index: 2;
+								transform: scale(0);
+								opacity: 0;
+								transition: 
+									transform 300ms ease-in-out,
+									opacity 200ms ease-in-out;
+								transform-origin: center bottom;
+
+								&:hover {
+									transform: scale(1);
+									opacity: 1;
+									transition: 
+										transform 300ms ease-in-out,
+										opacity 300ms ease-in-out;
+								}
+
+								&::before {
+									content: '';
+									position: absolute;
+									bottom: -20px;
+									left: 50%;
+									transform: translateX(-50%);
+									width: 10px;
+									height: 10px;
+									border-color: #111 transparent transparent transparent;
+									border-width: 10px 10px 10px 10px;
+									border-style: solid;
+								}
+							}
+						}
+					}
+				}
+
+				input { width: 100% }
+
+				.input-icon {
+					right: 20px;
+					z-index: 1;
+				}
+			}
+		}
 	}
 
 	/** Preview Order **/
