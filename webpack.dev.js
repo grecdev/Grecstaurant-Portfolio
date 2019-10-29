@@ -29,6 +29,10 @@ module.exports = merge(config, {
 		new HtmlWebpackPlugin({
 			filename: 'careers.html',
 			template: './src/careers.html'
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'checkout.html',
+			template: './src/checkout.html'
 		})
 	],
 	module: {

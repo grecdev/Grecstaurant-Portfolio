@@ -20,6 +20,17 @@ window.addEventListener('scroll', (e) => {
 	e.stopPropagation();
 });
 
+// Disable characters from inputs that require only numbers
+// Here i can add the event directly to the input becuase the elements are already in the DOM (not inserted with JavaScript)
+ui.letterDisabled_input.forEach(input => {
+	input.addEventListener('keydown', (e) => {
+
+		ui.disableLetters(e);
+	
+		e.stopPropagation();
+	});
+});
+
 document.addEventListener('DOMContentLoaded', (e) => {
 
 	// For reservation page only
@@ -40,6 +51,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	e.stopPropagation();
 });
 
+
+
 // Events for all inputs ( i can't put blur event on from )
 document.querySelectorAll('input[type="text"]').forEach(input => {
 
@@ -52,6 +65,8 @@ document.querySelectorAll('input[type="text"]').forEach(input => {
 	});
 
 });
+
+
 
 // For pages that have the input type file
 // Cause erros and disable others listeners if we don't check (disable the if statement so you can see)
@@ -67,7 +82,7 @@ if(document.body.contains(document.querySelector('input[type="file"]'))) {
 
 if(document.body.contains(ui.form)) {
 	ui.form.addEventListener('submit', (e) => {
-	
+
 		ui.regexValidation(e);
 
 		e.preventDefault();	

@@ -16,8 +16,7 @@
 		}
 
 		.order-group-left { width: 55% }
-		.order-row { @include flex(row, space-between, flex-start) }
-
+		
 		.online-order-header, .order-box {
 			border-bottom: 1.3px solid $primary-red;
 			padding: 1rem 0;	
@@ -57,17 +56,17 @@
 		}
 
 		.online-order-footer {
-			margin-top: 5rem;
 			position: relative;
 			padding: 2rem 0;
-			
+		}
 
-			button {
-				position: absolute;
-				right: -17px;
-				bottom: -20px;
+		a {
+			float: right;
+
+			&::after {
+				content: '';
+				clear: both;
 			}
 		}
 	}
 }
-

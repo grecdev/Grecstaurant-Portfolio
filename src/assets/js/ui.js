@@ -62,6 +62,7 @@ class Ui {
 		this.postalCode_input = document.getElementById('postal-code');
 		this.countryRegion_input = document.getElementById('countryRegion');
 		this.country_input = document.getElementById('country');
+		this.letterDisabled_input = document.querySelectorAll('.letter-disabled');
 		// Days / Months
 		// So we can dynamically implement with JS
 		this.dateNames = {
@@ -425,8 +426,8 @@ class Ui {
 			if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
 		}
 
-		// Menu page
-		if(location.pathname.includes('menu')) {
+		// Checkout page
+		if(location.pathname.includes('checkout')) {
 
 			if(e.target === this.address_input) {
 				// Error
@@ -653,7 +654,7 @@ class Ui {
 			if(multiple) {
 				// Add to the DOM
 				if(location.pathname.includes('careers')) this.career_container.insertAdjacentElement('beforeend', p);
-				if(location.pathname.includes('reservation') || location.pathname.includes('menu')) this.form.insertAdjacentElement('beforeend', p);
+				if(document.body.contains(this.form)) this.form.insertAdjacentElement('beforeend', p);
 
 
 				// Remove the alert
@@ -783,8 +784,6 @@ class Ui {
 
 		items.forEach(item => {
 			// Add object data to html
-			// data-quantity attribute is used for obvious product quantity which will be send to the server
-			// and the value attribute is for mockup
 			html += `
 				<div class="order-box order-row mb-md">
 					<div class="order-group-left order-name" data-item-id="${item.id}"><p>${item.name}</p></div>
@@ -794,7 +793,7 @@ class Ui {
 
 						<div class="order-quantity">
 							<button type="button" class="decrement-quantity">-</button>
-							<input type="text" class="quantity-number text-center" value="${item.quantity}">
+							<input type="text" class="quantity-number letter-disabled text-center" value="${item.quantity}">
 							<button type="button" class="increment-quantity">+</button>
 
 							<span class="text-center remove-item">Remove</span>
@@ -831,7 +830,7 @@ class Ui {
 	}
 
 	changeQuantity(e) {
-		// Get the input text acording to the " - " && " + " buttons
+		// // Get the input text acording to the " - " && " + " buttons
 		const decrementQuantity = e.target.nextElementSibling;
 		const incrementQuantity = e.target.previousElementSibling;
 
@@ -897,17 +896,6 @@ class Ui {
 
 		// Calculate the price when insert number by keyboard aswell :)
 		if(e.type === 'keyup') {
-			const regex = /[aA-zZ]/;
-
-			// If we type letters in the quantity input reset the value
-			if(regex.test(e.target.value)) {
-				e.target.value = minStock;
-
-				e.target.classList.add('input-error');
-	
-				setTimeout(() => e.target.classList.remove('input-error'), 2000);
-			}
-
 			// If the client puts a higher number reset the increment value to the max value
 			if(e.target.value > maxStock) {
 				e.target.value = maxStock;
@@ -915,6 +903,7 @@ class Ui {
 				e.target.classList.add('input-error');
 	
 				setTimeout(() => e.target.classList.remove('input-error'), 2000);
+
 			} else if(e.target.value < minStock) {
 				e.target.value = minStock;
 
@@ -934,6 +923,16 @@ class Ui {
 			
 			setTimeout(() => this.populateCart(), 250);
 		}
+	}
+
+	disableLetters(e) {
+		/*
+			Numpad + normal keyboard numbers
+			+ && - and parentheses
+			Space && Ctrl + a && Backspace
+		*/
+		if(e.which >= 48 && e.which <= 57 || e.which >= 96 && e.which <= 105 || e.which === 189 || e.which === 187 || e.which === 8 || e.which === 32 || e.which === 17 || e.which === 107 || e.which === 109 || e.ctrlKey) return true
+		else e.preventDefault()
 	}
 }
 

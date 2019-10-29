@@ -74,6 +74,15 @@ module.exports = merge(config, {
 					removeComments: true,
 				}
 			}),
+			new HtmlWebpackPlugin({
+				filename: 'checkout.html',
+				template: './src/checkout.html',
+				minify: {
+					removeAttributeQuotes: true,
+					collapseWhitespace: true,
+					removeComments: true,
+				}
+			})
 		]
 	},
 	plugins: [

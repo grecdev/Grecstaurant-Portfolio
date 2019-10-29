@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,700|Merriweather:300,300i,400,700&display=swap" rel="stylesheet">
+	<title>Grecstaurant Menu & Online Ordering</title>
+	<script src="https://kit.fontawesome.com/ebf05ebe39.js" crossorigin="anonymous"></script>
+</head>
+<body class="body-padding-bottom">
+
+	<!-- Checkout -->
+	<section id="checkout">
+			<!-- Shipping address form -->
+			<!-- <div class="address-container">
+				<h3 class="heading-title heading-xs mb-md text-center">Shipping Address</h3>
+
+				<form name="checkout-form">
+
+					<div class="field-box firstName-error lastName-error">
+						<input autocomplete="off" type="text" placeholder="First Name" class="input-field firstName-input" name="first-name">
+						<input autocomplete="off" type="text" placeholder="Last Name" class="input-field lastName-input" name="last-name">
+					</div>
+					
+					<div class="field-box email-error">
+						<input autocomplete="off" type="text" placeholder="Email" class="input-field email-input" name="email">
+					</div>
+
+					<div class="field-box address-error">
+						<input autocomplete="off" type="text" placeholder="Address" class="input-field address-input" name="address">
+					</div>
+
+					<div class="field-box city-error">
+						<input autocomplete="off" type="text" placeholder="City" class="input-field city-input" name="city">
+					</div>
+
+					<div class="select-box postalCode-error">
+						<div class="field-box">
+							<select name="country/region" id="countryRegion" class="input-field">
+								<option disabled selected value="">Region / Country</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+							</select>
+	
+							<div class="select-icon"><i class="fas fa-caret-down"></i></div>
+						</div>
+
+						<div class="field-box">
+							<select name="country" id="country" class="input-field">
+								<option disabled selected value="">Country</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+								<option value="Romania">Romania</option>
+							</select>
+	
+							<div class="select-icon"><i class="fas fa-caret-down"></i></div>
+						</div>
+
+						<div class="field-box">
+							<input autocomplete="off" id="postal-code" type="text" name="postal-code" placeholder="Postal Code" class="input-field">
+						</div>
+					</div>
+					
+					<div class="field-box number-error">
+						<input autocomplete="off" type="text" name="phone-number" class="input-field phone-number" placeholder="Phone Number">
+					</div>
+
+					<div class="order-row">
+						<a href="menu.html" class="btn btn-red"><i class="fas fa-cart-plus"></i> Go back to menu</a>
+						<button class="btn btn-red" type="submit">Continue to Shipping <i class="fas fa-angle-right"></i></button>
+					</div>
+				</form>
+			</div> -->
+			<!-- shipping address form -->
+
+			<!-- Payment form -->
+			<div class="payment-container">
+
+				<div class="payment-header mb-sm">
+					<h3 class="heading-title heading-xs mb-md">Payment</h3>
+					<p class="description">All transactions are secure and encrypted.</p>
+				</div>
+
+				<div class="contact-review mb-md">
+					<div class="contact-box mb-sm">
+						<p>Contact</p>
+
+						<p class="email-preview">grecdev1@gmail.com</p>
+					</div>
+
+					<div class="contact-box mb-sm">
+						<p>Ship to</p>
+
+						<p class="address-preview text-right">Bucuresti romania soseaua salaj, 123123123131 Bucuresti B, Romania</p>
+					</div>
+
+					<div class="contact-box mb-sm">
+						<p>Method</p>
+
+						<p class="shipping-method">Free Insured Shipping &amp; Handling | <span>Free</span></p>
+					</div>
+				</div>
+
+				<form name="payment-form">
+
+					<div class="payment-card">
+
+						<div class="payment-header">
+
+							<div class="payment-header-group">
+								<input type="radio" id="credit-card" class="radio-disabled" name="payment-method">
+
+								<div class="radio-custom checked"></div>
+
+								<label for="credit-card">Credit Card</label>
+							</div>
+
+							<div class="payment-header-group">
+								<span class="visa-logo"></span>
+								<span class="master-logo"></span>
+								<span class="amex-logo"></span>
+							</div>
+
+						</div>
+
+						<div class="payment-box">
+
+							<div class="field-box card-error">
+								<input type="text" placeholder="Card Number" id="card-number" class="letter-disabled input-field">
+							</div>
+
+						</div>
+
+					</div>
+					
+					<div class="order-row">
+						<a class="shipping-return" role="button"><i class="fas fa-chevron-left"></i> Return to shipping</a>
+
+						<button class="btn btn-green" type="submit">Complete Order</button>
+					</div>
+				</form>
+			</div>
+			<!-- Payment form -->
+
+			<!-- Order preview -->
+			<div class="order-preview">
+				<div class="product-preview-list mb-md">
+
+					<div class="product-box mb-md">
+						<p class="product-name">HAM & BACON <span class="product-quantity">2</span></p>
+						<p class="product-price">40.50 $</p>
+					</div>
+
+				</div>
+
+				<hr class="mb-md">
+
+				<div class="product-preview-discount mb-md">
+					<input type="text" placeholder="Enter your discount here">
+
+					<button type="button" class="btn btn-light">Apply</button>
+				</div>
+
+				<hr class="mb-md">
+
+				<div class="product-preview-total">
+
+					<div class="total-box mb-sm">
+						<p>Shipping</p>
+
+						<p class="shipping-type">Free</p>
+					</div>
+
+					<div class="total-box">
+						<p>Total</p>
+
+						<p class="total-price">USD <span>$ 281.00</span></p>
+					</div>
+
+				</div>
+
+			</div>
+			<!-- order preview -->
+
+	</section>
+	<!-- checkout -->
+
+	<!-- Footer -->
+	<footer>
+		<div class="container footer-container">
+
+			<ul class="mb-lg">
+				<li><a href="https://www.linkedin.com/in/alexandru-constanin-grecu-7a570b14a/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+				<li><a href="https://www.instagram.com/grecdev1/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a></li>
+				<li><a href="https://github.com/grecdev" target="_blank"><i class="fab fa-github"></i></a></li>
+			</ul>
+
+			<p>Grecstaurant | All rights reserved &copy;</p>
+
+		</div>
+	</footer>
+	<!-- footer -->
+
+</body>
+</html>

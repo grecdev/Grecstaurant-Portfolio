@@ -56,7 +56,9 @@ if(location.pathname.includes('menu')) {
 		if(e.target.tagName === 'BUTTON') ui.changeQuantity(e);
 
 		// Select the value so we can directly change it.
-		if(e.target.classList.contains('quantity-number')) e.target.setSelectionRange(0, e.target.value);
+		if(e.target.tagName === 'INPUT') e.target.setSelectionRange(0, e.target.value.length);
+
+		// console.log(e.target);
 		
 		e.stopPropagation();
 	});
@@ -64,7 +66,17 @@ if(location.pathname.includes('menu')) {
 	ui.online_products.addEventListener('keyup', (e) => {
 
 		// Quantity change when we modify by keyboard
-		if(e.target.tagName === 'INPUT') ui.changeQuantity(e);
+		if(e.target.tagName === 'INPUT') ui.changeQuantity(e)
+		
+		e.stopPropagation();
+	});
+
+	// Here i use event delegation because the inputs are inserted dynamically with javascript
+	// In the global.js file i assign the event directly to the element because they are already in the DOM
+	ui.online_products.addEventListener('keydown', (e) => {
+
+		// Quantity change when we modify by keyboard
+		if(e.target.tagName === 'INPUT') ui.disableLetters(e)
 		
 		e.stopPropagation();
 	});
