@@ -383,7 +383,8 @@ class Ui {
 
 	regexValidation(e) {
 		// Regex
-		/* 
+		const globalRegex = {
+			/* 
 			Phone format
 			+44 791 112 3456
 			+40 123 456 789
@@ -392,11 +393,18 @@ class Ui {
 			(1234) 567 890
 			(555) 555-1234
 		*/
-		const phoneRegex = /^\+?(\(\+\d{2,3}\)?)?[\s-\.]?(\(?\d+\)?)[\s-\.]?(\d+)[\s-\.]?(\d+)$/g;
-		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
-		const letterRegex = /^[aA-zZ\s-]{3,}$/;
-		const postalCodeRegex = /^\d{5}$|^\d{5}-\d{4}$/;
-		const addressRegex = /^[\w\W]{5,}$/;
+			phoneRegex: /^\+?(\(\+\d{2,3}\)?)?[\s-\.]?(\(?\d+\)?)[\s-\.]?(\d+)[\s-\.]?(\d+)$/g,
+			emailRegex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g,
+			letterRegex: /^[aA-zZ\s-]{3,}$/,
+			postalCodeRegex: /^\d{5}$|^\d{5}-\d{4}$/,
+			addressRegex: /^[\w\W]{5,}$/
+		};
+
+		const cardRegex = {
+			visaRegex: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
+			mastercardRegex: /^(?:5[1-5][0-9]{14})$/,
+			amexpRegex: /^(?:3[47][0-9]{13})$/
+		};
 
 		// Variable 'state'
 		// If radio inputs are checked. See below.
@@ -413,7 +421,7 @@ class Ui {
 		// Global inputs
 		if(e.target === this.phone_input) {
 			// Error
-			if(!phoneRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
+			if(!globalRegex.phoneRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
 			// Correct
 			else this.alert(null, 'success', null, false, e.target);
 
@@ -423,7 +431,7 @@ class Ui {
 
 		if(e.target === this.email_input) {
 			// Error
-			if(!emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email', false, e.target);
+			if(!globalRegex.emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email', false, e.target);
 			// Correct
 			else this.alert(null, 'success', null, false, e.target);
 
@@ -433,7 +441,7 @@ class Ui {
 
 		if(e.target === this.lastName_input) {
 			// Error
-			if(!letterRegex.test(this.lastName_input.value)) this.alert('Invalid Last Name, please type again.', 'error', 'lastName', false, e.target);
+			if(!globalRegex.letterRegex.test(this.lastName_input.value)) this.alert('Invalid Last Name, please type again.', 'error', 'lastName', false, e.target);
 			// Correct
 			else this.alert(null, 'success', null, false, e.target);
 			// Empty input
@@ -442,7 +450,7 @@ class Ui {
 
 		if(e.target === this.firstName_input) {
 			// Error
-			if(!letterRegex.test(this.firstName_input.value)) this.alert('Invalid First Name, please type again.', 'error', 'firstName', false, e.target);
+			if(!globalRegex.letterRegex.test(this.firstName_input.value)) this.alert('Invalid First Name, please type again.', 'error', 'firstName', false, e.target);
 			// Correct
 			else this.alert(null, 'success', null, false, e.target);
 			// Empty input
@@ -454,7 +462,7 @@ class Ui {
 
 			if(e.target === this.address_input) {
 				// Error
-				if(!addressRegex.test(this.address_input.value)) this.alert('Invalid Address, please type again.', 'error', 'address', false, e.target);
+				if(!globalRegex.addressRegex.test(this.address_input.value)) this.alert('Invalid Address, please type again.', 'error', 'address', false, e.target);
 				// Correct
 				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
@@ -463,7 +471,7 @@ class Ui {
 
 			if(e.target === this.city_input) {
 				// Error
-				if(!letterRegex.test(this.city_input.value)) this.alert('Invalid City, please type again.', 'error', 'city', false, e.target);
+				if(!globalRegex.letterRegex.test(this.city_input.value)) this.alert('Invalid City, please type again.', 'error', 'city', false, e.target);
 				// Correct
 				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
@@ -472,7 +480,7 @@ class Ui {
 			
 			if(e.target === this.postalCode_input) {
 				// Error
-				if(!postalCodeRegex.test(this.postalCode_input.value)) this.alert('Invalid Postal Code, please type again.', 'error', 'postalCode', false, e.target);
+				if(!globalRegex.postalCodeRegex.test(this.postalCode_input.value)) this.alert('Invalid Postal Code, please type again.', 'error', 'postalCode', false, e.target);
 				// Correct
 				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
@@ -502,7 +510,7 @@ class Ui {
 					});
 				});
 				
-				if(letterRegex.test(this.address_input.value) && letterRegex.test(this.city_input.value) && letterRegex.test(this.firstName_input.value) && letterRegex.test(this.lastName_input.value) && emailRegex.test(this.email_input.value) && phoneRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && postalCodeRegex.test(this.postalCode_input.value)) {
+				if(globalRegex.letterRegex.test(this.address_input.value) && globalRegex.letterRegex.test(this.city_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && globalRegex.postalCodeRegex.test(this.postalCode_input.value)) {
 
 					fieldBox.forEach(box => Array.from(box.children).forEach(children => children.value = ''));
 
@@ -527,7 +535,7 @@ class Ui {
 		if(location.pathname.includes('reservation')) {
 			if(e.target === this.fullName_input) {
 				// Error
-				if(!letterRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
+				if(!globalRegex.letterRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
 				// Correct
 				else this.alert(null, 'success', null, false, e.target);
 	
@@ -556,7 +564,7 @@ class Ui {
 				});
 				
 				// Submit success
-				if(phoneRegex.test(this.phone_input.value) && emailRegex.test(this.email_input.value) && letterRegex.test(this.fullName_input.value) && this.people_input.value.length > 0 && this.time_input.value.length > 0 && this.date_input.value.length > 0) {
+				if(globalRegex.phoneRegex.test(this.phone_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.letterRegex.test(this.fullName_input.value) && this.people_input.value.length > 0 && this.time_input.value.length > 0 && this.date_input.value.length > 0) {
 
 					fieldBox.forEach(box => box.children[0].value = '');
 
@@ -618,7 +626,7 @@ class Ui {
 	
 				// If all inputs are filled
 				// Here you can see why i made a variable checked / 'state'
-				if(letterRegex.test(this.lastName_input.value) && letterRegex.test(this.firstName_input.value) && emailRegex.test(this.email_input.value) && phoneRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
+				if(globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
 	
 					this.alert('Contact details succesfull sent', 'success', null, true, null);
 	
