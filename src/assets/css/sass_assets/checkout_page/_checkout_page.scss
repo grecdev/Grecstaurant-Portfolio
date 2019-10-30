@@ -1,0 +1,43 @@
+#checkout {
+	@include flex(row, space-between, center);
+	position: relative;
+	height: 800px;
+
+	h2 { font-size: 2rem }
+
+	a, button{ font-size: .9rem }
+
+	.regex-alert {
+		margin-top: 1rem;
+		font-size: .9rem;
+		width: 100%;
+	}
+
+	form {
+		width: 100%;
+		
+		.order-row a {
+			transition: color 200ms ease-in-out;
+
+			&:hover { color: darken($primary-white, 20%) }
+
+			i {
+				font-size: .65rem;
+				margin-right: .7rem;
+			}
+		}
+	}
+
+	.contact-review,
+	form {
+		border: 1px solid $primary-red;
+		border-radius: $border-radius-primary;
+	}
+
+	.shipping-container,
+	.payment-container {
+		width: 60%;
+		padding: 2rem 10rem;
+		position: absolute;
+	}
+}

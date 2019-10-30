@@ -96,10 +96,7 @@
 				&:focus { display: none }
 			}
 
-			.upload-icon {
-				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
+			.input-icon {
 				right: 20px;
 				color: $primary-red;
 			}

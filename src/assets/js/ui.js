@@ -26,6 +26,10 @@ class Ui {
 		this.onlineOrder_container = document.querySelector('.online-order-container');
 		this.cartEmpty_description = document.querySelector('.cart-empty-description');
 		this.subtotal = document.querySelector('.order-total-payment');
+		this.paymentCard_box = document.querySelector('.payment-card .payment-box');
+		this.paymentPaypal_box = document.querySelector('.payment-paypal .payment-box');
+		this.shipping_form = document.querySelector('form[name="shipping-form"]');
+		this.payment_form = document.querySelector('form[name="payment-form"]');
 		///////////// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
@@ -35,8 +39,12 @@ class Ui {
 		this.address_error = document.querySelector('.address-error');
 		this.city_error = document.querySelector('.city-error');
 		this.postalCode_error = document.querySelector('.postalCode-error');
+		this.cardNumber_error = document.querySelector('.cardNumber-error');
+		this.cardName_error = document.querySelector('.cardName-error');
+		this.expirationDate_error = document.querySelector('expirationDate-error');
+		this.securityCode_error = document.querySelector('securityCode-error');
 		/////////////////////
-		this.form = document.querySelector('form');
+		this.form = document.querySelectorAll('form');
 		this.upload_placeholder = document.querySelector('.upload-value');
 		this.career_container = document.querySelector('#career-form .container');
 		// Buttons
@@ -63,6 +71,12 @@ class Ui {
 		this.countryRegion_input = document.getElementById('countryRegion');
 		this.country_input = document.getElementById('country');
 		this.letterDisabled_input = document.querySelectorAll('.letter-disabled');
+		this.cardPaypal_radio_input = document.getElementById('paypal-card');
+		this.cardCredit_radio_input = document.getElementById('credit-card');
+		this.cardNumber_input = document.getElementById('card-number');
+		this.cardName_input = document.getElementById('card-name');
+		this.cardExpiration_input = document.getElementById('expiration-date');
+		this.securityCode_input = document.getElementById('security-code');
 		// Days / Months
 		// So we can dynamically implement with JS
 		this.dateNames = {
@@ -369,7 +383,16 @@ class Ui {
 
 	regexValidation(e) {
 		// Regex
-		const numberRegex = /^(\+?)(\d{2,}|\(\d{2,}\))\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})\.?\s?\-?(\d{2,})$/g;
+		/* 
+			Phone format
+			+44 791 112 3456
+			+40 123 456 789
+			+40123456789
+			+40-123-456-789
+			(1234) 567 890
+			(555) 555-1234
+		*/
+		const phoneRegex = /^\+?(\(\+\d{2,3}\)?)?[\s-\.]?(\(?\d+\)?)[\s-\.]?(\d+)[\s-\.]?(\d+)$/g;
 		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
 		const letterRegex = /^[aA-zZ\s-]{3,}$/;
 		const postalCodeRegex = /^\d{5}$|^\d{5}-\d{4}$/;
@@ -390,7 +413,7 @@ class Ui {
 		// Global inputs
 		if(e.target === this.phone_input) {
 			// Error
-			if(!numberRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
+			if(!phoneRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
 			// Correct
 			else this.alert(null, 'success', null, false, e.target);
 
@@ -456,18 +479,20 @@ class Ui {
 				if(this.postalCode_input.value === '') this.alert('Postal Code is required, please type one.', 'error', 'postalCode', false, e.target);
 			}
 
-			if(e.target === this.form) {
-				// Loop trough all field boxes and loop trough all childrens (because we have 2 inputs in 1 single fieldbox)
+			// Shipping address form
+			if(e.target === this.shipping_form) {
+				// Loop trough all field boxes and loop trough all childrens (because we have multiple inputs in 1 single fieldbox)
+				// And get the field box for shipping for because if we use the global field box variable it will get for payment form aswell and we don't want that 
 				// Submit error
-				fieldBox.forEach(box => {
+				document.querySelectorAll('form[name="shipping-form"] .field-box').forEach(box => {
 
 					Array.from(box.children).forEach(children => {
 						
 						if(children.value === '') {
 	
 							children.classList.add('input-error');
-							this.alert('All fields are required.', 'error', null, true, null);
-							
+							this.alert('All fields are required kkkkkkkk.', 'error', null, true, null);
+						
 							setTimeout(() => children.classList.remove('input-error'), 2500);
 
 							// Don't submit the form
@@ -476,17 +501,25 @@ class Ui {
 
 					});
 				});
-
-				// letterRegex.test(this.address_input.value) && letterRegex.test(this.city_input.value) && letterRegex.test(this.firstName_input.value) && letterRegex.test(this.lastName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && postalCodeRegex.test(this.postalCode_input.value)
-				if(letterRegex.test(this.address_input.value) && letterRegex.test(this.city_input.value) && letterRegex.test(this.firstName_input.value) && letterRegex.test(this.lastName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && postalCodeRegex.test(this.postalCode_input.value)) {
+				
+				if(letterRegex.test(this.address_input.value) && letterRegex.test(this.city_input.value) && letterRegex.test(this.firstName_input.value) && letterRegex.test(this.lastName_input.value) && emailRegex.test(this.email_input.value) && phoneRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && postalCodeRegex.test(this.postalCode_input.value)) {
 
 					fieldBox.forEach(box => Array.from(box.children).forEach(children => children.value = ''));
 
+					// Submit the form
 					submit = true;
 				}
 
-				console.log(submit);
 				return submit
+			}
+
+			// Payment method form
+			if(e.target === this.payment_form) {
+
+				submit = false;
+
+				console.log(submit);
+				return submit;
 			}
 		}
 
@@ -523,7 +556,7 @@ class Ui {
 				});
 				
 				// Submit success
-				if(numberRegex.test(this.phone_input.value) && emailRegex.test(this.email_input.value) && letterRegex.test(this.fullName_input.value) && this.people_input.value.length > 0 && this.time_input.value.length > 0 && this.date_input.value.length > 0) {
+				if(phoneRegex.test(this.phone_input.value) && emailRegex.test(this.email_input.value) && letterRegex.test(this.fullName_input.value) && this.people_input.value.length > 0 && this.time_input.value.length > 0 && this.date_input.value.length > 0) {
 
 					fieldBox.forEach(box => box.children[0].value = '');
 
@@ -536,6 +569,7 @@ class Ui {
 					submit = true;
 				}
 
+				console.log(submit);
 				return submit;
 			}
 		}
@@ -584,7 +618,7 @@ class Ui {
 	
 				// If all inputs are filled
 				// Here you can see why i made a variable checked / 'state'
-				if(letterRegex.test(this.lastName_input.value) && letterRegex.test(this.firstName_input.value) && emailRegex.test(this.email_input.value) && numberRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
+				if(letterRegex.test(this.lastName_input.value) && letterRegex.test(this.firstName_input.value) && emailRegex.test(this.email_input.value) && phoneRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
 	
 					this.alert('Contact details succesfull sent', 'success', null, true, null);
 	
@@ -602,7 +636,8 @@ class Ui {
 					// Enable the event ( submit the form )
 					submit =  true;
 				}
-				
+
+				console.log(submit);
 				return submit;
 			}
 		}
@@ -636,8 +671,8 @@ class Ui {
 				// Add the error to specific inputs
 				target.classList.add('input-error');
 				// If we have label for inputs
-				// For reservation we use placeholder attribute instead of label so that's why we check it
-				if(document.body.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-error');
+				// For reservation page we use placeholder attribute instead of label so that's why we check it
+				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-error');
 	
 				// Add the error for individual inputs
 				if(inputType === 'number') this.number_error.insertAdjacentElement('beforeend', p);
@@ -668,18 +703,18 @@ class Ui {
 				// Remove error styling
 				target.classList.remove('input-error');
 				// For reservation we use placeholder attribute instead of label so that's why we check it
-				if(document.body.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-error');
+				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-error');
 				
 				// Success validation
 				target.classList.add('input-success', 'correct-filled');
 				// For reservation we use placeholder attribute instead of label so that's why we check it
-				if(document.body.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-success');
+				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-success');
 
 				// Reset the styling
 				setTimeout(() => {
 					target.classList.remove('input-success');
 					// For reservation we use placeholder attribute instead of label so that's why we check it
-					if(document.body.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-success');
+					if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-success');
 				}, 1250);
 	
 				// Remove error, so we have only one
@@ -930,9 +965,32 @@ class Ui {
 			Numpad + normal keyboard numbers
 			+ && - and parentheses
 			Space && Ctrl + a && Backspace
+			dot
+			arrow keys
 		*/
-		if(e.which >= 48 && e.which <= 57 || e.which >= 96 && e.which <= 105 || e.which === 189 || e.which === 187 || e.which === 8 || e.which === 32 || e.which === 17 || e.which === 107 || e.which === 109 || e.ctrlKey) return true
+		if(e.which >= 48 && e.which <= 57 || e.which >= 96 && e.which <= 105 || e.which === 189 || e.which === 187 || e.which === 8 || e.which === 32 || e.which === 17 || e.which === 107 || e.which === 109 || e.ctrlKey || e.which === 190 || e.which === 110 || e.which >= 37 && e.which <= 40 || e.which === 9) return true
 		else e.preventDefault()
+	}
+
+	// Change payment method
+	changePaymentMethod(e) {
+		// Show Credit card payment
+		if(e.target.closest('.payment-card')) {
+			this.paymentPaypal_box.classList.remove('visible-block');
+			this.paymentCard_box.classList.remove('visible-none');
+	
+			this.cardPaypal_radio_input.nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
+			this.cardCredit_radio_input.nextElementSibling.classList.replace('radio-custom-disabled', 'radio-custom-checked');
+		}
+	
+		// Show Paypal card payment
+		if(e.target.closest('.payment-paypal')) {
+			this.paymentCard_box.classList.add('visible-none');
+			this.paymentPaypal_box.classList.add('visible-block');
+	
+			this.cardCredit_radio_input.nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
+			this.cardPaypal_radio_input.nextElementSibling.classList.replace('radio-custom-disabled', 'radio-custom-checked');
+		}
 	}
 }
 

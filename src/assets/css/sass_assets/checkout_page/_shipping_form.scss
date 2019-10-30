@@ -1,0 +1,36 @@
+/** Shipping form **/
+#checkout .shipping-container {
+	@include flex(column, center, center);
+	display: none;
+	
+	.field-box {
+		@include flex(row, space-between, center);
+		margin: 1rem 0;
+		position: relative;
+		z-index: 1;
+		flex-wrap: wrap;
+		
+		input { width: 100% }
+	}
+
+	.field-box:first-child input { width: 48% }
+
+	.field-box:nth-child(2), 
+	.field-box:nth-child(6) {
+		@include flex(column, flex-start, flex-start);
+	}
+
+	.select-box {
+		@include flex(row, space-between, center);
+		flex-wrap: wrap;
+		
+		.field-box {
+			margin: 0;
+			width: 32%;
+
+			select { width: 100% }
+
+			.input-icon { right: 15px }
+		}
+	}
+}

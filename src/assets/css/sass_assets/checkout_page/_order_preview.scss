@@ -1,0 +1,87 @@
+/** Preview Order **/
+#checkout .order-preview {
+	background: lighten($primary-dark, 10%);
+	padding: 2rem;
+	width: 40%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 2px;
+		height: 100%;
+		background: #000;
+	}
+
+	hr {
+		border: none;
+		border-radius: $border-radius-primary;
+		border-bottom: 1.6px solid $primary-red;
+	}
+
+	.product-preview-list {
+		overflow-y: auto;
+		max-height: 100px;
+		padding: 1rem 0 0 1rem;
+
+		.product-box {
+			@include flex(row, space-between, flex-start);
+			width: 40%;
+
+			.product-name {
+				font-weight: bold;
+				position: relative;
+				z-index: 1;
+			}
+
+			.product-quantity {
+				position: absolute;
+				background: $primary-dark;
+				border-radius: 50%;
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				left: -15px;
+				top: -10px;
+				text-align: center;
+				z-index: -1;
+			}
+
+			.product-price { font-size: .85rem }
+		}
+	}
+
+	.product-preview-discount {
+		@include flex(row, space-between, center);
+		width: 60%;
+		
+		input {
+			border-radius: $border-radius-primary;
+			border: 3px solid $primary-dark;
+			padding: .5rem;
+			outline: none;
+			width: 100%;
+			margin-right: 1rem;
+		}
+	}
+
+	.product-preview-total {
+		width: 50%;
+		
+		.total-box {
+			@include flex(row, space-between, center);
+
+			.shipping-type,
+			.total-price span { font-weight: bold }
+
+			&:first-child { width: 65% }
+
+			&:last-child { width: 90% }
+		}
+	}
+}

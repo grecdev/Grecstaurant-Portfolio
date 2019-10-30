@@ -74,36 +74,16 @@ if(document.body.contains(document.querySelector('input[type="file"]'))) {
 	});
 }
 
-if(document.body.contains(ui.form)) {
-	ui.form.addEventListener('submit', (e) => {
+// We have more than 1 form on the checkout page so that's why we asign multiple listeners
+if(document.body.contains(document.querySelector('form'))) {
+	ui.form.forEach(form => {
 
-		ui.regexValidation(e);
+		form.addEventListener('submit', (e) => {
 
-		e.preventDefault();	
-		e.stopPropagation();
-	});
+			ui.regexValidation(e);
+	
+			e.preventDefault();	
+			e.stopPropagation();
+		});
+	})
 }
-
-//// IN PROGRESS
-document.querySelector('form[name="payment-form"]').addEventListener('click', (e) => {
-
-	if(e.target.closest('.payment-card')) {
-		document.querySelector('.payment-paypal .payment-box').classList.remove('visible-block');
-		document.querySelector('.payment-card .payment-box').classList.remove('visible-none');
-
-		document.getElementById('card-payment').nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
-		document.getElementById('credit-card').nextElementSibling.classList.replace('radio-custom-disabled', 'radio-custom-checked');
-	}
-
-	if(e.target.closest('.payment-paypal')) {
-		
-		document.querySelector('.payment-card .payment-box').classList.add('visible-none');
-		document.querySelector('.payment-paypal .payment-box').classList.add('visible-block');
-
-		document.getElementById('credit-card').nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
-		document.getElementById('card-payment').nextElementSibling.classList.replace('radio-custom-disabled', 'radio-custom-checked');
-
-	}
-
-	e.stopPropagation();
-});

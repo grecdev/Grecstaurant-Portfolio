@@ -13,10 +13,10 @@
 	<!-- Checkout -->
 	<section id="checkout">
 			<!-- Shipping address form -->
-			<!-- <div class="address-container">
+			<div class="shipping-container">
 				<h3 class="heading-title heading-xs mb-md text-center">Shipping Address</h3>
 
-				<form name="checkout-form">
+				<form name="shipping-form" class="p-1">
 
 					<div class="field-box firstName-error lastName-error">
 						<input autocomplete="off" type="text" placeholder="First Name" class="input-field firstName-input" name="first-name">
@@ -52,7 +52,7 @@
 								<option value="Romania">Romania</option>
 							</select>
 	
-							<div class="select-icon"><i class="fas fa-caret-down"></i></div>
+							<div class="input-icon"><i class="fas fa-caret-down"></i></div>
 						</div>
 
 						<div class="field-box">
@@ -71,16 +71,16 @@
 								<option value="Romania">Romania</option>
 							</select>
 	
-							<div class="select-icon"><i class="fas fa-caret-down"></i></div>
+							<div class="input-icon"><i class="fas fa-caret-down"></i></div>
 						</div>
 
 						<div class="field-box">
-							<input autocomplete="off" id="postal-code" type="text" name="postal-code" placeholder="Postal Code" class="input-field">
+							<input autocomplete="off" id="postal-code" type="text" name="postal-code" placeholder="Postal Code" class="input-field letter-disabled">
 						</div>
 					</div>
 					
 					<div class="field-box number-error">
-						<input autocomplete="off" type="text" name="phone-number" class="input-field phone-number" placeholder="Phone Number">
+						<input autocomplete="off" type="text" name="phone-number" class="input-field phone-number letter-disabled" placeholder="Phone Number">
 					</div>
 
 					<div class="order-row">
@@ -88,7 +88,7 @@
 						<button class="btn btn-red" type="submit">Continue to Shipping <i class="fas fa-angle-right"></i></button>
 					</div>
 				</form>
-			</div> -->
+			</div>
 			<!-- shipping address form -->
 
 			<!-- Payment form -->
@@ -121,13 +121,12 @@
 
 				<form name="payment-form">
 
-					<!-- Payment card-->
 					<div class="payment-card">
 
 						<div class="payment-header p-1">
 
 							<div class="payment-header-group">
-								<input type="radio" class="radio-disabled" id="credit-card" name="payment-method" value="card-payment">
+								<input type="radio" class="radio-disabled" id="credit-card" name="payment-method" value="credit-card">
 
 								<div class="radio-custom-checked"></div>
 
@@ -144,21 +143,21 @@
 
 						<div class="payment-box p-1">
 
-							<div class="field-box card-error mb-sm">
+							<div class="field-box cardNumber-error mb-sm">
 								<input type="text" placeholder="Card Number" id="card-number" class="letter-disabled input-field" name="card-number">
 
 								<div class="input-icon" title="All transactions are secure and encrypted."><i class="fas fa-lock"></i></div>
 							</div>
 
-							<div class="field-box fullName-error mb-sm">
+							<div class="field-box cardName-error mb-sm">
 								<input type="text" placeholder="Name on card" name="card-name" id="card-name" class="input-field">
 							</div>
 
 							<div class="field-box expirationDate-error securityCode-error">
-								<input type="text" placeholder="Expiration date (MM / YY)" name="expiration-date" id="expiration-date" class="input-field mb-sm">
+								<input type="text" placeholder="Expiration date (MM / YY)" name="expiration-date" id="expiration-date" class="input-field mb-sm letter-disabled">
 
 								<div class="security-code-box">
-									<input type="text" placeholder="Security Code" name="security-code" id="security-code" class="input-field">
+									<input type="text" placeholder="Security Code" name="security-code" id="security-code" class="input-field letter-disabled">
 
 									<div class="security-code-icon"><i class="fas fa-question-circle"></i></div>
 
@@ -171,19 +170,17 @@
 						</div>
 
 					</div>
-					<!-- payment card -->
 
-					<!-- Payment paypal -->
 					<div class="payment-paypal mb-lg">
 
 						<div class="payment-header p-1">
 
 							<div class="payment-header-group">
-								<input type="radio" id="card-payment" class="radio-disabled" name="payment-method" value="card-payment">
+								<input type="radio" id="paypal-card" class="radio-disabled" name="payment-method" value="paypal-card">
 
 								<div class="radio-custom-disabled"></div>
 
-								<label for="credit-card"><img src="./assets/imgs/paypal-logo.png" alt="paypal-logo"></label>
+								<label for="paypal-card"><img src="./assets/imgs/paypal-logo.png" alt="paypal-logo"></label>
 							</div>
 
 						</div>
@@ -196,7 +193,6 @@
 						</div>
 
 					</div>
-					<!-- payment paypal -->
 					
 					<div class="order-row p-1">
 						<a class="shipping-return" role="button"><i class="fas fa-chevron-left"></i> Return to shipping</a>
