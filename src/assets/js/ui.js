@@ -71,8 +71,8 @@ class Ui {
 		this.countryRegion_input = document.getElementById('countryRegion');
 		this.country_input = document.getElementById('country');
 		this.letterDisabled_input = document.querySelectorAll('.letter-disabled');
-		this.cardPaypal_radio_input = document.getElementById('paypal-card');
 		this.cardCredit_radio_input = document.getElementById('credit-card');
+		this.cardPaypal_radio_input = document.getElementById('paypal-card');
 		this.cardNumber_input = document.getElementById('card-number');
 		this.cardName_input = document.getElementById('card-name');
 		this.cardExpiration_input = document.getElementById('expiration-date');
@@ -128,7 +128,6 @@ class Ui {
 			],
 			weekdaysAbbrev: ['S','M','T','W','T','F','S']
 		};
-
 		// Current date
 		// Current month ( not being increment / decrement )
 		// DRY
@@ -136,7 +135,7 @@ class Ui {
 			month: new Date().getMonth(),
 			year: new Date().getFullYear(),
 			day: new Date().getDate()
-		}
+		};
 	}
 
 	// Scroll functionality
@@ -401,7 +400,7 @@ class Ui {
 		};
 
 		const cardRegex = {
-			visaRegex: /^(?:4[\d\s]{12}(?:[\d\s]{3,})?)$/,
+			visaRegex: /^[?:4\d]{4}\s?[\d]{4}\s?[\d]{4}\s?[\d]{4}\s?((?:[\d]){3})?$/,
 			mastercardRegex: /^(?:5[1-5\s][0-9\s]{17})$/,
 			amexpRegex: /^(?:3[47][\d\s]{15})$/,
 			expDate: /^(\d){2}\s?(\d){2,4}$/,
@@ -424,8 +423,6 @@ class Ui {
 		if(e.target === this.phone_input) {
 			// Error
 			if(!globalRegex.phoneRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
-			// Correct
-			else this.alert(null, 'success', null, false, e.target);
 
 			// Empty input
 			if(this.phone_input.value === '') this.alert('Phone Number is required, please type one.', 'error', 'number', false, e.target);
@@ -434,8 +431,6 @@ class Ui {
 		if(e.target === this.email_input) {
 			// Error
 			if(!globalRegex.emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email', false, e.target);
-			// Correct
-			else this.alert(null, 'success', null, false, e.target);
 
 			// Empty input
 			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email', false, e.target);
@@ -444,8 +439,7 @@ class Ui {
 		if(e.target === this.lastName_input) {
 			// Error
 			if(!globalRegex.letterRegex.test(this.lastName_input.value)) this.alert('Invalid Last Name, please type again.', 'error', 'lastName', false, e.target);
-			// Correct
-			else this.alert(null, 'success', null, false, e.target);
+
 			// Empty input
 			if(this.lastName_input.value === '') this.alert('Last Name is required, please type one.', 'error', 'lastName', false, e.target);
 		}
@@ -453,8 +447,7 @@ class Ui {
 		if(e.target === this.firstName_input) {
 			// Error
 			if(!globalRegex.letterRegex.test(this.firstName_input.value)) this.alert('Invalid First Name, please type again.', 'error', 'firstName', false, e.target);
-			// Correct
-			else this.alert(null, 'success', null, false, e.target);
+
 			// Empty input
 			if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
 		}
@@ -462,8 +455,6 @@ class Ui {
 		if(e.target === this.fullName_input) {
 			// Error
 			if(!globalRegex.letterRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
-			// Correct
-			else this.alert(null, 'success', null, false, e.target);
 
 			// Empty input
 			if(this.fullName_input.value === '') this.alert('Name is required, please type one.', 'error', 'fullName', false, e.target);
@@ -475,8 +466,7 @@ class Ui {
 			if(e.target === this.address_input) {
 				// Error
 				if(!globalRegex.addressRegex.test(this.address_input.value)) this.alert('Invalid Address, please type again.', 'error', 'address', false, e.target);
-				// Correct
-				else this.alert(null, 'success', null, false, e.target);
+
 				// Empty input
 				if(this.address_input.value === '') this.alert('Address is required, please type one.', 'error', 'address', false, e.target);
 			}
@@ -484,8 +474,7 @@ class Ui {
 			if(e.target === this.city_input) {
 				// Error
 				if(!globalRegex.letterRegex.test(this.city_input.value)) this.alert('Invalid City, please type again.', 'error', 'city', false, e.target);
-				// Correct
-				else this.alert(null, 'success', null, false, e.target);
+
 				// Empty input
 				if(this.city_input.value === '') this.alert('City is required, please type one.', 'error', 'city', false, e.target);
 			}
@@ -493,8 +482,7 @@ class Ui {
 			if(e.target === this.postalCode_input) {
 				// Error
 				if(!globalRegex.postalCodeRegex.test(this.postalCode_input.value)) this.alert('Invalid Postal Code, please type again.', 'error', 'postalCode', false, e.target);
-				// Correct
-				else this.alert(null, 'success', null, false, e.target);
+
 				// Empty input
 				if(this.postalCode_input.value === '') this.alert('Postal Code is required, please type one.', 'error', 'postalCode', false, e.target);
 			}
@@ -502,8 +490,7 @@ class Ui {
 			if(e.target === this.cardExpiration_input) {
 				// Error
 				if(!cardRegex.expDate.test(this.cardExpiration_input.value)) this.alert('Invalid Expration Date, please type again.', 'error', 'expiration-date', false, e.target);
-				// Correct
-				else this.alert(null, 'success', null, false, e.target);
+
 				// Empty input
 				if(this.cardExpiration_input.value === '') this.alert('Expration Date is required, please type one.', 'error', 'expiration-date', false, e.target);
 			}
@@ -511,8 +498,7 @@ class Ui {
 			if(e.target === this.securityCode_input) {
 				// Error
 				if(!cardRegex.securityCode.test(this.securityCode_input.value)) this.alert('Invalid Security Code, please type again.', 'error', 'security-code', false, e.target);
-				// Correct
-				else this.alert(null, 'success', null, false, e.target);
+
 				// Empty input
 				if(this.securityCode_input.value === '') this.alert('Security Code is required, please type one.', 'error', 'security-code', false, e.target);
 			}
@@ -540,6 +526,7 @@ class Ui {
 					});
 				});
 				
+				// Succes validation for shipping form
 				if(globalRegex.letterRegex.test(this.address_input.value) && globalRegex.letterRegex.test(this.city_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && globalRegex.postalCodeRegex.test(this.postalCode_input.value)) {
 
 					fieldBox.forEach(box => Array.from(box.children).forEach(children => children.value = ''));
@@ -555,31 +542,41 @@ class Ui {
 			if(e.target === this.cardNumber_input) {
 				// Error
 				if(!cardRegex.visaRegex.test(this.cardNumber_input.value) && !cardRegex.mastercardRegex.test(this.cardNumber_input.value) && !cardRegex.amexpRegex.test(this.cardNumber_input.value)) this.alert('Invalid Card Number, please type again.', 'error', 'cardNumber', false, e.target);
-				// Correct
-				else this.alert(null, 'success', null, false, e.target);
+
 				// Empty input
-				if(this.cardNumber_input === '') this.alert('Card Number is required, please type one.', 'error', 'cardNumber', false, e.target);
+				if(this.cardNumber_input.value === '') this.alert('Card Number is required, please type one.', 'error', 'cardNumber', false, e.target);
 			}
 
 			// Payment method form
 			if(e.target === this.payment_form) {
-				// Submit error
-				document.querySelectorAll('form[name="payment-form"] input[type="text"]').forEach(box => {
+				if(this.cardCredit_radio_input.checked) {
+					// Submit error
+					document.querySelectorAll('form[name="payment-form"] input[type="text"]').forEach(box => {
 
-					if(box.value === '') {
+						if(box.value === '') {
 
-						box.classList.add('input-error');
+							box.classList.add('input-error');
 
-						this.alert('All fields are required.', 'error', 'payment', true, null);
-					
-						setTimeout(() => box.classList.remove('input-error'), 2500);
+							this.alert('All fields are required.', 'error', 'payment', true, null);
+						
+							setTimeout(() => box.classList.remove('input-error'), 2500);
 
-						// Don't submit the form
-						submit = false;
+							// Don't submit the form
+							submit = false;
+						}
+						
+					});
+
+					// Succes validation for payment form
+					if((cardRegex.visaRegex.test(this.cardNumber_input.value) || cardRegex.mastercardRegex.test(this.cardNumber_input.value) || cardRegex.amexpRegex.test(this.cardNumber_input.value)) && globalRegex.letterRegex.test(this.fullName_input.value) && cardRegex.securityCode.test(this.securityCode_input.value) && cardRegex.expDate.test(this.cardExpiration_input.value)) {
+
+						inputs.forEach(inputs => inputs.value = '');
+
+						// Submit the form
+						submit = true;
 					}
-					
-				});
-
+				}
+				
 				console.log(submit);
 				return submit;
 			}
@@ -699,7 +696,7 @@ class Ui {
 	// DRY
 	alert(message, alertType, inputType, multiple, target) {
 		// message = obviously
-		// alertType = error / success
+		// alertType = success / error
 		// inputType = where we insert the error
 		// multiple = true (when submiting the form and check all inputs) / false (single input)
 		// target = when we need to use the event object
@@ -756,30 +753,8 @@ class Ui {
 			}
 		}
 		// Success validation
-		else if(alertType === 'success') {
+		if(alertType === 'success') {
 
-			if(!multiple) {
-				// Remove error styling
-				target.classList.remove('input-error');
-				// For reservation we use placeholder attribute instead of label so that's why we check it
-				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-error');
-				
-				// Success validation
-				target.classList.add('input-success', 'correct-filled');
-				// For reservation we use placeholder attribute instead of label so that's why we check it
-				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-success');
-
-				// Reset the styling
-				setTimeout(() => {
-					target.classList.remove('input-success');
-					// For reservation we use placeholder attribute instead of label so that's why we check it
-					if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-success');
-				}, 1250);
-	
-				// Remove error, so we have only one
-				document.querySelectorAll('.regex-alert').forEach(error => error.remove());
-			}
-			
 			if(multiple) {
 				// Add styling
 				p.classList.add('success-sent');
@@ -1040,6 +1015,9 @@ class Ui {
 	
 			this.cardPaypal_radio_input.nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
 			this.cardCredit_radio_input.nextElementSibling.classList.replace('radio-custom-disabled', 'radio-custom-checked');
+
+			// Check the radio input
+			this.cardCredit_radio_input.checked = true;
 		}
 	
 		// Show Paypal card payment
@@ -1049,6 +1027,63 @@ class Ui {
 	
 			this.cardCredit_radio_input.nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
 			this.cardPaypal_radio_input.nextElementSibling.classList.replace('radio-custom-disabled', 'radio-custom-checked');
+
+			// Check the radio input
+			this.cardPaypal_radio_input.checked = true;
+
+			// Remove regex alert when change to paypal method. ( it bugs out if we don't have this, remove so you can see it)
+			document.querySelectorAll('.regex-alert').forEach(error => error.remove());
+		}
+	}
+
+	// Format card when typing and copy paste in input
+	cardFormat(e) {
+		// Type
+		if(e.type === 'keydown') {
+			// Here we have regex only for the card type
+			// Check for the first numbers
+			// 40 / 41 / 45 / 49 => Visa
+			// 51 - 55 / 22 / 27 => MasterCard
+			// 37 / 34 => American Express
+			const cardRegex = {
+				visaRegex: /^4(0|1|5|9)?/,
+				mastercardRegex: /^((?:5)|(?:2){1,2})/,
+				amexpRegex: /^((?:37){1}|(?:34){1})/
+			};
+	
+			// Enable backspace and Ctrl + A
+			// Tab
+			if(e.which === 8 || e.which === 9 || e.which === 65 || e.which === 88) return true;
+	
+			// Format credit card when copy paste
+			// Visa and MasterCard
+			if(e.target.value.length >= 23) e.preventDefault();
+	
+			// Format the card number
+			// 4321 1234 1234 1234 123
+			// Add spaces at every 4 characters
+			// For Visa and MasterCard
+			if((cardRegex.visaRegex.test(e.target.value) || cardRegex.mastercardRegex.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19)) e.target.value += ' ';
+	
+			// For American Express
+			// if((cardRegex.amexpRegex.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 11) && e.ctrlKey) e.target.value += ' ';
+		}
+
+		// Copy
+		if(e.type === 'paste') {
+			// So we can get the value after the paste.
+			// If we don't use setTimeout, we paste the value. But we need to paste again to get it :)
+			setTimeout(() => {
+
+				const defaultString = e.target.value;
+				const space = " ";
+
+				const output = [defaultString.slice(0, 4), space, defaultString.slice(4, 8), space, defaultString.slice(8, 12), space, defaultString.slice(12, 16)].join("");
+
+				if(!e.target.value.includes(" ")) e.target.value = output
+			}, 1);
+		
+			if(e.target.value.length >= 19) e.preventDefault();
 		}
 	}
 }

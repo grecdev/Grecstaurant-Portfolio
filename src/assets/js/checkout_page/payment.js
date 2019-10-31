@@ -19,4 +19,19 @@ if(location.pathname.includes('checkout')) {
 			e.stopPropagation();
 		});
 	});
+
+	// Format card
+	ui.cardNumber_input.addEventListener('keydown', (e) => {
+
+		ui.cardFormat(e);
+	
+		e.stopPropagation();
+	});
+
+	ui.cardNumber_input.addEventListener('paste', (e) => {
+
+		ui.cardFormat(e);
+
+		e.stopPropagation();
+	});
 }
