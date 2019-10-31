@@ -1,6 +1,7 @@
 /** Payment **/
 #checkout .payment-container {
 	// display: none;
+	align-self: stretch;
 		
 	.contact-review .contact-box {
 
@@ -17,6 +18,11 @@
 
 	/** Payment Form **/
 	form {
+
+		& > .regex-alert {
+			margin: 0 auto .5rem;
+			width: 95%;
+		}
 
 		.radio-custom-checked,
 		.radio-custom-disabled {
@@ -91,6 +97,9 @@
 
 				&:last-child {
 					@include flex(row, space-between, flex-start);
+					flex-wrap: wrap;
+
+					.regex-alert { width: 100% }
 				
 					input,
 					.security-code-box { width: 48% }
@@ -159,6 +168,8 @@
 			}
 
 			input { width: 100% }
+
+			.card-number-box { position: relative }
 
 			.input-icon {
 				right: 20px;

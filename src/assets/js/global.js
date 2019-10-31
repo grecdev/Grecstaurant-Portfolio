@@ -74,16 +74,13 @@ if(document.body.contains(document.querySelector('input[type="file"]'))) {
 	});
 }
 
-// We have more than 1 form on the checkout page so that's why we asign multiple listeners
-if(document.body.contains(document.querySelector('form'))) {
-	ui.form.forEach(form => {
+// On location page we have 2 forms
+if(document.body.contains(document.querySelector('form')) && !location.pathname.includes('checkout')) {
+	ui.form.addEventListener('submit', (e) => {
 
-		form.addEventListener('submit', (e) => {
+		ui.regexValidation(e);
 
-			ui.regexValidation(e);
-	
-			e.preventDefault();	
-			e.stopPropagation();
-		});
-	})
+		e.preventDefault();	
+		e.stopPropagation();
+	});
 }

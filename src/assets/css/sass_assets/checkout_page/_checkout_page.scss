@@ -1,7 +1,7 @@
 #checkout {
 	@include flex(row, space-between, center);
 	position: relative;
-	height: 800px;
+	height: 850px;
 
 	h2 { font-size: 2rem }
 
@@ -37,7 +37,8 @@
 	.shipping-container,
 	.payment-container {
 		width: 60%;
-		padding: 2rem 10rem;
+		padding: 2rem 5rem;
 		position: absolute;
+		
 	}
 }

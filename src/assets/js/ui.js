@@ -41,10 +41,10 @@ class Ui {
 		this.postalCode_error = document.querySelector('.postalCode-error');
 		this.cardNumber_error = document.querySelector('.cardNumber-error');
 		this.cardName_error = document.querySelector('.cardName-error');
-		this.expirationDate_error = document.querySelector('expirationDate-error');
-		this.securityCode_error = document.querySelector('securityCode-error');
+		this.expirationDate_error = document.querySelector('.expirationDate-error');
+		this.securityCode_error = document.querySelector('.securityCode-error');
 		/////////////////////
-		this.form = document.querySelectorAll('form');
+		this.form = document.querySelector('form');
 		this.upload_placeholder = document.querySelector('.upload-value');
 		this.career_container = document.querySelector('#career-form .container');
 		// Buttons
@@ -63,7 +63,7 @@ class Ui {
 		this.upload_input = document.getElementById('upload');
 		this.lastName_input = document.querySelector('.lastName-input');
 		this.firstName_input = document.querySelector('.firstName-input');
-		this.fullName_input = document.getElementById('fullName');
+		this.fullName_input = document.querySelector('.fullName');
 		this.people_input = document.getElementById('people');
 		this.address_input = document.querySelector('.address-input');
 		this.city_input = document.querySelector('.city-input');
@@ -401,9 +401,11 @@ class Ui {
 		};
 
 		const cardRegex = {
-			visaRegex: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
-			mastercardRegex: /^(?:5[1-5][0-9]{14})$/,
-			amexpRegex: /^(?:3[47][0-9]{13})$/
+			visaRegex: /^(?:4[\d\s]{12}(?:[\d\s]{3,})?)$/,
+			mastercardRegex: /^(?:5[1-5\s][0-9\s]{17})$/,
+			amexpRegex: /^(?:3[47][\d\s]{15})$/,
+			expDate: /^(\d){2}\s?(\d){2,4}$/,
+			securityCode: /^\d{3,4}$/
 		};
 
 		// Variable 'state'
@@ -457,6 +459,16 @@ class Ui {
 			if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
 		}
 
+		if(e.target === this.fullName_input) {
+			// Error
+			if(!globalRegex.letterRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
+			// Correct
+			else this.alert(null, 'success', null, false, e.target);
+
+			// Empty input
+			if(this.fullName_input.value === '') this.alert('Name is required, please type one.', 'error', 'fullName', false, e.target);
+		}
+
 		// Checkout page
 		if(location.pathname.includes('checkout')) {
 
@@ -487,10 +499,28 @@ class Ui {
 				if(this.postalCode_input.value === '') this.alert('Postal Code is required, please type one.', 'error', 'postalCode', false, e.target);
 			}
 
+			if(e.target === this.cardExpiration_input) {
+				// Error
+				if(!cardRegex.expDate.test(this.cardExpiration_input.value)) this.alert('Invalid Expration Date, please type again.', 'error', 'expiration-date', false, e.target);
+				// Correct
+				else this.alert(null, 'success', null, false, e.target);
+				// Empty input
+				if(this.cardExpiration_input.value === '') this.alert('Expration Date is required, please type one.', 'error', 'expiration-date', false, e.target);
+			}
+
+			if(e.target === this.securityCode_input) {
+				// Error
+				if(!cardRegex.securityCode.test(this.securityCode_input.value)) this.alert('Invalid Security Code, please type again.', 'error', 'security-code', false, e.target);
+				// Correct
+				else this.alert(null, 'success', null, false, e.target);
+				// Empty input
+				if(this.securityCode_input.value === '') this.alert('Security Code is required, please type one.', 'error', 'security-code', false, e.target);
+			}
+
 			// Shipping address form
 			if(e.target === this.shipping_form) {
 				// Loop trough all field boxes and loop trough all childrens (because we have multiple inputs in 1 single fieldbox)
-				// And get the field box for shipping for because if we use the global field box variable it will get for payment form aswell and we don't want that 
+				// And get the field box for shipping form because if we use the global field box variable it will get for payment form aswell and we don't want that 
 				// Submit error
 				document.querySelectorAll('form[name="shipping-form"] .field-box').forEach(box => {
 
@@ -499,7 +529,7 @@ class Ui {
 						if(children.value === '') {
 	
 							children.classList.add('input-error');
-							this.alert('All fields are required kkkkkkkk.', 'error', null, true, null);
+							this.alert('All fields are required.', 'error', 'shipping', true, null);
 						
 							setTimeout(() => children.classList.remove('input-error'), 2500);
 
@@ -518,13 +548,37 @@ class Ui {
 					submit = true;
 				}
 
+				console.log(submit);
 				return submit
+			}
+
+			if(e.target === this.cardNumber_input) {
+				// Error
+				if(!cardRegex.visaRegex.test(this.cardNumber_input.value) && !cardRegex.mastercardRegex.test(this.cardNumber_input.value) && !cardRegex.amexpRegex.test(this.cardNumber_input.value)) this.alert('Invalid Card Number, please type again.', 'error', 'cardNumber', false, e.target);
+				// Correct
+				else this.alert(null, 'success', null, false, e.target);
+				// Empty input
+				if(this.cardNumber_input === '') this.alert('Card Number is required, please type one.', 'error', 'cardNumber', false, e.target);
 			}
 
 			// Payment method form
 			if(e.target === this.payment_form) {
+				// Submit error
+				document.querySelectorAll('form[name="payment-form"] input[type="text"]').forEach(box => {
 
-				submit = false;
+					if(box.value === '') {
+
+						box.classList.add('input-error');
+
+						this.alert('All fields are required.', 'error', 'payment', true, null);
+					
+						setTimeout(() => box.classList.remove('input-error'), 2500);
+
+						// Don't submit the form
+						submit = false;
+					}
+					
+				});
 
 				console.log(submit);
 				return submit;
@@ -533,15 +587,7 @@ class Ui {
 
 		// Reservation page
 		if(location.pathname.includes('reservation')) {
-			if(e.target === this.fullName_input) {
-				// Error
-				if(!globalRegex.letterRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
-				// Correct
-				else this.alert(null, 'success', null, false, e.target);
-	
-				// Empty input
-				if(this.fullName_input.value === '') this.alert('Name is required, please type one.', 'error', 'fullName', false, e.target);
-			}
+			
 
 			if(e.target === this.form) {
 				
@@ -577,7 +623,6 @@ class Ui {
 					submit = true;
 				}
 
-				console.log(submit);
 				return submit;
 			}
 		}
@@ -691,14 +736,20 @@ class Ui {
 				if(inputType === 'address') this.address_error.insertAdjacentElement('beforeend', p);
 				if(inputType === 'city') this.city_error.insertAdjacentElement('beforeend', p);
 				if(inputType === 'postalCode') this.postalCode_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'cardNumber') this.cardNumber_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'expiration-date') this.expirationDate_error.insertAdjacentElement('beforeend', p);
+				if(inputType === 'security-code') this.securityCode_error.insertAdjacentElement('beforeend', p);
 			}
 
 			// Add error for all inputs when submit the form
 			if(multiple) {
 				// Add to the DOM
 				if(location.pathname.includes('careers')) this.career_container.insertAdjacentElement('beforeend', p);
-				if(document.body.contains(this.form)) this.form.insertAdjacentElement('beforeend', p);
+				if(document.body.contains(this.form) && !location.pathname.includes('checkout')) this.form.insertAdjacentElement('beforeend', p);
 
+				// For checkout page
+				if(inputType === 'shipping') this.shipping_form.insertAdjacentElement('beforeend', p);
+				if(inputType === 'payment') this.payment_form.insertBefore(p, document.querySelector('.payment-container .payment-paypal'));
 
 				// Remove the alert
 				setTimeout(() => p.remove(), 2500);
