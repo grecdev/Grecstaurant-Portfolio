@@ -423,7 +423,8 @@ class Ui {
 		if(e.target === this.phone_input) {
 			// Error
 			if(!globalRegex.phoneRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
-
+			// Success
+			else this.alert(null, 'success', null, false, e.target);
 			// Empty input
 			if(this.phone_input.value === '') this.alert('Phone Number is required, please type one.', 'error', 'number', false, e.target);
 		}
@@ -431,7 +432,8 @@ class Ui {
 		if(e.target === this.email_input) {
 			// Error
 			if(!globalRegex.emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email', false, e.target);
-
+			// Success
+			else this.alert(null, 'success', null, false, e.target);
 			// Empty input
 			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email', false, e.target);
 		}
@@ -439,7 +441,8 @@ class Ui {
 		if(e.target === this.lastName_input) {
 			// Error
 			if(!globalRegex.letterRegex.test(this.lastName_input.value)) this.alert('Invalid Last Name, please type again.', 'error', 'lastName', false, e.target);
-
+			// Success
+			else this.alert(null, 'success', null, false, e.target);
 			// Empty input
 			if(this.lastName_input.value === '') this.alert('Last Name is required, please type one.', 'error', 'lastName', false, e.target);
 		}
@@ -447,7 +450,8 @@ class Ui {
 		if(e.target === this.firstName_input) {
 			// Error
 			if(!globalRegex.letterRegex.test(this.firstName_input.value)) this.alert('Invalid First Name, please type again.', 'error', 'firstName', false, e.target);
-
+			// Success
+			else this.alert(null, 'success', null, false, e.target);
 			// Empty input
 			if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
 		}
@@ -455,7 +459,8 @@ class Ui {
 		if(e.target === this.fullName_input) {
 			// Error
 			if(!globalRegex.letterRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
-
+			// Success
+			else this.alert(null, 'success', null, false, e.target);
 			// Empty input
 			if(this.fullName_input.value === '') this.alert('Name is required, please type one.', 'error', 'fullName', false, e.target);
 		}
@@ -466,7 +471,8 @@ class Ui {
 			if(e.target === this.address_input) {
 				// Error
 				if(!globalRegex.addressRegex.test(this.address_input.value)) this.alert('Invalid Address, please type again.', 'error', 'address', false, e.target);
-
+				// Success
+				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
 				if(this.address_input.value === '') this.alert('Address is required, please type one.', 'error', 'address', false, e.target);
 			}
@@ -474,7 +480,8 @@ class Ui {
 			if(e.target === this.city_input) {
 				// Error
 				if(!globalRegex.letterRegex.test(this.city_input.value)) this.alert('Invalid City, please type again.', 'error', 'city', false, e.target);
-
+				// Success
+				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
 				if(this.city_input.value === '') this.alert('City is required, please type one.', 'error', 'city', false, e.target);
 			}
@@ -482,7 +489,8 @@ class Ui {
 			if(e.target === this.postalCode_input) {
 				// Error
 				if(!globalRegex.postalCodeRegex.test(this.postalCode_input.value)) this.alert('Invalid Postal Code, please type again.', 'error', 'postalCode', false, e.target);
-
+				// Success
+				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
 				if(this.postalCode_input.value === '') this.alert('Postal Code is required, please type one.', 'error', 'postalCode', false, e.target);
 			}
@@ -490,7 +498,8 @@ class Ui {
 			if(e.target === this.cardExpiration_input) {
 				// Error
 				if(!cardRegex.expDate.test(this.cardExpiration_input.value)) this.alert('Invalid Expration Date, please type again.', 'error', 'expiration-date', false, e.target);
-
+				// Success
+				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
 				if(this.cardExpiration_input.value === '') this.alert('Expration Date is required, please type one.', 'error', 'expiration-date', false, e.target);
 			}
@@ -498,7 +507,8 @@ class Ui {
 			if(e.target === this.securityCode_input) {
 				// Error
 				if(!cardRegex.securityCode.test(this.securityCode_input.value)) this.alert('Invalid Security Code, please type again.', 'error', 'security-code', false, e.target);
-
+				// Success
+				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
 				if(this.securityCode_input.value === '') this.alert('Security Code is required, please type one.', 'error', 'security-code', false, e.target);
 			}
@@ -542,7 +552,8 @@ class Ui {
 			if(e.target === this.cardNumber_input) {
 				// Error
 				if(!cardRegex.visaRegex.test(this.cardNumber_input.value) && !cardRegex.mastercardRegex.test(this.cardNumber_input.value) && !cardRegex.amexpRegex.test(this.cardNumber_input.value)) this.alert('Invalid Card Number, please type again.', 'error', 'cardNumber', false, e.target);
-
+				// Success
+				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
 				if(this.cardNumber_input.value === '') this.alert('Card Number is required, please type one.', 'error', 'cardNumber', false, e.target);
 			}
@@ -754,6 +765,28 @@ class Ui {
 		}
 		// Success validation
 		if(alertType === 'success') {
+
+			if(!multiple) {
+				// Remove error styling
+				target.classList.remove('input-error');
+				// For reservation we use placeholder attribute instead of label so that's why we check it
+				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-error');
+				
+				// Success validation
+				target.classList.add('input-success', 'correct-filled');
+				// For reservation we use placeholder attribute instead of label so that's why we check it
+				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-success');
+
+				// Reset the styling
+				setTimeout(() => {
+					target.classList.remove('input-success');
+					// For reservation we use placeholder attribute instead of label so that's why we check it
+					if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-success');
+				}, 1250);
+	
+				// Remove error, so we have only one
+				document.querySelectorAll('.regex-alert').forEach(error => error.remove());
+			}
 
 			if(multiple) {
 				// Add styling
