@@ -136,6 +136,21 @@ class Ui {
 			year: new Date().getFullYear(),
 			day: new Date().getDate()
 		};
+		// Card Credentials Format
+		this.cardRegex = {
+			visaRegex: /^(?:4)[\d]{3}\s?[\d]{4}\s?[\d]{4}\s?[\d]{4}\s?((?:[\d]){3})?$/,
+			mastercardRegex: /^(?:5[1-5\s][0-9\s]{17})$/,
+			amexpRegex: /^(?:3[47][\d\s]{15})$/,
+			expDate: /^(\d){2}\s?(\d){2,4}$/,
+			securityCode: /^\d{3,4}$/,
+			// Card type (For UI)
+			// 40 / 41 / 45 / 49 => Visa
+			// 51 - 55 / 22 / 27 => MasterCard
+			// 37 / 34 => American Express
+			visaStart: /^4(0|1|5|9)?/,
+			mastercardStart: /^((?:5)|(?:2){1,2})/,
+			amexpStart: /^((?:37){1}|(?:34){1})/
+		}
 	}
 
 	// Scroll functionality
@@ -399,14 +414,6 @@ class Ui {
 			addressRegex: /^[\w\W]{5,}$/
 		};
 
-		const cardRegex = {
-			visaRegex: /^[?:4\d]{4}\s?[\d]{4}\s?[\d]{4}\s?[\d]{4}\s?((?:[\d]){3})?$/,
-			mastercardRegex: /^(?:5[1-5\s][0-9\s]{17})$/,
-			amexpRegex: /^(?:3[47][\d\s]{15})$/,
-			expDate: /^(\d){2}\s?(\d){2,4}$/,
-			securityCode: /^\d{3,4}$/
-		};
-
 		// Variable 'state'
 		// If radio inputs are checked. See below.
 		let checked = false;
@@ -497,7 +504,7 @@ class Ui {
 
 			if(e.target === this.cardExpiration_input) {
 				// Error
-				if(!cardRegex.expDate.test(this.cardExpiration_input.value)) this.alert('Invalid Expration Date, please type again.', 'error', 'expiration-date', false, e.target);
+				if(!this.cardRegex.expDate.test(this.cardExpiration_input.value)) this.alert('Invalid Expration Date, please type again.', 'error', 'expiration-date', false, e.target);
 				// Success
 				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
@@ -506,7 +513,7 @@ class Ui {
 
 			if(e.target === this.securityCode_input) {
 				// Error
-				if(!cardRegex.securityCode.test(this.securityCode_input.value)) this.alert('Invalid Security Code, please type again.', 'error', 'security-code', false, e.target);
+				if(!this.cardRegex.securityCode.test(this.securityCode_input.value)) this.alert('Invalid Security Code, please type again.', 'error', 'security-code', false, e.target);
 				// Success
 				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
@@ -551,7 +558,7 @@ class Ui {
 
 			if(e.target === this.cardNumber_input) {
 				// Error
-				if(!cardRegex.visaRegex.test(this.cardNumber_input.value) && !cardRegex.mastercardRegex.test(this.cardNumber_input.value) && !cardRegex.amexpRegex.test(this.cardNumber_input.value)) this.alert('Invalid Card Number, please type again.', 'error', 'cardNumber', false, e.target);
+				if(!this.cardRegex.visaRegex.test(this.cardNumber_input.value) && !this.cardRegex.mastercardRegex.test(this.cardNumber_input.value) && !this.cardRegex.amexpRegex.test(this.cardNumber_input.value)) this.alert('Invalid Card Number, please type again.', 'error', 'cardNumber', false, e.target);
 				// Success
 				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
@@ -579,7 +586,7 @@ class Ui {
 					});
 
 					// Succes validation for payment form
-					if((cardRegex.visaRegex.test(this.cardNumber_input.value) || cardRegex.mastercardRegex.test(this.cardNumber_input.value) || cardRegex.amexpRegex.test(this.cardNumber_input.value)) && globalRegex.letterRegex.test(this.fullName_input.value) && cardRegex.securityCode.test(this.securityCode_input.value) && cardRegex.expDate.test(this.cardExpiration_input.value)) {
+					if((this.cardRegex.visaRegex.test(this.cardNumber_input.value) || this.cardRegex.mastercardRegex.test(this.cardNumber_input.value) || this.cardRegex.amexpRegex.test(this.cardNumber_input.value)) && globalRegex.letterRegex.test(this.fullName_input.value) && this.cardRegex.securityCode.test(this.securityCode_input.value) && this.cardRegex.expDate.test(this.cardExpiration_input.value)) {
 
 						inputs.forEach(inputs => inputs.value = '');
 
@@ -1075,19 +1082,6 @@ class Ui {
 
 	// Format card when typing and copy paste in input
 	cardFormat(e) {
-		const cardRegex = {
-			visaRegex: /^[?:4\d]{4}\s?[\d]{4}\s?[\d]{4}\s?[\d]{4}\s?((?:[\d]){3})?$/,
-			mastercardRegex: /^(?:5[1-5\s][0-9\s]{17})$/,
-			amexpRegex: /^(?:3[47][\d\s]{15})$/,
-			// Check for the first numbers
-			// 40 / 41 / 45 / 49 => Visa
-			// 51 - 55 / 22 / 27 => MasterCard
-			// 37 / 34 => American Express
-			visaStart: /^4(0|1|5|9)?/,
-			mastercardStart: /^((?:5)|(?:2){1,2})/,
-			amexpStart: /^((?:37){1}|(?:34){1})/
-		};
-
 		// Typing
 		if(e.type === 'keydown') {
 			// Enable backspace
@@ -1097,13 +1091,13 @@ class Ui {
 			// Format the card number
 			// 4321 1234 1234 1234 123
 			// Add spaces at every 4 characters
-			if((cardRegex.visaStart.test(e.target.value) || cardRegex.mastercardStart.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19)) e.target.value += ' ';
+			if((this.cardRegex.visaStart.test(e.target.value) || this.cardRegex.mastercardStart.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19)) e.target.value += ' ';
 
 			// If something else than numbers don't fill input
 			if(!/\d/g.test(e.target.value)) e.target.value = '';
 	
 			// For American Express
-			// if((cardRegex.amexpRegex.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 11) && e.ctrlKey) e.target.value += ' ';
+			if((this.cardRegex.amexpRegex.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 11) && e.ctrlKey) e.target.value += ' ';
 		}
 		
 		// Copy
@@ -1113,13 +1107,13 @@ class Ui {
 			setTimeout(() => {
 				const space = " ";
 				let output = '';
-				
+
 				// Loop trough the input value
 				// Visa and MasterCard
 				// Format the card number
 				// 4321 1234 1234 1234 123
 				// Add spaces at every 4 characters
-				if(cardRegex.visaRegex.test(e.target.value) && e.target.value.length === 16) {
+				if(this.cardRegex.visaRegex.test(e.target.value) && e.target.value.length === 16) {
 
 					for(let a = 0; a < e.target.value.length; a++) {
 						if(a === 4) {
@@ -1136,6 +1130,8 @@ class Ui {
 
 					e.target.value = output;
 				}
+
+
 			}, 5);
 		}
 	}
