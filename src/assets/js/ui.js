@@ -1034,6 +1034,7 @@ class Ui {
 			Space && Ctrl + a && Backspace
 			dot
 			arrow keys
+			Tab
 		*/
 		// Disable shift
 		if(e.shiftKey) e.preventDefault();
@@ -1074,32 +1075,29 @@ class Ui {
 
 	// Format card when typing and copy paste in input
 	cardFormat(e) {
-		// Type
-		if(e.type === 'keydown') {
-			// Here we have regex only for the card type
+		const cardRegex = {
+			visaRegex: /^[?:4\d]{4}\s?[\d]{4}\s?[\d]{4}\s?[\d]{4}\s?((?:[\d]){3})?$/,
+			mastercardRegex: /^(?:5[1-5\s][0-9\s]{17})$/,
+			amexpRegex: /^(?:3[47][\d\s]{15})$/,
 			// Check for the first numbers
 			// 40 / 41 / 45 / 49 => Visa
 			// 51 - 55 / 22 / 27 => MasterCard
 			// 37 / 34 => American Express
-			const cardRegex = {
-				visaRegex: /^4(0|1|5|9)?/,
-				mastercardRegex: /^((?:5)|(?:2){1,2})/,
-				amexpRegex: /^((?:37){1}|(?:34){1})/
-			};
+			visaStart: /^4(0|1|5|9)?/,
+			mastercardStart: /^((?:5)|(?:2){1,2})/,
+			amexpStart: /^((?:37){1}|(?:34){1})/
+		};
+
+		// Typing
+		if(e.type === 'keydown') {
+			// Enable backspace
+			if(e.which === 8) return true;
 	
-			// Enable backspace and Ctrl + A
-			// Tab
-			if(e.which === 8 || e.which === 9 || e.which === 65 || e.which === 88) return true;
-	
-			// Format credit card when typing
 			// Visa and MasterCard
-			if(e.target.value.length > 22) e.preventDefault();
-	
 			// Format the card number
 			// 4321 1234 1234 1234 123
 			// Add spaces at every 4 characters
-			// For Visa and MasterCard
-			if((cardRegex.visaRegex.test(e.target.value) || cardRegex.mastercardRegex.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19)) e.target.value += ' ';
+			// if((cardRegex.visaStart.test(e.target.value) || cardRegex.mastercardStart.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19)) e.target.value += ' ';
 
 			// If something else than numbers don't fill input
 			if(!/\d/g.test(e.target.value)) e.target.value = '';
@@ -1108,35 +1106,48 @@ class Ui {
 			// if((cardRegex.amexpRegex.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 11) && e.ctrlKey) e.target.value += ' ';
 		}
 		
-		
-
 		// Copy
 		if(e.type === 'paste') {
 			// So we can get the value after the paste.
 			// If we don't use setTimeout, we paste the value. But we need to paste again to get it :)
 			setTimeout(() => {
-				let output = '';
-
-				const defaultString = e.target.value;
 				const space = " ";
+				let outout = '';
 
-				// Format the credit card number if the format number is: 4929415447687021 or something like this (is a fake card number.) https://www.freeformatter.com/credit-card-number-generator-validator.html
-				if(defaultString.length === 16) output = [defaultString.slice(0, 4), space, defaultString.slice(4, 8), space, defaultString.slice(8, 12), space, defaultString.slice(12, 16)].join("");
+				// // Format the credit card number if the format number is: 4929415447687021 (is a fake card number.) https://www.freeformatter.com/credit-card-number-generator-validator.html
+				// if(e.target.value.length === 16) output = [e.target.value.slice(0, 4), space, e.target.value.slice(4, 8), space, e.target.value.slice(8, 12), space, e.target.value.slice(12, 16)].join("");
 				
-				if(defaultString.length === 19) output = [defaultString.slice(0, 4), space, defaultString.slice(4, 8), space, defaultString.slice(8, 12), space, defaultString.slice(12, 16), space, defaultString.slice(16, 19)].join("");
+				// if(e.target.value.length === 19) output = [e.target.value.slice(0, 4), space, e.target.value.slice(4, 8), space, e.target.value.slice(8, 12), space, e.target.value.slice(12, 16), space, e.target.value.slice(16, 19)].join("");
 
 				// If something else than numbers don't fill input
-				if(!/\d/g.test(defaultString)) output = '';
+				// if(!/\d/g.test(e.target.value)) output = '';
+
 				// Apply the format if we the card number is not formatted
-				if(!e.target.value.includes(" ")) e.target.value = output;
+				// if(!e.target.value.includes(space)) e.target.value = output;
+
+				// Loop trough the input value
+				// Visa and MasterCard
+				// Format the card number
+				// 4321 1234 1234 1234 123
+				// Add spaces at every 4 characters
+				if(cardRegex.visaRegex.test(e.target.value) || cardRegex.mastercardRegex.test(e.target.value)) {
+					for(let a = 0; a < e.target.value.length; a++) {
+						if(a === 4) {
+							output += e.target.value.slice(0, a) + space
+							output += e.target.value.slice(a, a + 4) + space
+						}
+	
+						if(a === 8) output += e.target.value.slice(a, a + 4) + space
+	
+						if(a === 12) output += e.target.value.slice(a, a + 4);
+	
+						if(a === 16) output += space + e.target.value.slice(a, a + 4);
+					}
+				}
+
+				e.target.value = output;				
 			}, 1);
-
-			// Prevent to copy more than 1 credit card
-			if(e.target.value.length > 19) return false;
-
-			if(e.type === 'select') return true;
 		}
-
 	}
 }
 

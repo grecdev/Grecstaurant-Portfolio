@@ -34,12 +34,4 @@ if(location.pathname.includes('checkout')) {
 
 		e.stopPropagation();
 	});
-
-	// Re-enable paste
-	ui.cardNumber_input.addEventListener('select', (e) => {
-
-		ui.cardFormat(e);
-
-		e.stopPropagation();
-	});
 }
