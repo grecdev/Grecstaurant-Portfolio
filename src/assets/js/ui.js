@@ -1097,7 +1097,7 @@ class Ui {
 			// Format the card number
 			// 4321 1234 1234 1234 123
 			// Add spaces at every 4 characters
-			// if((cardRegex.visaStart.test(e.target.value) || cardRegex.mastercardStart.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19)) e.target.value += ' ';
+			if((cardRegex.visaStart.test(e.target.value) || cardRegex.mastercardStart.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19)) e.target.value += ' ';
 
 			// If something else than numbers don't fill input
 			if(!/\d/g.test(e.target.value)) e.target.value = '';
@@ -1112,25 +1112,15 @@ class Ui {
 			// If we don't use setTimeout, we paste the value. But we need to paste again to get it :)
 			setTimeout(() => {
 				const space = " ";
-				let outout = '';
-
-				// // Format the credit card number if the format number is: 4929415447687021 (is a fake card number.) https://www.freeformatter.com/credit-card-number-generator-validator.html
-				// if(e.target.value.length === 16) output = [e.target.value.slice(0, 4), space, e.target.value.slice(4, 8), space, e.target.value.slice(8, 12), space, e.target.value.slice(12, 16)].join("");
+				let output = '';
 				
-				// if(e.target.value.length === 19) output = [e.target.value.slice(0, 4), space, e.target.value.slice(4, 8), space, e.target.value.slice(8, 12), space, e.target.value.slice(12, 16), space, e.target.value.slice(16, 19)].join("");
-
-				// If something else than numbers don't fill input
-				// if(!/\d/g.test(e.target.value)) output = '';
-
-				// Apply the format if we the card number is not formatted
-				// if(!e.target.value.includes(space)) e.target.value = output;
-
 				// Loop trough the input value
 				// Visa and MasterCard
 				// Format the card number
 				// 4321 1234 1234 1234 123
 				// Add spaces at every 4 characters
-				if(cardRegex.visaRegex.test(e.target.value) || cardRegex.mastercardRegex.test(e.target.value)) {
+				if(cardRegex.visaRegex.test(e.target.value) && e.target.value.length === 16) {
+
 					for(let a = 0; a < e.target.value.length; a++) {
 						if(a === 4) {
 							output += e.target.value.slice(0, a) + space
@@ -1143,10 +1133,10 @@ class Ui {
 	
 						if(a === 16) output += space + e.target.value.slice(a, a + 4);
 					}
-				}
 
-				e.target.value = output;				
-			}, 1);
+					e.target.value = output;
+				}
+			}, 5);
 		}
 	}
 }
