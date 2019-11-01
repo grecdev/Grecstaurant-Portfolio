@@ -1035,6 +1035,9 @@ class Ui {
 			dot
 			arrow keys
 		*/
+		// Disable shift
+		if(e.shiftKey) e.preventDefault();
+
 		if(e.which >= 48 && e.which <= 57 || e.which >= 96 && e.which <= 105 || e.which === 189 || e.which === 187 || e.which === 8 || e.which === 32 || e.which === 17 || e.which === 107 || e.which === 109 || e.ctrlKey || e.which === 190 || e.which === 110 || e.which >= 37 && e.which <= 40 || e.which === 9) return true
 		else e.preventDefault()
 	}
@@ -1088,36 +1091,52 @@ class Ui {
 			// Tab
 			if(e.which === 8 || e.which === 9 || e.which === 65 || e.which === 88) return true;
 	
-			// Format credit card when copy paste
+			// Format credit card when typing
 			// Visa and MasterCard
-			if(e.target.value.length >= 23) e.preventDefault();
+			if(e.target.value.length > 22) e.preventDefault();
 	
 			// Format the card number
 			// 4321 1234 1234 1234 123
 			// Add spaces at every 4 characters
 			// For Visa and MasterCard
 			if((cardRegex.visaRegex.test(e.target.value) || cardRegex.mastercardRegex.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19)) e.target.value += ' ';
+
+			// If something else than numbers don't fill input
+			if(!/\d/g.test(e.target.value)) e.target.value = '';
 	
 			// For American Express
 			// if((cardRegex.amexpRegex.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 11) && e.ctrlKey) e.target.value += ' ';
 		}
+		
+		
 
 		// Copy
 		if(e.type === 'paste') {
 			// So we can get the value after the paste.
 			// If we don't use setTimeout, we paste the value. But we need to paste again to get it :)
 			setTimeout(() => {
+				let output = '';
 
 				const defaultString = e.target.value;
 				const space = " ";
 
-				const output = [defaultString.slice(0, 4), space, defaultString.slice(4, 8), space, defaultString.slice(8, 12), space, defaultString.slice(12, 16)].join("");
+				// Format the credit card number if the format number is: 4929415447687021 or something like this (is a fake card number.) https://www.freeformatter.com/credit-card-number-generator-validator.html
+				if(defaultString.length === 16) output = [defaultString.slice(0, 4), space, defaultString.slice(4, 8), space, defaultString.slice(8, 12), space, defaultString.slice(12, 16)].join("");
+				
+				if(defaultString.length === 19) output = [defaultString.slice(0, 4), space, defaultString.slice(4, 8), space, defaultString.slice(8, 12), space, defaultString.slice(12, 16), space, defaultString.slice(16, 19)].join("");
 
-				if(!e.target.value.includes(" ")) e.target.value = output
+				// If something else than numbers don't fill input
+				if(!/\d/g.test(defaultString)) output = '';
+				// Apply the format if we the card number is not formatted
+				if(!e.target.value.includes(" ")) e.target.value = output;
 			}, 1);
-		
-			if(e.target.value.length >= 19) e.preventDefault();
+
+			// Prevent to copy more than 1 credit card
+			if(e.target.value.length > 19) return false;
+
+			if(e.type === 'select') return true;
 		}
+
 	}
 }
 
