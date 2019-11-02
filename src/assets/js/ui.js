@@ -138,9 +138,9 @@ class Ui {
 		};
 		// Card Credentials Format
 		this.cardRegex = {
-			visaRegex: /^(?:4)[\d]{3}\s?[\d]{4}\s?[\d]{4}\s?[\d]{4}\s?((?:[\d]){3})?$/,
-			mastercardRegex: /^(?:5[1-5\s][0-9\s]{17})$/,
-			amexpRegex: /^(?:3[47][\d\s]{15})$/,
+			visaRegex: /^(?:4)(\d){3}\s?(\d){4}\s?(\d){4}\s?(\d){4}\s?((?:\d){3})?$/,
+			mastercardRegex: /^(?:2|5)(\d){3}\s?(\d){4}\s?(\d){4}\s?(\d){4}\s?((?:\d){3})?$/,
+			amexpRegex: /^(?:3)(\d){3}\s?(\d){6}\s?(\d){5}$/,
 			expDate: /^(\d){2}\s?(\d){2,4}$/,
 			securityCode: /^\d{3,4}$/,
 			// Card type (For UI)
@@ -557,10 +557,10 @@ class Ui {
 			}
 
 			if(e.target === this.cardNumber_input) {
-				// Error
 				if(!this.cardRegex.visaRegex.test(this.cardNumber_input.value) && !this.cardRegex.mastercardRegex.test(this.cardNumber_input.value) && !this.cardRegex.amexpRegex.test(this.cardNumber_input.value)) this.alert('Invalid Card Number, please type again.', 'error', 'cardNumber', false, e.target);
 				// Success
 				else this.alert(null, 'success', null, false, e.target);
+
 				// Empty input
 				if(this.cardNumber_input.value === '') this.alert('Card Number is required, please type one.', 'error', 'cardNumber', false, e.target);
 			}
@@ -1082,57 +1082,135 @@ class Ui {
 
 	// Format card when typing and copy paste in input
 	cardFormat(e) {
+		let space = ' ';
+
 		// Typing
 		if(e.type === 'keydown') {
-			// Enable backspace
-			if(e.which === 8) return true;
-	
-			// Visa and MasterCard
-			// Format the card number
-			// 4321 1234 1234 1234 123
-			// Add spaces at every 4 characters
-			if((this.cardRegex.visaStart.test(e.target.value) || this.cardRegex.mastercardStart.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19)) e.target.value += ' ';
+			// Don't format if is not a valid card number
+			if(!this.cardRegex.visaStart.test(e.target.value) && !this.cardRegex.mastercardStart.test(e.target.value) && !this.cardRegex.amexpStart.test(e.target.value)) e.target.maxLength = 10;
 
-			// If something else than numbers don't fill input
-			if(!/\d/g.test(e.target.value)) e.target.value = '';
-	
+			// Visa
+			// Format: 4321 1234 1234 1234 / 4321 1234 1234 1234 123
+			// Add spaces at every 4 characters
+			if(this.cardRegex.visaStart.test(e.target.value) && e.which !== 8) {
+				// Prevent adding more card numbers
+				e.target.maxLength = 23;
+
+				if(e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19) e.target.value += space;
+			}
+
+			// MasterCard
+			// Format: 5321 6549 9057 2898
+			// Add spaces at every 4 characters
+			if(this.cardRegex.mastercardStart.test(e.target.value) && e.which !== 8) {
+				// Prevent adding more card numbers
+				e.target.maxLength = 19;
+
+				if(e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14) e.target.value += space;
+			}
+
 			// For American Express
-			if((this.cardRegex.amexpRegex.test(e.target.value)) && (e.target.value.length === 4 || e.target.value.length === 11) && e.ctrlKey) e.target.value += ' ';
+			// Format: 3743 419475 34240
+			if(this.cardRegex.amexpStart.test(e.target.value) && e.which !== 8) {
+				// Prevent adding more card numbers
+				e.target.maxLength = 17;
+
+				if(e.target.value.length === 4 || e.target.value.length === 11) e.target.value += ' ';
+			}
+
+			// Reset the max length
+			if(e.target.value === '') e.target.removeAttribute('maxlength');
 		}
 		
 		// Copy
-		if(e.type === 'paste') {
-			// So we can get the value after the paste.
-			// If we don't use setTimeout, we paste the value. But we need to paste again to get it :)
-			setTimeout(() => {
-				const space = " ";
-				let output = '';
+		if(e.type === 'input') {
+			let output = '';
 
-				// Loop trough the input value
 				// Visa and MasterCard
-				// Format the card number
-				// 4321 1234 1234 1234 123
+				// Format: 4321 1234 1234 1234 / 5321 6549 9057 2898
 				// Add spaces at every 4 characters
-				if(this.cardRegex.visaRegex.test(e.target.value) && e.target.value.length === 16) {
+				// if((this.cardRegex.visaRegex.test(e.target.value) || this.cardRegex.mastercardRegex.test(e.target.value)) && e.target.value.length === 16) {
+				// 	// Prevent adding more card numbers
+				// 	e.target.maxLength = 23;
 
-					for(let a = 0; a < e.target.value.length; a++) {
-						if(a === 4) {
-							output += e.target.value.slice(0, a) + space
-							output += e.target.value.slice(a, a + 4) + space
-						}
+				// 	// Loop trough the string
+				// 	// When reach a specific index add space
+				// 	for(let i = 0; i < e.target.value.length; i++) {
+
+				// 		// At each fourth number add a space
+				// 		if(i > 0 && i % 4 === offset) output += space;
+
+				// 		// Get the group of four number (1234 1234 1234 1234)
+				// 		output += e.target.value[i];
+				// 	}
+
+				// 	// Modify the input value
+				// 	e.target.value = output;
+				// }
+
+				// American Express
+				// Format: 3743 419475 34240
+				// if(this.cardRegex.amexpRegex.test(e.target.value) && e.target.value.length === 15) {
+				// 	// Set maximum length for American express add (prevent adding more numbers)
+				// 	e.target.maxLength = 1;
+
+				// 	// Loop trough the string
+				// 	// When reach a specific index add space
+				// 	for(let a = 0; a < e.target.value.length; a++) {
+				// 		if(a === 4) {
+				// 			output += e.target.value.slice(0, a) + space
+				// 			output += e.target.value.slice(a, a + 6) + space
+				// 		}
 	
-						if(a === 8) output += e.target.value.slice(a, a + 4) + space
-	
-						if(a === 12) output += e.target.value.slice(a, a + 4);
-	
-						if(a === 16) output += space + e.target.value.slice(a, a + 4);
-					}
+				// 		if(a === 10) output += e.target.value.slice(a, a + 5);
+				// 	}
 
-					e.target.value = output;
-				}
+				// 	// Modify the input value
+				// 	e.target.value = output;
+				// }
 
+				// Prevent adding something in the input field or more than 1 card number
+				// if(!this.cardRegex.visaRegex.test(e.target.value) && !this.cardRegex.mastercardRegex.test(e.target.value) && !this.cardRegex.amexpRegex.test(e.target.value)) e.target.value = '';
 
-			}, 5);
+				// Always get the value with no spaces
+				// This helps when we paste multiple times
+			
+			// Set the card number length
+			// Visa {16,19}: 4321 1234 1234 1234 / 4321 1234 1234 1234
+			// Mastercard {16}: 5321 1234 1234 1234
+			// American Express
+			let regexRange;
+			
+			// Set range for individual card
+			if(this.cardRegex.visaStart.test(e.target.value)) regexRange = /\d{16,19}/g;
+			if(this.cardRegex.mastercardStart.test(e.target.value)) regexRange = /\d{16}/g;
+			if(this.cardRegex.amexpStart.test(e.target.value)) regexRange = /\d+/g;
+
+			// Get the string without spaces
+			const defaultString = e.target.value.replace(/\s+/g, '');
+
+			// Match the string without spaces
+			// If we dont use this it will go over 23 characters
+			let matchString = defaultString.match(regexRange)[0];
+			
+			const formatArray = [];
+
+			// Push pieces of card number into the array and then format into  a string
+			// For Visa and MasterCard
+			if(this.cardRegex.visaStart.test(e.target.value) || this.cardRegex.mastercardStart.test(e.target.value)) {
+
+				for(let a = 0; a < matchString.length; a += 4) formatArray.push(matchString.substring(a, a + 4));
+
+			}
+
+			if(this.cardRegex.amexpStart.test(e.target.value)) {
+
+				for(let a = 0; a < matchString.length && a === 4; a+= 4) formatArray.push(matchString.substring(a, a + 4));
+
+			}
+
+			// Set the input value
+			e.target.value = formatArray.join(" ");
 		}
 	}
 }
