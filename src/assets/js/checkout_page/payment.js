@@ -28,7 +28,7 @@ if(location.pathname.includes('checkout')) {
 		e.stopPropagation();
 	});
 
-	ui.cardNumber_input.addEventListener('input', (e) => {
+	ui.cardNumber_input.addEventListener('paste', (e) => {
 
 		ui.cardFormat(e);
 
