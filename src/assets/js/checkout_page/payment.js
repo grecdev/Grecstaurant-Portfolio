@@ -34,4 +34,19 @@ if(location.pathname.includes('checkout')) {
 
 		e.stopPropagation();
 	});
+	
+	// Format expiration date
+	ui.cardExpiration_input.addEventListener('keydown', (e) => {
+
+		ui.cardExpirationFormat(e);
+
+		e.stopPropagation();
+	});
+
+	ui.cardExpiration_input.addEventListener('paste', (e) => {
+
+		ui.cardExpirationFormat(e);
+
+		e.stopPropagation();
+	});
 }

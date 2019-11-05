@@ -74,7 +74,6 @@ class Ui {
 		this.cardCredit_radio_input = document.getElementById('credit-card');
 		this.cardPaypal_radio_input = document.getElementById('paypal-card');
 		this.cardNumber_input = document.getElementById('card-number');
-		this.cardName_input = document.getElementById('card-name');
 		this.cardExpiration_input = document.getElementById('expiration-date');
 		this.securityCode_input = document.getElementById('security-code');
 		// Days / Months
@@ -147,17 +146,18 @@ class Ui {
 			// 378395400251268
 			// 3783 954002 51268
 			amexpRegex: /^((?:37)|(?:34)){1}(\d){2}\s?(\d){6}\s?(\d){5}$/,
-			// 11 / 1111
-			expDate: /^(\d){2}\s?(\d){2,4}$/,
+			// 12 / 19
+			// 12 / 2019
+			expDate: /^(\d){2}\s{0,1}\/{0,1}\s{0,1}(\d{2}|\d{4})$/,
 			// 1234
 			// 123
-			securityCode: /^\d{3,4}$/,
+			// securityCode: //g,
 			// 40 / 41 / 45 / 49 => Visa
-			visaStart: /^4(0|1|5|9)?/,
+			visaStart: /^4(0|1|5|9)?$/,
 			// 51 - 55 / 22 / 27 => MasterCard
-			mastercardStart: /^((?:5)|(?:2){1,2})/,
+			mastercardStart: /^((?:5)|(?:2){1,2})$/,
 			// 37 / 34 => American Express
-			amexpStart: /^3(7|4){0,1}/
+			amexpStart: /^3(7|4){0,1}$/
 		}
 	}
 
@@ -1054,7 +1054,7 @@ class Ui {
 		// Disable shift
 		if(e.shiftKey) e.preventDefault();
 
-		if(e.which >= 48 && e.which <= 57 || e.which >= 96 && e.which <= 105 || e.which === 189 || e.which === 187 || e.which === 8 || e.which === 32 || e.which === 17 || e.which === 107 || e.which === 109 || e.ctrlKey || e.which === 190 || e.which === 110 || e.which >= 37 && e.which <= 40 || e.which === 9 || e.which === 123 || e.which === 116) return true
+		if(e.which >= 48 && e.which <= 57 || e.which >= 96 && e.which <= 105 || e.which === 189 || e.which === 187 || e.which === 8 || e.which === 32 || e.which === 17 || e.which === 107 || e.which === 109 || e.ctrlKey || e.which === 190 || e.which === 110 || e.which >= 37 && e.which <= 40 || e.which === 9 || e.which === 123 || e.which === 116 || e.which === 191) return true
 		else e.preventDefault()
 	}
 
@@ -1093,6 +1093,7 @@ class Ui {
 		// For (e.type === 'paste') => I use timeout becuase we need to get the value when we paste. If we don't use setTimeout() we need to paste 2 times to get the value;
 		setTimeout(() => {
 			let regexRange;
+			const formatArray = [];
 
 			// Set range for individual card
 			if(this.cardRegex.visaStart.test(e.target.value)) regexRange = /\d{0,19}/g;
@@ -1102,10 +1103,8 @@ class Ui {
 			const defaultString = e.target.value.replace(/\s+/g, '');
  
 			// Match the string without spaces
-			// If we dont use this it will go over 23 characters
+			// If we dont use this it will go over 23 / 19 / 16 / 15 characters, depends on the card type
 			let matchString = defaultString.match(regexRange)[0];
-			
-			const formatArray = [];
 
 			// Push pieces of card number into the array and then format into  a string
 			// For Visa and MasterCard
@@ -1117,7 +1116,7 @@ class Ui {
 			// American Express
 			// Format: 3214 123456 12345
 			if(this.cardRegex.amexpStart.test(e.target.value)) {
-				
+
 				for(let a = 0; a < matchString.length; a++) {
 					// First part of formating string: 3214
 					// Start at index 0, when reach index 4 substract the string with 4 numbers and push it to the array
@@ -1134,7 +1133,45 @@ class Ui {
 			}
 
 			// Disable: Backspace / Numbers / Tab
-			// Because when we want to delete / add a number it goes to the end of the input
+			// Because when we want to delete / add a number or move backwards / forwards with arrows it goes to the end of the input
+			if((this.cardRegex.visaStart.test(e.target.value) || this.cardRegex.mastercardStart.test(e.target.value) || this.cardRegex.amexpStart.test(e.target.value)) && (e.which !== 8 && e.which !== 37 && e.which !== 39)) {
+				e.target.value = formatArray.join(" ");
+				e.target.removeAttribute('maxlength');
+			}
+
+			// Don't type to many numbers if is not a card number
+			if(!this.cardRegex.visaStart.test(e.target.value) && !this.cardRegex.mastercardStart.test(e.target.value) && !this.cardRegex.amexpStart.test(e.target.value)) e.target.maxLength = 10;
+			
+		}, 5);
+	}
+
+	cardExpirationFormat(e) {
+		// For (e.type === 'paste') => I use timeout becuase we need to get the value when we paste. If we don't use setTimeout() we need to paste 2 times to get the value;
+		setTimeout(() => {
+
+			const regex = /^[\d\/]{0,7}$/g;
+
+			const defaultString = e.target.value.replace(/\s+/g, '');
+
+			const formatArray = [];
+
+			// Match the string without spaces
+			// If we dont use this it will go over 9 characters
+			let matchString = defaultString.match(regex)[0];
+			
+			for(let a = 0; a < matchString.length; a++) {
+				// Start from index 0, get the first 2 numbers
+				if(a === 0) formatArray.push(matchString.substring(a, a + 2));
+
+				// After typing 2 numbers add a Slash character
+				if(a === 1) formatArray.push('/');
+
+				// After adding the slash get the last 4 numbers (if we type MM / YYYY, we can get MM / YY aswell)
+				if(a === 3) formatArray.push(matchString.substring(a, matchString.length));
+			}
+
+			// Disable: Backspace / Numbers / Tab
+			// Because when we want to delete / add a number or move backwards / forwards with arrows it goes to the end of the input
 			if(e.which !== 8 && e.which !== 37 && e.which !== 39) e.target.value = formatArray.join(" ");
 
 		}, 5);
