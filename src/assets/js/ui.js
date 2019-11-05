@@ -138,18 +138,26 @@ class Ui {
 		};
 		// Card Credentials Format
 		this.cardRegex = {
+			// 4485954100916356
+			// 4485 9541 0091 6356
 			visaRegex: /^(?:4)(\d){3}\s?(\d){4}\s?(\d){4}\s?(\d){4}\s?((?:\d){3})?$/,
+			// 5485978684438047
+			// 5485 9786 8443 8047
 			mastercardRegex: /^(?:2|5)(\d){3}\s?(\d){4}\s?(\d){4}\s?(\d){4}\s?((?:\d){3})?$/,
-			amexpRegex: /^(?:3)(\d){3}\s?(\d){6}\s?(\d){5}$/,
+			// 378395400251268
+			// 3783 954002 51268
+			amexpRegex: /^((?:37)|(?:34)){1}(\d){2}\s?(\d){6}\s?(\d){5}$/,
+			// 11 / 1111
 			expDate: /^(\d){2}\s?(\d){2,4}$/,
+			// 1234
+			// 123
 			securityCode: /^\d{3,4}$/,
-			// Card type (For UI)
 			// 40 / 41 / 45 / 49 => Visa
-			// 51 - 55 / 22 / 27 => MasterCard
-			// 37 / 34 => American Express
 			visaStart: /^4(0|1|5|9)?/,
+			// 51 - 55 / 22 / 27 => MasterCard
 			mastercardStart: /^((?:5)|(?:2){1,2})/,
-			amexpStart: /^((?:37){1}|(?:34){1})/
+			// 37 / 34 => American Express
+			amexpStart: /^3(7|4){0,1}/
 		}
 	}
 
@@ -1046,7 +1054,7 @@ class Ui {
 		// Disable shift
 		if(e.shiftKey) e.preventDefault();
 
-		if(e.which >= 48 && e.which <= 57 || e.which >= 96 && e.which <= 105 || e.which === 189 || e.which === 187 || e.which === 8 || e.which === 32 || e.which === 17 || e.which === 107 || e.which === 109 || e.ctrlKey || e.which === 190 || e.which === 110 || e.which >= 37 && e.which <= 40 || e.which === 9) return true
+		if(e.which >= 48 && e.which <= 57 || e.which >= 96 && e.which <= 105 || e.which === 189 || e.which === 187 || e.which === 8 || e.which === 32 || e.which === 17 || e.which === 107 || e.which === 109 || e.ctrlKey || e.which === 190 || e.which === 110 || e.which >= 37 && e.which <= 40 || e.which === 9 || e.which === 123 || e.which === 116) return true
 		else e.preventDefault()
 	}
 
@@ -1082,94 +1090,53 @@ class Ui {
 
 	// Format card when typing and paste in input
 	cardFormat(e) {
-		// For (e.type === 'keydown') => I use timeout becuase when i delete and add another number it goes to the end of the string (becuase of e.target.value += space)
 		// For (e.type === 'paste') => I use timeout becuase we need to get the value when we paste. If we don't use setTimeout() we need to paste 2 times to get the value;
 		setTimeout(() => {
-			let space = ' ';
+			let regexRange;
+
+			// Set range for individual card
+			if(this.cardRegex.visaStart.test(e.target.value)) regexRange = /\d{0,19}/g;
+			if(this.cardRegex.mastercardStart.test(e.target.value)) regexRange = /\d{0,16}/g;
+			if(this.cardRegex.amexpStart.test(e.target.value)) regexRange = /\d{0,15}/g
+
+			const defaultString = e.target.value.replace(/\s+/g, '');
+ 
+			// Match the string without spaces
+			// If we dont use this it will go over 23 characters
+			let matchString = defaultString.match(regexRange)[0];
 			
-			// Typing
-			if(e.type === 'keydown') {
-					// Don't format if is not a valid card number
-				if(!this.cardRegex.visaStart.test(e.target.value) && !this.cardRegex.mastercardStart.test(e.target.value) && !this.cardRegex.amexpStart.test(e.target.value)) e.target.maxLength = 4;
-	
-				// Visa
-				// Format: 4321 1234 1234 1234 / 4321 1234 1234 1234 123
-				// Add spaces at every 4 characters
-				if(this.cardRegex.visaStart.test(e.target.value) && e.which !== 8) {
-					// Prevent adding more card numbers
-					e.target.maxLength = 23;
-	
-					if(e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14 || e.target.value.length === 19) e.target.value += space;
-				}
-	
-				// MasterCard
-				// Format: 5321 6549 9057 2898
-				// Add spaces at every 4 characters
-				if(this.cardRegex.mastercardStart.test(e.target.value) && e.which !== 8) {
-					// Prevent adding more card numbers
-					e.target.maxLength = 19;
-	
-					if(e.target.value.length === 4 || e.target.value.length === 9 || e.target.value.length === 14) e.target.value += space;
-				}
-	
-				// For American Express
-				// Format: 3743 419475 34240
-				if(this.cardRegex.amexpStart.test(e.target.value) && e.which !== 8) {
-					// Prevent adding more card numbers
-					e.target.maxLength = 17;
-	
-					if(e.target.value.length === 4 || e.target.value.length === 11) e.target.value += ' ';
-				}
-	
-				// Reset the max length
-				if(e.target.value === '') e.target.removeAttribute('maxlength');
+			const formatArray = [];
+
+			// Push pieces of card number into the array and then format into  a string
+			// For Visa and MasterCard
+			if(this.cardRegex.visaStart.test(e.target.value) || this.cardRegex.mastercardStart.test(e.target.value)) {
+				// Start from index 0, at each fourth index substract the string with 4 numbers and push it to the array
+				for(let a = 0; a < matchString.length; a += 4) formatArray.push(matchString.substring(a, a + 4));
 			}
-			
-			// Copy
-			if(e.type === 'paste') {
-	
-				let regexRange;
+
+			// American Express
+			// Format: 3214 123456 12345
+			if(this.cardRegex.amexpStart.test(e.target.value)) {
 				
-				// Set range for individual card
-				if(this.cardRegex.visaStart.test(e.target.value)) regexRange = /\d{16,19}/g;
-				if(this.cardRegex.mastercardStart.test(e.target.value)) regexRange = /\d{16}/g;
-				if(this.cardRegex.amexpStart.test(e.target.value)) regexRange = /\d+/g;
-	
-				// Get the string without spaces
-				const defaultString = e.target.value.replace(/\s+/g, '');
-	
-				// Match the string without spaces
-				// If we dont use this it will go over 23 characters
-				let matchString = defaultString.match(regexRange)[0];
-				
-				const formatArray = [];
-	
-				// Push pieces of card number into the array and then format into  a string
-				// For Visa and MasterCard
-				if(this.cardRegex.visaStart.test(e.target.value) || this.cardRegex.mastercardStart.test(e.target.value)) {
-					// Start from index 0, at each fourth index substract the string with 4 numbers and push it to the array
-					for(let a = 0; a < matchString.length; a += 4) formatArray.push(matchString.substring(a, a + 4));
-				}
-	
-				// American Express
-				// Format: 3214 123456 12345
-				if(this.cardRegex.amexpStart.test(e.target.value)) {
+				for(let a = 0; a < matchString.length; a++) {
 					// First part of formating string: 3214
 					// Start at index 0, when reach index 4 substract the string with 4 numbers and push it to the array
-					for(let a = 0; a < matchString.length; a++) if(a === 4) formatArray.push(matchString.substring(0, a))
-	
+					if(a === 0) formatArray.push(matchString.substring(a, a + 4));
+
 					// Second part of formating string: 123456
-					// Start at index 4, when reach index 4 substract the string with 6 numbers and push it to the array
-					for(let a = 4; a < matchString.length; a++) if(a === 4) formatArray.push(matchString.substring(a, a + 6))
-	
-					// Third part of formating string: 12345
-					// Start at index 10, when reach index 10 substract the string with 5 numbers and push it to the array
-					for(let a = 10; a < matchString.length; a++) if(a === 10) formatArray.push(matchString.substring(a, a + 5))
+					// When reach index 4 substract the string with 6 numbers and push it to the array
+					if(a === 4) formatArray.push(matchString.substring(a, a + 6))
+
+					// Third part of formating str ing: 12345
+					// When reach index 10 substract the string with 5 numbers and push it to the array
+					if(a === 10) formatArray.push(matchString.substring(a, matchString.length))
 				}
-	
-				// Set the input value
-				e.target.value = formatArray.join(" ");
 			}
+
+			// Disable: Backspace / Numbers / Tab
+			// Because when we want to delete / add a number it goes to the end of the input
+			if(e.which !== 8 && e.which !== 37 && e.which !== 39) e.target.value = formatArray.join(" ");
+
 		}, 5);
 	}
 }
