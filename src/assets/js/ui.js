@@ -30,6 +30,11 @@ class Ui {
 		this.paymentPaypal_box = document.querySelector('.payment-paypal .payment-box');
 		this.shipping_form = document.querySelector('form[name="shipping-form"]');
 		this.payment_form = document.querySelector('form[name="payment-form"]');
+		this.formSwitchContainer = document.querySelector('.form-switch-container');
+		this.shippingContainer = document.querySelector('.shipping-container');
+		this.paymentContainer = document.querySelector('.payment-container');
+		this.email_preview = document.querySelector('.email-preview');
+		this.address_preview = document.querySelector('.address-preview');
 		///////////// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
@@ -55,6 +60,7 @@ class Ui {
 		this.reset_date_btn = document.getElementById('reset-date');
 		this.menu_categories = document.querySelector('.menu-categories');
 		this.removeItem_btn = document.querySelector('.remove-item');
+		this.shippingReturn_btn = document.querySelector('.shipping-return');
 		// Inputs
 		this.phone_input = document.querySelector('.phone-number');
 		this.date_input = document.getElementById('full-date');
@@ -151,13 +157,13 @@ class Ui {
 			expDate: /^(\d){2}\s{0,1}\/{0,1}\s{0,1}(\d{2}|\d{4})$/,
 			// 1234
 			// 123
-			securityCode: /^\d{3,4}$/g,
+			securityCode: /^\d{3,4}/,
 			// 40 / 41 / 45 / 49 => Visa
-			visaStart: /^4(0|1|5|9)?$/,
+			visaStart: /^4(0|1|5|9)?/,
 			// 51 - 55 / 22 / 27 => MasterCard
-			mastercardStart: /^((?:5)|(?:2){1,2})$/,
+			mastercardStart: /^((?:5)|(?:2){1,2})/,
 			// 37 / 34 => American Express
-			amexpStart: /^3(7|4){0,1}$/
+			amexpStart: /^3(7|4){0,1}/
 		}
 	}
 
@@ -485,7 +491,7 @@ class Ui {
 
 			if(e.target === this.address_input) {
 				// Error
-				if(!globalRegex.addressRegex.test(this.address_input.value)) this.alert('Invalid Address, please type again.', 'error', 'address', false, e.target);
+				if(this.address_input.value.length < 3) this.alert('Invalid Address, please type again.', 'error', 'address', false, e.target);
 				// Success
 				else this.alert(null, 'success', null, false, e.target);
 				// Empty input
@@ -552,15 +558,18 @@ class Ui {
 				});
 				
 				// Succes validation for shipping form
-				if(globalRegex.letterRegex.test(this.address_input.value) && globalRegex.letterRegex.test(this.city_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && globalRegex.postalCodeRegex.test(this.postalCode_input.value)) {
+				if(this.address_input.value.length >= 3 && globalRegex.letterRegex.test(this.city_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && globalRegex.postalCodeRegex.test(this.postalCode_input.value)) {
 
-					fieldBox.forEach(box => Array.from(box.children).forEach(children => children.value = ''));
+					// fieldBox.forEach(box => Array.from(box.children).forEach(children => children.value = ''));
 
 					// Submit the form
 					submit = true;
+					
 				}
-
+				
 				console.log(submit);
+				// So we can check for submit
+				this.checkoutFormAnimation(e, submit);
 				return submit
 			}
 
@@ -610,7 +619,6 @@ class Ui {
 
 		// Reservation page
 		if(location.pathname.includes('reservation')) {
-			
 
 			if(e.target === this.form) {
 				
@@ -1134,7 +1142,7 @@ class Ui {
 
 			// Disable: Backspace / Numbers / Tab
 			// Because when we want to delete / add a number or move backwards / forwards with arrows it goes to the end of the input
-			if((this.cardRegex.visaStart.test(e.target.value) || this.cardRegex.mastercardStart.test(e.target.value) || this.cardRegex.amexpStart.test(e.target.value)) && (e.which !== 8 && e.which !== 37 && e.which !== 39)) {
+			if((this.cardRegex.visaStart.test(e.target.value) || this.cardRegex.mastercardStart.test(e.target.value) || this.cardRegex.amexpStart.test(e.target.value)) && (e.which !== 8 && e.which !== 37 && e.which !== 39 && e.which !== 9)) {
 				e.target.value = formatArray.join(" ");
 				e.target.removeAttribute('maxlength');
 			}
@@ -1175,6 +1183,41 @@ class Ui {
 			if(e.which !== 8 && e.which !== 37 && e.which !== 39) e.target.value = formatArray.join(" ");
 
 		}, 5);
+	}
+
+	// Switch between forms
+	checkoutFormAnimation(e, submit) {
+
+		if(e.type === 'DOMContentLoaded') {
+			// I use Array.from method because .children return HTML collection, and forEach works only on arrays / array like objects.
+			Array.from(this.formSwitchContainer.children).forEach((form, index) => {
+	
+				// Set the position
+				const position = 850 * index;
+	
+				form.style.transform = `translateX(${position}px)`;
+	
+			});
+		}
+		
+		if(e.type === 'submit' && submit === true) {
+			if(e.target === this.shipping_form) {
+				// Show payment form / Hide shipping form
+				this.shippingContainer.classList.add('form-left');
+				this.paymentContainer.classList.add('form-reset');
+
+				// Display the info in the payment form
+				this.email_preview.textContent = this.email_input.value;
+				this.address_preview.textContent = this.address_input.value;
+			}
+		}
+
+		if(e.currentTarget === this.shippingReturn_btn) {
+			// Show payment form / Hide shipping form
+			this.shippingContainer.classList.remove('form-left');
+			this.paymentContainer.classList.remove('form-reset');
+		}
+
 	}
 }
 

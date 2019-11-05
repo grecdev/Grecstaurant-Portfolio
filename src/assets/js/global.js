@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
 		ui.populateCart();
 	}
 
+	// For checkout page only
+	if(location.pathname.includes('checkout')) ui.checkoutFormAnimation(e, null);
+
 	e.stopPropagation();
 });
 

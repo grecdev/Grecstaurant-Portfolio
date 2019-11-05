@@ -12,198 +12,201 @@
 
 	<!-- Checkout -->
 	<section id="checkout">
-			<!-- Shipping address form -->
-			<div class="shipping-container">
-				<h3 class="heading-title heading-xs mb-md text-center">Shipping Address</h3>
-
-				<form name="shipping-form" class="p-1">
-
-					<div class="field-box firstName-error lastName-error">
-						<input autocomplete="off" type="text" placeholder="First Name" class="input-field firstName-input" name="first-name">
-						<input autocomplete="off" type="text" placeholder="Last Name" class="input-field lastName-input" name="last-name">
-					</div>
-					
-					<div class="field-box email-error">
-						<input autocomplete="off" type="text" placeholder="Email" class="input-field email-input" name="email">
-					</div>
-
-					<div class="field-box address-error">
-						<input autocomplete="off" type="text" placeholder="Address" class="input-field address-input" name="address">
-					</div>
-
-					<div class="field-box city-error">
-						<input autocomplete="off" type="text" placeholder="City" class="input-field city-input" name="city">
-					</div>
-
-					<div class="select-box postalCode-error">
-						<div class="field-box">
-							<select name="country/region" id="countryRegion" class="input-field">
-								<option disabled selected value="">Region / Country</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-							</select>
+		<div class="form-switch-container">
+				<!-- Shipping address form -->
+				<div class="shipping-container">
+					<h3 class="heading-title heading-xs mb-md text-center">Shipping Address</h3>
 	
-							<div class="input-icon"><i class="fas fa-caret-down"></i></div>
-						</div>
-
-						<div class="field-box">
-							<select name="country" id="country" class="input-field">
-								<option disabled selected value="">Country</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-								<option value="Romania">Romania</option>
-							</select>
+					<form name="shipping-form" class="p-1">
 	
-							<div class="input-icon"><i class="fas fa-caret-down"></i></div>
+						<div class="field-box firstName-error lastName-error">
+							<input autocomplete="off" type="text" placeholder="First Name" class="input-field firstName-input" name="first-name">
+							<input autocomplete="off" type="text" placeholder="Last Name" class="input-field lastName-input" name="last-name">
 						</div>
-
-						<div class="field-box">
-							<input autocomplete="off" id="postal-code" type="text" name="postal-code" placeholder="Postal Code" class="input-field letter-disabled">
+						
+						<div class="field-box email-error">
+							<input autocomplete="off" type="text" placeholder="Email" class="input-field email-input" name="email">
 						</div>
-					</div>
-					
-					<div class="field-box number-error">
-						<input autocomplete="off" type="text" name="phone-number" class="input-field phone-number letter-disabled" placeholder="Phone Number">
-					</div>
-
-					<div class="order-row">
-						<a href="menu.html" class="btn btn-red"><i class="fas fa-cart-plus"></i> Go back to menu</a>
-						<button class="btn btn-red" type="submit">Continue to Shipping <i class="fas fa-angle-right"></i></button>
-					</div>
-				</form>
-			</div>
-			<!-- shipping address form -->
-
-			<!-- Payment form -->
-			<div class="payment-container">
-
-				<div class="payment-header mb-sm">
-					<h3 class="heading-title heading-xs mb-md">Payment</h3>
-					<p class="description">All transactions are secure and encrypted.</p>
-				</div>
-
-				<div class="contact-review mb-md">
-					<div class="contact-box mb-sm p-1">
-						<p>Contact</p>
-
-						<p class="email-preview">grecdev1@gmail.com</p>
-					</div>
-
-					<div class="contact-box mb-sm p-1">
-						<p>Ship to</p>
-
-						<p class="address-preview text-right">Bucuresti romania soseaua salaj, 123123123131 Bucuresti B, Romania</p>
-					</div>
-
-					<div class="contact-box mb-sm p-1">
-						<p>Method</p>
-
-						<p class="shipping-method">Free Insured Shipping &amp; Handling | <span>Free</span></p>
-					</div>
-				</div>
-
-				<form name="payment-form">
-
-					<div class="payment-card">
-
-						<div class="payment-header p-1">
-
-							<div class="payment-header-group">
-								<input type="radio" class="radio-disabled" id="credit-card" name="payment-method" value="credit-card" checked>
-
-								<div class="radio-custom-checked"></div>
-
-								<label for="credit-card">Credit Card</label>
+	
+						<div class="field-box address-error">
+							<input autocomplete="off" type="text" placeholder="Address" class="input-field address-input" name="address">
+						</div>
+	
+						<div class="field-box city-error">
+							<input autocomplete="off" type="text" placeholder="City" class="input-field city-input" name="city">
+						</div>
+	
+						<div class="select-box postalCode-error">
+							<div class="field-box">
+								<select name="country/region" id="countryRegion" class="input-field">
+									<option disabled selected value="">Region / Country</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+								</select>
+		
+								<div class="input-icon"><i class="fas fa-caret-down"></i></div>
 							</div>
-
-							<div class="payment-header-group">
-								<span class="visa-logo"></span>
-								<span class="master-logo"></span>
-								<span class="amex-logo"></span>
-							</div>
-
-						</div>
-
-						<div class="payment-box p-1">
-
-							<div class="field-box cardNumber-error mb-sm">
-								<div class="card-number-box">
-									<input type="text" placeholder="Card Number" id="card-number" class="letter-disabled input-field" name="card-number">
 	
-									<div class="input-icon" title="All transactions are secure and encrypted."><i class="fas fa-lock"></i></div>
+							<div class="field-box">
+								<select name="country" id="country" class="input-field">
+									<option disabled selected value="">Country</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+									<option value="Romania">Romania</option>
+								</select>
+		
+								<div class="input-icon"><i class="fas fa-caret-down"></i></div>
+							</div>
+	
+							<div class="field-box">
+								<input autocomplete="off" id="postal-code" type="text" name="postal-code" placeholder="Postal Code" class="input-field letter-disabled">
+							</div>
+						</div>
+						
+						<div class="field-box number-error">
+							<input autocomplete="off" type="text" name="phone-number" class="input-field phone-number letter-disabled" placeholder="Phone Number">
+						</div>
+	
+						<div class="order-row">
+							<a href="menu.html" class="btn btn-red"><i class="fas fa-cart-plus"></i> Go back to menu</a>
+							<button class="btn btn-red" type="submit">Continue to Shipping <i class="fas fa-angle-right"></i></button>
+						</div>
+					</form>
+				</div>
+				<!-- shipping address form -->
+	
+				<!-- Payment form -->
+				<div class="payment-container">
+	
+					<div class="payment-header mb-sm">
+						<h3 class="heading-title heading-xs mb-md">Payment</h3>
+						<p class="description">All transactions are secure and encrypted.</p>
+					</div>
+	
+					<div class="contact-review mb-md">
+						<div class="contact-box mb-sm p-1">
+							<p>Contact</p>
+	
+							<p class="email-preview">grecdev1@gmail.com</p>
+						</div>
+	
+						<div class="contact-box mb-sm p-1">
+							<p>Ship to</p>
+	
+							<p class="address-preview text-right">Bucuresti romania soseaua salaj, 123123123131 Bucuresti B, Romania</p>
+						</div>
+	
+						<div class="contact-box mb-sm p-1">
+							<p>Method</p>
+	
+							<p class="shipping-method">Free Insured Shipping &amp; Handling | <span>Free</span></p>
+						</div>
+					</div>
+	
+					<form name="payment-form">
+	
+						<div class="payment-card">
+	
+							<div class="payment-header p-1">
+	
+								<div class="payment-header-group">
+									<input type="radio" class="radio-disabled" id="credit-card" name="payment-method" value="credit-card" checked>
+	
+									<div class="radio-custom-checked"></div>
+	
+									<label for="credit-card">Credit Card</label>
 								</div>
+	
+								<div class="payment-header-group">
+									<span class="visa-logo"></span>
+									<span class="master-logo"></span>
+									<span class="amex-logo"></span>
+								</div>
+	
 							</div>
-
-							<div class="field-box fullName-error mb-sm">
-								<input type="text" placeholder="Name on card" name="card-name" id="card-name" class="input-field fullName">
-							</div>
-
-							<div class="field-box expirationDate-error securityCode-error">
-								<input type="text" placeholder="Expiration date (MM / YY)" name="expiration-date" id="expiration-date" maxlength="9" class="input-field mb-sm letter-disabled">
-
-								<div class="security-code-box">
-									<input type="text" placeholder="Security Code" name="security-code" id="security-code" maxlength="4" class="input-field letter-disabled">
-
-									<div class="security-code-icon"><i class="fas fa-question-circle"></i></div>
-
-									<div class="security-code-popup text-center">
-										<p>3-digit security code usually found on the back of your card. American Express cards have a 4-digit code located on the front.</p>
+	
+							<div class="payment-box p-1">
+	
+								<div class="field-box cardNumber-error mb-sm">
+									<div class="card-number-box">
+										<input type="text" placeholder="Card Number" id="card-number" class="letter-disabled input-field" name="card-number">
+		
+										<div class="input-icon" title="All transactions are secure and encrypted."><i class="fas fa-lock"></i></div>
 									</div>
 								</div>
+	
+								<div class="field-box fullName-error mb-sm">
+									<input type="text" placeholder="Name on card" name="card-name" id="card-name" class="input-field fullName">
+								</div>
+	
+								<div class="field-box expirationDate-error securityCode-error">
+									<input type="text" placeholder="Expiration date (MM / YY)" name="expiration-date" id="expiration-date" maxlength="9" class="input-field mb-sm letter-disabled">
+	
+									<div class="security-code-box">
+										<input type="text" placeholder="Security Code" name="security-code" id="security-code" maxlength="4" class="input-field letter-disabled">
+	
+										<div class="security-code-icon"><i class="fas fa-question-circle"></i></div>
+	
+										<div class="security-code-popup text-center">
+											<p>3-digit security code usually found on the back of your card. American Express cards have a 4-digit code located on the front.</p>
+										</div>
+									</div>
+								</div>
+	
 							</div>
-
+	
 						</div>
-
-					</div>
-
-					<div class="payment-paypal mb-lg">
-
-						<div class="payment-header p-1">
-
-							<div class="payment-header-group">
-								<input type="radio" id="paypal-card" class="radio-disabled" name="payment-method" value="paypal-card">
-
-								<div class="radio-custom-disabled"></div>
-
-								<label for="paypal-card"><img src="./assets/imgs/paypal-logo.png" alt="paypal-logo"></label>
+	
+						<div class="payment-paypal mb-lg">
+	
+							<div class="payment-header p-1">
+	
+								<div class="payment-header-group">
+									<input type="radio" id="paypal-card" class="radio-disabled" name="payment-method" value="paypal-card">
+	
+									<div class="radio-custom-disabled"></div>
+	
+									<label for="paypal-card"><img src="./assets/imgs/paypal-logo.png" alt="paypal-logo"></label>
+								</div>
+	
 							</div>
-
+	
+							<div class="payment-box">
+								<img src="assets/imgs/redirect-paypal.svg" alt="redirect-paypal">
+								<p class="text-center">
+									After clicking “Complete order”, you will be redirected to PayPal to complete your purchase securely.
+								</p>
+							</div>
+	
 						</div>
-
-						<div class="payment-box">
-							<img src="assets/imgs/redirect-paypal.svg" alt="redirect-paypal">
-							<p class="text-center">
-								After clicking “Complete order”, you will be redirected to PayPal to complete your purchase securely.
-							</p>
+						
+						<div class="order-row p-1">
+							<a class="shipping-return" role="button"><i class="fas fa-chevron-left"></i> Return to shipping</a>
+	
+							<button class="btn btn-green" type="submit">Complete Order</button>
 						</div>
+					</form>
+				</div>
+				<!-- Payment form -->
 
-					</div>
-					
-					<div class="order-row p-1">
-						<a class="shipping-return" role="button"><i class="fas fa-chevron-left"></i> Return to shipping</a>
-
-						<button class="btn btn-green" type="submit">Complete Order</button>
-					</div>
-				</form>
 			</div>
-			<!-- Payment form -->
 
 			<!-- Order preview -->
 			<div class="order-preview">

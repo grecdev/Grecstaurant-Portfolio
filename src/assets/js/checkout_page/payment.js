@@ -15,9 +15,18 @@ if(location.pathname.includes('checkout')) {
 		form.addEventListener('submit', (e) => {
 			ui.regexValidation(e);
 
+			ui.checkoutFormAnimation(e, null);
+
 			e.preventDefault();
 			e.stopPropagation();
 		});
+	});
+
+	ui.shippingReturn_btn.addEventListener('click', (e) => {
+
+		ui.checkoutFormAnimation(e, null);
+
+		e.stopPropagation();
 	});
 
 	// Format card
@@ -34,12 +43,11 @@ if(location.pathname.includes('checkout')) {
 
 		e.stopPropagation();
 	});
-	
-	// Format expiration date
+
 	ui.cardExpiration_input.addEventListener('keydown', (e) => {
 
 		ui.cardExpirationFormat(e);
-
+	
 		e.stopPropagation();
 	});
 
