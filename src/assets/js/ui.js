@@ -151,7 +151,7 @@ class Ui {
 			expDate: /^(\d){2}\s{0,1}\/{0,1}\s{0,1}(\d{2}|\d{4})$/,
 			// 1234
 			// 123
-			// securityCode: //g,
+			securityCode: /^\d{3,4}$/g,
 			// 40 / 41 / 45 / 49 => Visa
 			visaStart: /^4(0|1|5|9)?$/,
 			// 51 - 55 / 22 / 27 => MasterCard
