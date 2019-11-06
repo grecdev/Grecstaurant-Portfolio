@@ -77,7 +77,6 @@ class Ui {
 		this.city_input = document.querySelector('.city-input');
 		this.postalCode_input = document.getElementById('postal-code');
 		this.countryRegion_input = document.getElementById('countryRegion');
-		this.country_input = document.getElementById('country');
 		this.letterDisabled_input = document.querySelectorAll('.letter-disabled');
 		this.cardCredit_radio_input = document.getElementById('credit-card');
 		this.cardPaypal_radio_input = document.getElementById('paypal-card');
@@ -560,7 +559,7 @@ class Ui {
 				});
 				
 				// Succes validation for shipping form
-				if(this.address_input.value.length >= 3 && globalRegex.letterRegex.test(this.city_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && globalRegex.postalCodeRegex.test(this.postalCode_input.value)) {
+				if(this.address_input.value.length >= 3 && globalRegex.letterRegex.test(this.city_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.countryRegion_input.value.length > 0 && globalRegex.postalCodeRegex.test(this.postalCode_input.value)) {
 
 					// Submit the form
 					submit = true;

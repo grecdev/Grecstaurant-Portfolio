@@ -4,7 +4,7 @@
 // M + V + C
 
 import { ui } from '../ui.js';
-import { http } from '../http/http.js';
+import { http } from '../http.js';
 
 if(location.pathname.includes('menu')) {
 

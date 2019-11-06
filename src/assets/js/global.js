@@ -2,7 +2,7 @@
 // Global functionality
 
 import { ui } from './ui.js';
-import { http } from './http/http.js';
+import { http } from './http.js';
 
 // Get the current date
 const current = {
@@ -86,7 +86,7 @@ if(document.body.contains(document.querySelector('input[type="file"]'))) {
 	});
 }
 
-// On location page we have 2 forms
+// On checkout page we have 2 forms, and on the checkout page indiviual script i added another listener for forms
 if(document.body.contains(document.querySelector('form')) && !location.pathname.includes('checkout')) {
 	ui.form.addEventListener('submit', (e) => {
 
