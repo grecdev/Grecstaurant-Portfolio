@@ -74,11 +74,14 @@
 					height: 25px;
 					display: block;
 					margin: 0 .3rem;
+					transition: filter 300ms ease-in-out, transform 500ms ease-in-out;
 				}
 
-				.visa-logo { background: url('../imgs/visa-logo.svg') no-repeat center/cover }
-				.master-logo { background: url('../imgs/masterCard-logo.svg') no-repeat center/cover }
-				.amex-logo { background: url('../imgs/amex-logo.svg') no-repeat center/cover }
+				.card-logo-disabled { filter: grayscale(100%) }
+				.card-logo-enabled {
+					transform: scale(1.1);
+					filter: none;
+				}
 			}
 		}
 

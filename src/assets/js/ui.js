@@ -1148,8 +1148,58 @@ class Ui {
 			}
 
 			// Don't type to many numbers if is not a card number
-			if(!this.cardRegex.visaStart.test(e.target.value) && !this.cardRegex.mastercardStart.test(e.target.value) && !this.cardRegex.amexpStart.test(e.target.value)) e.target.maxLength = 10;
-			
+			if(!this.cardRegex.visaStart.test(e.target.value) && !this.cardRegex.mastercardStart.test(e.target.value) && !this.cardRegex.amexpStart.test(e.target.value)) {
+				e.target.maxLength = 10;
+
+				// I use Array.from method because .children return HTML collection, and forEach works only on arrays / array like objects.
+				// Reset all the logos.
+				Array.from(document.querySelector('.card-images').children).forEach(logo => {
+					logo.classList.remove('card-logo-enabled')
+					logo.classList.remove('card-logo-disabled')
+				});
+			}
+
+			// Highlight the visa card logo
+			if(this.cardRegex.visaStart.test(e.target.value)) {
+
+				// I use Array.from method because .children return HTML collection, and forEach works only on arrays / array like objects.
+				// Disable all the logos.
+				Array.from(document.querySelector('.card-images').children).forEach(logo => {
+					logo.classList.remove('card-logo-enabled')
+					logo.classList.add('card-logo-disabled')
+				});
+				
+				// Enable the specfic logo
+				document.querySelector('.visa-logo').classList.add('card-logo-enabled');
+			}
+
+			// Highlight the mastercard logo
+			if(this.cardRegex.mastercardStart.test(e.target.value)) {
+
+				// I use Array.from method because .children return HTML collection, and forEach works only on arrays / array like objects.
+				// Disable all the logos.
+				Array.from(document.querySelector('.card-images').children).forEach(logo => {
+					logo.classList.remove('card-logo-enabled')
+					logo.classList.add('card-logo-disabled')
+				});
+				
+				// Enable the specfic logo
+				document.querySelector('.master-logo').classList.add('card-logo-enabled');
+			}
+
+			// Highlight the American Express card logo
+			if(this.cardRegex.amexpStart.test(e.target.value)) {
+
+				// I use Array.from method because .children return HTML collection, and forEach works only on arrays / array like objects.
+				// Disable all the logos.
+				Array.from(document.querySelector('.card-images').children).forEach(logo => {
+					logo.classList.remove('card-logo-enabled')
+					logo.classList.add('card-logo-disabled')
+				});
+				
+				// Enable the specfic logo
+				document.querySelector('.amex-logo').classList.add('card-logo-enabled');
+			}
 		}, 5);
 	}
 
@@ -1195,7 +1245,7 @@ class Ui {
 				// Set the position
 				const position = 850 * index;
 	
-				form.style.transform = `translateX(${position}px)`;
+				// form.style.transform = `translateX(${position}px)`;
 	
 			});
 		}
