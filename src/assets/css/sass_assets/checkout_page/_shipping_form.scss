@@ -1,7 +1,6 @@
 /** Shipping form **/
 #checkout .shipping-container {
 	@include flex(column, center, center);
-	display: none;
 	
 	.field-box {
 		@include flex(row, space-between, center);
@@ -13,7 +12,8 @@
 		input { width: 100% }
 	}
 
-	.field-box:first-child input { width: 48% }
+	.field-box:first-child input,
+	.select-box .field-box { width: 48% }
 
 	.field-box:nth-child(2), 
 	.field-box:nth-child(6) {
@@ -26,8 +26,7 @@
 		
 		.field-box {
 			margin: 0;
-			width: 32%;
-
+			
 			select { width: 100% }
 
 			.input-icon { right: 15px }

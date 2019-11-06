@@ -9,7 +9,6 @@
 	<script src="https://kit.fontawesome.com/ebf05ebe39.js" crossorigin="anonymous"></script>
 </head>
 <body class="body-padding-bottom">
-
 	<!-- Checkout -->
 	<section id="checkout">
 		<div class="form-switch-container">
@@ -32,45 +31,10 @@
 							<input autocomplete="off" type="text" placeholder="Address" class="input-field address-input" name="address">
 						</div>
 	
-						<div class="field-box city-error">
-							<input autocomplete="off" type="text" placeholder="City" class="input-field city-input" name="city">
-						</div>
-	
 						<div class="select-box postalCode-error">
 							<div class="field-box">
-								<select name="country/region" id="countryRegion" class="input-field">
-									<option disabled selected value="">Region / Country</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-								</select>
-		
-								<div class="input-icon"><i class="fas fa-caret-down"></i></div>
-							</div>
-	
-							<div class="field-box">
-								<select name="country" id="country" class="input-field">
-									<option disabled selected value="">Country</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-									<option value="Romania">Romania</option>
-								</select>
+								<!-- insert dynamically with JS-->
+								<select name="country/region" id="countryRegion" class="input-field"></select>
 		
 								<div class="input-icon"><i class="fas fa-caret-down"></i></div>
 							</div>
@@ -78,6 +42,10 @@
 							<div class="field-box">
 								<input autocomplete="off" id="postal-code" type="text" name="postal-code" placeholder="Postal Code" class="input-field letter-disabled">
 							</div>
+						</div>
+
+						<div class="field-box city-error">
+							<input autocomplete="off" type="text" placeholder="City" class="input-field city-input" name="city">
 						</div>
 						
 						<div class="field-box number-error">
@@ -210,14 +178,8 @@
 
 			<!-- Order preview -->
 			<div class="order-preview">
-				<div class="product-preview-list mb-md">
-
-					<div class="product-box mb-md">
-						<p class="product-name">HAM & BACON <span class="product-quantity">2</span></p>
-						<p class="product-price">40.50 $</p>
-					</div>
-
-				</div>
+				<!-- insert dynamically with JS -->
+				<div class="product-preview-list mb-md"></div>
 
 				<hr class="mb-md">
 

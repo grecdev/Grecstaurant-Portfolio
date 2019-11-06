@@ -35,6 +35,8 @@ class Ui {
 		this.paymentContainer = document.querySelector('.payment-container');
 		this.email_preview = document.querySelector('.email-preview');
 		this.address_preview = document.querySelector('.address-preview');
+		this.product_preview_list = document.querySelector('.product-preview-list');
+		this.product_preview_totalPrice = document.querySelector('.total-price');
 		///////////// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
@@ -560,14 +562,10 @@ class Ui {
 				// Succes validation for shipping form
 				if(this.address_input.value.length >= 3 && globalRegex.letterRegex.test(this.city_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.country_input.value.length > 0 && this.countryRegion_input.value.length > 0 && globalRegex.postalCodeRegex.test(this.postalCode_input.value)) {
 
-					// fieldBox.forEach(box => Array.from(box.children).forEach(children => children.value = ''));
-
 					// Submit the form
 					submit = true;
-					
 				}
-				
-				console.log(submit);
+
 				// So we can check for submit
 				this.checkoutFormAnimation(e, submit);
 				return submit
@@ -605,6 +603,7 @@ class Ui {
 					// Succes validation for payment form
 					if((this.cardRegex.visaRegex.test(this.cardNumber_input.value) || this.cardRegex.mastercardRegex.test(this.cardNumber_input.value) || this.cardRegex.amexpRegex.test(this.cardNumber_input.value)) && globalRegex.letterRegex.test(this.fullName_input.value) && this.cardRegex.securityCode.test(this.securityCode_input.value) && this.cardRegex.expDate.test(this.cardExpiration_input.value)) {
 
+						// Reset all inputs from both forms
 						inputs.forEach(inputs => inputs.value = '');
 
 						// Submit the form
@@ -612,7 +611,6 @@ class Ui {
 					}
 				}
 				
-				console.log(submit);
 				return submit;
 			}
 		}
@@ -721,7 +719,6 @@ class Ui {
 					submit =  true;
 				}
 
-				console.log(submit);
 				return submit;
 			}
 		}
@@ -955,7 +952,7 @@ class Ui {
 	}
 
 	changeQuantity(e) {
-		// // Get the input text acording to the " - " && " + " buttons
+		// Get the input text acording to the " - " && " + " buttons
 		const decrementQuantity = e.target.nextElementSibling;
 		const incrementQuantity = e.target.previousElementSibling;
 
@@ -1239,17 +1236,16 @@ class Ui {
 	checkoutFormAnimation(e, submit) {
 
 		if(e.type === 'DOMContentLoaded') {
-			// I use Array.from method because .children return HTML collection, and forEach works only on arrays / array like objects.
+			// I use Array.from() method because .children return HTML collection, and forEach works only on arrays / array like objects.
 			Array.from(this.formSwitchContainer.children).forEach((form, index) => {
-	
 				// Set the position
 				const position = 850 * index;
 	
-				// form.style.transform = `translateX(${position}px)`;
-	
+				form.style.transform = `translateX(${position}px)`;
 			});
 		}
 		
+		// Only if the form is submited (thats why i use submit parameter)
 		if(e.type === 'submit' && submit === true) {
 			if(e.target === this.shipping_form) {
 				// Show payment form / Hide shipping form
@@ -1267,7 +1263,42 @@ class Ui {
 			this.shippingContainer.classList.remove('form-left');
 			this.paymentContainer.classList.remove('form-reset');
 		}
+	}
 
+	// Populate order preview
+	populateOrderPreview() {
+		let html = '';
+		let total;
+	
+		// Get the data from local storage
+		const items = ls.getLocalStorage();
+
+		// Add the data to markup
+		items.forEach(item => {
+			html += `
+				<div class="product-box mb-md">
+					<p class="product-name">${item.name}<span class="product-quantity">${item.quantity}</span></p>
+					<p class="product-price">${item.price}</p>
+				</div>
+			`;
+		});
+
+		// Calculate total items
+		total = items.reduce((total, item) => total + parseFloat(item.totalPrice), 0);
+		// Add html to the DOM
+		this.product_preview_list.innerHTML = html;
+		// Add total price formated
+		this.product_preview_totalPrice.innerHTML = `${total.toFixed(2)} $`;
+	}
+
+	populateRegion(data) {
+		let htmlRegionCountry = '';
+
+		htmlRegionCountry += '<option disabled selected value="">Region / Country</option>';
+
+		data.forEach(country => htmlRegionCountry += `<option value="${country.name}">${country.name}</option>`);
+
+		this.countryRegion_input.innerHTML = htmlRegionCountry;
 	}
 }
 

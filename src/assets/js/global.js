@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	// For menu page only
 	if(location.pathname.includes('menu')) {
 		// Model + View + Controller
-		http.getMenuXhr()
+		http.getMenu_xhr()
 		// When we load show the pizza menu
 		.then(data => ui.populateMenu(data, 'pizza'))
 		.catch(err => console.log(err));
@@ -38,7 +38,16 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	}
 
 	// For checkout page only
-	if(location.pathname.includes('checkout')) ui.checkoutFormAnimation(e, null);
+	if(location.pathname.includes('checkout')) {
+		ui.checkoutFormAnimation(e, null);
+		ui.populateOrderPreview(e);
+		
+		http.getCountries_xhr()
+		.then(data => {
+			ui.populateRegion(data);
+		})
+		.catch(err => console.log(err));
+	}
 
 	e.stopPropagation();
 });

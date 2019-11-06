@@ -1,7 +1,6 @@
 #checkout {
 	@include flex(row, space-between, center);
 	position: relative;
-	
 
 	h2 { font-size: 2rem }
 
@@ -15,7 +14,6 @@
 
 	form {
 		width: 100%;
-		
 		
 		.order-row a {
 			transition: color 200ms ease-in-out;
@@ -35,9 +33,7 @@
 		border-radius: $border-radius-primary;
 	}
 
-	.form-switch-container {
-		height: 850px;
-	}
+	.form-switch-container { height: 850px }
 
 	.shipping-container,
 	.payment-container {
@@ -46,6 +42,8 @@
 		position: absolute;
 		transition: all 1s ease-in-out;
 	}
+
+	.shipping-container { top: 70px }
 }
 
 .form-left { transform: translateX(-850px) !important }

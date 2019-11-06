@@ -26,12 +26,12 @@
 
 	.product-preview-list {
 		overflow-y: auto;
-		max-height: 100px;
+		max-height: 150px;
 		padding: 1rem 0 0 1rem;
 
 		.product-box {
 			@include flex(row, space-between, flex-start);
-			width: 40%;
+			width: 55%;
 
 			.product-name {
 				font-weight: bold;
