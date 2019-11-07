@@ -9,7 +9,6 @@
 			width: 32%;
 			height: 300px;
 			background: darken($primary-dark, 10%);
-			padding: 1rem 0;
 			@include flex(column, space-around, center);
 			
 			.digit { font-size: 3rem }

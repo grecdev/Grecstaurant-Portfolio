@@ -10,7 +10,7 @@ header {
 
 	#desktop-header {
 		@include flex(row, center, center);
-		padding-left: 6rem;
+		padding-left: 3rem;
 
 		ul {
 			@include flex(row, center, center);

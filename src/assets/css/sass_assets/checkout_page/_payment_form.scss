@@ -3,7 +3,6 @@
 	align-self: stretch;
 		
 	.contact-review .contact-box {
-
 		@include flex(row, space-between, center);
 		font-size: .9rem;
 		border-bottom: 1px solid $primary-red;

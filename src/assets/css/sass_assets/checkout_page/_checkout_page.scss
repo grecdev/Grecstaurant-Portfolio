@@ -27,16 +27,14 @@
 		}
 	}
 
-	.contact-review,
-	form {
+	.contact-review, form {
 		border: 1px solid $primary-red;
 		border-radius: $border-radius-primary;
 	}
 
 	.form-switch-container { height: 850px }
 
-	.shipping-container,
-	.payment-container {
+	.shipping-container, .payment-container {
 		width: 60%;
 		padding: 2rem 5rem;
 		position: absolute;

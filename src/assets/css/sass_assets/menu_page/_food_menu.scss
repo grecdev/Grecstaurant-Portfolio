@@ -75,8 +75,7 @@
 		margin: 1rem 0;
 
 		.food-box-header { @include flex(row, space-between, center) }
-		
-		
+	
 		.food-box-description {
 			font-weight: 300;
 			font-size: .95rem;

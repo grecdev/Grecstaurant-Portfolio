@@ -2,12 +2,14 @@
 @import './sass_assets/utilities/variables';
 @import './sass_assets/utilities/mixins_extends';
 @import './sass_assets/utilities/utility';
+@import './sass_assets/utilities/utility_mobile';
 
 // Layout
 // Global
 @import './sass_assets/global/header';
 @import './sass_assets/global/footer';
 @import './sass_assets/global/preloader';
+@import './sass_assets/global/global_mobile';
 
 // INDEX PAGE
 @import './sass_assets/index_page/index_showcase';
@@ -15,15 +17,18 @@
 @import './sass_assets/index_page/reservation-index';
 @import './sass_assets/index_page/offer';
 @import './sass_assets/index_page/daily';
+@import './sass_assets/index_page/index_mobile';
 
 // ABOUT PAGE
 @import './sass_assets/about_page/about_showcase';
 @import './sass_assets/about_page/numbers';
 @import './sass_assets/about_page/who';
 @import './sass_assets/about_page/sneak';
+@import './sass_assets/about_page/about_mobile';
 
 // CONTACT PAGE
 @import './sass_assets/contact_page/contact';
+@import './sass_assets/contact_page/contact_mobile';
 
 // RESERVATION PAGE
 @import './sass_assets/reservation_page/reservation';
@@ -37,6 +42,7 @@
 // MENU PAGE
 @import './sass_assets/menu_page/food_menu';
 @import './sass_assets/menu_page/online_order';
+@import './sass_assets/menu_page/menu_mobile';
 
 // CHECKOUT PAGE
 @import './sass_assets/checkout_page/checkout_page';
