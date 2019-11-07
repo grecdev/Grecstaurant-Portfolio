@@ -1,0 +1,29 @@
+.preloader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: $primary-dark;
+	z-index: 100;
+	@include flex(column, center, center);
+	pointer-events: none;
+
+	.preloader-image {
+		/* I added the image as background for better quality */
+		background: url('../imgs/loading-pizza.gif') no-repeat center/cover;
+		width: 300px;
+		height: 300px;
+	}
+
+	p { font-size: 2rem }
+}
+
+.loader-hidden { animation: loader-hidden .7s ease-in-out forwards }
+
+@keyframes loader-hidden {
+	to {
+		opacity: 0;
+		visibility: hidden;
+	}
+}

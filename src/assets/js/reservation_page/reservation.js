@@ -9,13 +9,13 @@ const navigate = {
 	month: new Date().getMonth(),
 }
 
-// We check for reservation page becuase it gives errors in console and bugs the whole script
+// We check for reservation page because it gives errors in console and bugs the whole script
 if(location.pathname.includes('reservation')) {
 	ui.next_month_btn.addEventListener('click', (e) => {
 	
 		// Increment months
 		if(navigate.month < 11) navigate.month++
-		// Reset year + month
+		// Reset month and go to the next year
 		else if(navigate.month === 11) {
 			navigate.month = 0;
 			navigate.year++;
@@ -30,7 +30,7 @@ if(location.pathname.includes('reservation')) {
 	
 		// Decrement months
 		if(navigate.month >= 1) navigate.month--;
-		// Reset year + month
+		// // Reset month and go to the previous year
 		else if(navigate.month === 0) {
 			navigate.month = 11;
 			navigate.year--;
@@ -64,6 +64,4 @@ if(location.pathname.includes('reservation')) {
 	
 		e.stopPropagation();
 	});
-
-	
 }

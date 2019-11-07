@@ -1,19 +1,16 @@
 "use strict";
 
 // MODEL
-
 class Http {
-	constructor() {
-		this.xhr = new XMLHttpRequest();
-	}
+	constructor() { this.xhr = new XMLHttpRequest() }
 
 	// XHR method
 	getMenu_xhr() {
 		return new Promise((resolve, reject) => {
 			this.xhr.open('GET', 'https://grecdev.github.io/json-api/restaurant-foods.json', 'true');
 	
-			// If we use normal function we need to assign this. to a variable and then use it in the function
-			// Arrow function inherit this. value
+			// If we use normal function ( function() {} ) we need to assign this. keyword to a variable and then use it in the function
+			// Arrow function inherit this. keyword value
 			this.xhr.onload = () => {
 				const response = JSON.parse(this.xhr.responseText);
 	
@@ -32,8 +29,8 @@ class Http {
 	
 			this.xhr.open('GET', 'https://restcountries.eu/rest/v2/region/europe', true);
 	
-			// If we use normal function we need to assign this. to a variable and then use it in the function
-			// Arrow function inherit this. value
+			// If we use normal function ( function() {} ) we need to assign this. keyword to a variable and then use it in the function
+			// Arrow function inherit this. keyword value
 			this.xhr.onload = () => {
 				const response = JSON.parse(this.xhr.responseText);
 	
@@ -53,13 +50,7 @@ class Http {
 		return new Promise((resolve, reject) => {
 
 			fetch('https://grecdev.github.io/json-api/restaurant-foods.json')
-			.then(response => {
-				// Check for errors
-				// We could do => response.status >= 400.
-				if(!response.ok) throw Error(response.statusText)
-
-				return response.json();
-			})
+			.then(this.errorHandling_fetch)
 			.then(data => resolve(data))
 			.catch(err => reject(err));
 
@@ -70,15 +61,19 @@ class Http {
 		return new Promise((resolve, reject) => {
 	
 			fetch('https://restcountries.eu/rest/v2/region/europe')
-			.then(response => {
-				if(!response.ok) throw Error(response.statusText)
-
-				return response.json();
-			})
+			.then(this.errorHandling_fetch)
 			.then(data => resolve(data))
 			.catch(err => reject(err))
 	
 		});
+	}
+
+	// Error handling for fetch
+	// DRY
+	errorHandling_fetch(response) {
+		if(!response.ok) throw Error(response.statusText);
+
+		return response.json();
 	}
 
 	// Async Await method

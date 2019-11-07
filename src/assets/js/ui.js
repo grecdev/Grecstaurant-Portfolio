@@ -37,6 +37,9 @@ class Ui {
 		this.address_preview = document.querySelector('.address-preview');
 		this.product_preview_list = document.querySelector('.product-preview-list');
 		this.product_preview_totalPrice = document.querySelector('.total-price');
+		this.preloader = document.querySelector('.preloader');
+		this.showcase_content = document.querySelector('.showcase-content')
+		this.scroll_hand = document.querySelector('.scroll-hand');
 		///////////// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
@@ -290,7 +293,7 @@ class Ui {
 
 		// Hide modal && calendar ( because in html files the time and calendar is in the same modal element ) DRY
 		if(e.target.parentElement.classList.contains('close-modal') || e.target.classList.contains('close-modal') || e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn || e.target === this.today_date_btn || e.target === this.modals) {
-			
+
 			// Reset the navigate object so we start increment / decrement from the current month / year
 			navigate.month = this.currentDate.month;
 			navigate.year = this.currentDate.year;
@@ -415,7 +418,7 @@ class Ui {
 		const globalRegex = {
 			/* 
 			Phone format
-			+44 791 112 3456
+			+44 123 456 789
 			+40 123 456 789
 			+40123456789
 			+40-123-456-789
@@ -423,9 +426,11 @@ class Ui {
 			(555) 555-1234
 		*/
 			phoneRegex: /^\+?(\(\+\d{2,3}\)?)?[\s-\.]?(\(?\d+\)?)[\s-\.]?(\d+)[\s-\.]?(\d+)$/g,
-			emailRegex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g,
+			emailRegex: /^[\w\W]+\@{1}(gmail|yahoo|hotmail|aol)\.(com|ro|co|co\.uk|fr)+$/g,
 			letterRegex: /^[aA-zZ\s-]{3,}$/,
-			postalCodeRegex: /^\d{5}$|^\d{5}-\d{4}$/,
+			// 1234567 - 12345 - 1234
+			// 123-4567 ...
+			postalCodeRegex: /^[\d\-]{4,8}$/,
 			addressRegex: /^[\w\W]{5,}$/
 		};
 
@@ -567,6 +572,7 @@ class Ui {
 
 				// So we can check for submit
 				this.checkoutFormAnimation(e, submit);
+				console.log('Form has been submited ? ', submit);
 				return submit
 			}
 
@@ -601,7 +607,6 @@ class Ui {
 
 					// Succes validation for payment form
 					if((this.cardRegex.visaRegex.test(this.cardNumber_input.value) || this.cardRegex.mastercardRegex.test(this.cardNumber_input.value) || this.cardRegex.amexpRegex.test(this.cardNumber_input.value)) && globalRegex.letterRegex.test(this.fullName_input.value) && this.cardRegex.securityCode.test(this.securityCode_input.value) && this.cardRegex.expDate.test(this.cardExpiration_input.value)) {
-
 						// Reset all inputs from both forms
 						inputs.forEach(inputs => inputs.value = '');
 
@@ -609,7 +614,8 @@ class Ui {
 						submit = true;
 					}
 				}
-				
+
+				console.log('Form has been submited ? ', submit);
 				return submit;
 			}
 		}
@@ -651,13 +657,13 @@ class Ui {
 					submit = true;
 				}
 
+				console.log('Form has been submited ? ', submit);
 				return submit;
 			}
 		}
 
 		// Careers page
 		if(location.pathname.includes("careers")) {
-	
 			// Submiting the form
 			if(e.target === this.form) {
 				// If the inputs are checked we enable the checked varaible / 'state'
@@ -666,7 +672,7 @@ class Ui {
 				// Empty input
 				inputs.forEach(input => {
 					// Text inputs
-					if(!input.classList.contains('correct-filled') && input.getAttribute('type') === 'text') {
+					if(!input.classList.contains('input-filled') && input.getAttribute('type') === 'text') {
 						// Add the error
 						input.classList.add('input-error');
 						input.previousElementSibling.classList.add('label-error');
@@ -718,6 +724,7 @@ class Ui {
 					submit =  true;
 				}
 
+				console.log('Form has been submited ? ', submit);
 				return submit;
 			}
 		}
@@ -731,7 +738,6 @@ class Ui {
 		// multiple = true (when submiting the form and check all inputs) / false (single input)
 		// target = when we need to use the event object
 
-		// We put the created element here because it's global and we use the inner closures
 		// Create element
 		const p = document.createElement('p');
 
@@ -792,7 +798,9 @@ class Ui {
 				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-error');
 				
 				// Success validation
-				target.classList.add('input-success', 'correct-filled');
+				// The input filled class is required for regex validation
+				// When we submit check for input that does not have been filled
+				target.classList.add('input-success', 'input-filled');
 				// For reservation we use placeholder attribute instead of label so that's why we check it
 				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-success');
 
@@ -927,7 +935,7 @@ class Ui {
 			`;
 		});
 
-		// Calculate the total item price (NOT SUBTOTAL OF ALL ITEMS)
+		// Calculate the total price for individual item (NOT SUBTOTAL OF ALL ITEMS)
 		total = items.reduce((total, item) => total + parseFloat(item.totalPrice), 0);
 
 		// Format the price
@@ -959,7 +967,7 @@ class Ui {
 		let initialPrice = e.target.parentElement.previousElementSibling.textContent;
 		let totalPrice = e.target.parentElement.nextElementSibling.textContent;
 
-		// This of course is for mockup purposes.
+		// Min / Max stock
 		let minStock = 1;
 		let maxStock = 10;
 
@@ -1157,7 +1165,6 @@ class Ui {
 
 			// Highlight the visa card logo
 			if(this.cardRegex.visaStart.test(e.target.value)) {
-
 				// I use Array.from method because .children return HTML collection, and forEach works only on arrays / array like objects.
 				// Disable all the logos.
 				Array.from(document.querySelector('.card-images').children).forEach(logo => {
@@ -1267,7 +1274,6 @@ class Ui {
 	// Populate order preview
 	populateOrderPreview() {
 		let html = '';
-		let total;
 	
 		// Get the data from local storage
 		const items = ls.getLocalStorage();
@@ -1277,13 +1283,13 @@ class Ui {
 			html += `
 				<div class="product-box mb-md">
 					<p class="product-name">${item.name}<span class="product-quantity">${item.quantity}</span></p>
-					<p class="product-price">${item.price}</p>
+					<p class="product-price">${item.totalPrice}</p>
 				</div>
 			`;
 		});
 
 		// Calculate total items
-		total = items.reduce((total, item) => total + parseFloat(item.totalPrice), 0);
+		const total = items.reduce((total, item) => total + parseFloat(item.totalPrice), 0);
 		// Add html to the DOM
 		this.product_preview_list.innerHTML = html;
 		// Add total price formated
@@ -1293,11 +1299,28 @@ class Ui {
 	populateRegion(data) {
 		let htmlRegionCountry = '';
 
+		// We add the select placeholder only once
 		htmlRegionCountry += '<option disabled selected value="">Region / Country</option>';
 
+		// Add the countries to the html
 		data.forEach(country => htmlRegionCountry += `<option value="${country.name}">${country.name}</option>`);
 
+		// Add html to the DOM
 		this.countryRegion_input.innerHTML = htmlRegionCountry;
+	}
+
+	// Preloader UX
+	hideLoader() {
+		// Hide the loader
+		ui.preloader.classList.add('loader-hidden');
+
+		// Enable the animations on the index page
+		// If we don't check for home page it gives error, disable so you can see it :)
+		if(document.body.id === 'home-page') {
+			ui.header.classList.remove('visible-none');
+			ui.showcase_content.classList.remove('visible-none');
+			ui.scroll_hand.classList.remove('visible-none');
+		}
 	}
 }
 

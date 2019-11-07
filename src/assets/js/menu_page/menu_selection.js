@@ -11,7 +11,6 @@ if(location.pathname.includes('menu')) {
 	ui.menu_categories.addEventListener('click', (e) => {
 
 		if(e.target.tagName === 'A') {
-
 			// Select the menu type from categories
 			const menuType = e.target.dataset.menuType;
 
@@ -40,7 +39,6 @@ if(location.pathname.includes('menu')) {
 	}
 
 	ui.foodMenu_container.addEventListener('click', (e) => {
-		
 		// Only when we click on the cart icon
 		if(e.target.parentElement.classList.contains('add-cart')) ui.addToCart(e, Cart_item);
 		
@@ -48,7 +46,6 @@ if(location.pathname.includes('menu')) {
 	});
 
 	ui.online_products.addEventListener('click', (e) => {
-
 		// Removing cart item
 		if(e.target.classList.contains('remove-item')) ui.removeCartItem(e);
 
@@ -57,14 +54,11 @@ if(location.pathname.includes('menu')) {
 
 		// Select the value so we can directly change it.
 		if(e.target.tagName === 'INPUT') e.target.setSelectionRange(0, e.target.value.length);
-
-		// console.log(e.target);
 		
 		e.stopPropagation();
 	});
 
 	ui.online_products.addEventListener('keyup', (e) => {
-
 		// Quantity change when we modify by keyboard
 		if(e.target.tagName === 'INPUT') ui.changeQuantity(e)
 		
@@ -74,7 +68,6 @@ if(location.pathname.includes('menu')) {
 	// Here i use event delegation because the inputs are inserted dynamically with javascript
 	// In the global.js file i assign the event directly to the element because they are already in the DOM
 	ui.online_products.addEventListener('keydown', (e) => {
-
 		// Quantity change when we modify by keyboard
 		if(e.target.tagName === 'INPUT') ui.disableLetters(e)
 		

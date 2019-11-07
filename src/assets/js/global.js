@@ -12,6 +12,10 @@ const current = {
 	weekDay: new Date().getDay()
 }
 
+// Preloader
+// load event doesn't bubble so i removed e.stopPropagation() method => https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+window.addEventListener('load', ui.hideLoader);
+
 // Event Listeners
 window.addEventListener('scroll', (e) => {
 
@@ -23,10 +27,11 @@ window.addEventListener('scroll', (e) => {
 document.addEventListener('DOMContentLoaded', (e) => {
 
 	// For reservation page only
-	if(location.pathname.includes('reservation')) ui.monthChange(current)
+	if(location.pathname.includes('reservation')) ui.monthChange(current);
 
 	// For menu page only
 	if(location.pathname.includes('menu')) {
+
 		// Model + View + Controller
 		http.getMenu_xhr()
 		// When we load show the pizza menu
@@ -39,13 +44,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 	// For checkout page only
 	if(location.pathname.includes('checkout')) {
+
+		// Change between forms
 		ui.checkoutFormAnimation(e, null);
 		ui.populateOrderPreview(e);
 		
+		// Model + View + Controller
 		http.getCountries_xhr()
-		.then(data => {
-			ui.populateRegion(data);
-		})
+		.then(data => ui.populateRegion(data))
 		.catch(err => console.log(err));
 	}
 
@@ -53,15 +59,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
 });
 
 // Events for all inputs ( i can't put blur event on from )
-document.querySelectorAll('input[type="text"]').forEach(input => {
-	input.addEventListener('blur', (e) => {
-
-		ui.regexValidation(e);
-
-		e.stopPropagation();
-
-	});
-});
+// blur event doesn't bubble so i removed e.stopPropagation() method => https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event
+document.querySelectorAll('input[type="text"]').forEach(input => input.addEventListener('blur', (e) => ui.regexValidation(e) ));
 
 // Disable characters from inputs that require only numbers
 // Here i can add the event directly to the input becuase the elements are already in the DOM (not inserted with JavaScript)

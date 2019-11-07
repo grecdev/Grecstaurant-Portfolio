@@ -87,9 +87,8 @@ module.exports = merge(config, {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new MiniCssExtractPlugin( {
-			filename: "assets/css/style.[contentHash].css" // where to save the minified css file
-		}),
+		// where to save the minified css file
+		new MiniCssExtractPlugin( { filename: "assets/css/style.[contentHash].css" }),
 		new CopyPlugin([
 			{ 
 				from: './src/assets', 
@@ -105,12 +104,10 @@ module.exports = merge(config, {
 				use: [
 					{
             loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../../'
-            }
+            options: { publicPath: '../../' }
           },
-          {loader: 'css-loader'},
-          {loader: 'sass-loader'}
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
 				],
 			},
 		]	

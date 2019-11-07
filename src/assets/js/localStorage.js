@@ -1,13 +1,15 @@
 "use strict";
 
+// MODEL
 class LocalStorage {
 	constructor() { this.itemArray }
 
 	getLocalStorage() {
 		// Check if the cart-items is empty
 		if(localStorage.getItem('cart-items') === null) this.itemArray = [];
+		// Get the localStorage items as Javascript object (default is JSON)
 		else this.itemArray = JSON.parse(localStorage.getItem('cart-items'));
-
+		
 		// Items array
 		return this.itemArray;
 	}
@@ -19,7 +21,7 @@ class LocalStorage {
 		// Push the item in the items array
 		this.itemArray.push(itemSet);
 
-		// The items array add it to local storage as JSON object
+		// The items array add it to local storage as JSON
 		localStorage.setItem('cart-items', JSON.stringify(this.itemArray));
 	}
 

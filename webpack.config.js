@@ -9,9 +9,8 @@ module.exports = {
 			test: /\.js?$/, // Look at all .js files
 			exclude: /node_modules/,
 			loader: 'babel-loader',
-			query: { // Where we define our presets
-				presets: ['@babel/preset-env']
-				}
+			// Where we define our presets
+			query: { presets: ['@babel/preset-env'] }
 			},
 			{
 				test:  /\.html$/,
@@ -21,9 +20,7 @@ module.exports = {
 				test: /\.(jpg|jpeg|png|gif|mp3|svg|ttf|woff2|woff|eot)$/i,
 				use: {
 					loader: "file-loader",
-					options: {
-						name: "assets/imgs/[name].[hash].[ext]",
-					}
+					options: { name: "assets/imgs/[name].[hash].[ext]" }
 				}
 			},
 		]
