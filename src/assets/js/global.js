@@ -95,3 +95,11 @@ if(document.body.contains(document.querySelector('form')) && !location.pathname.
 		e.stopPropagation();
 	});
 }
+
+// Show mobile header
+ui.barContainer_btn.addEventListener('click', (e) => {
+
+	ui.mobileNavbar(e);
+
+	e.stopPropagation();
+});

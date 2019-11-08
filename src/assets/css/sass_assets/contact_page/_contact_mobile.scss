@@ -1,3 +1,67 @@
+/* ----------- iPad Pro ----------- */
+/* Portrait */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+
+		#contact {
+
+			.contact-container {
+				@include grid(repeat(3, 1fr), 1rem);
+				justify-items: center;
+				align-items: center;
+			}
+		
+			.contact-box {
+				
+				&-description {
+		
+					li {
+						margin: .5rem 0;
+						font-weight: 300;
+		
+						i { margin-right: .5rem }
+					}
+				}
+		
+				.hours { @include flex(row, space-between, center) }
+		
+				&:nth-child(1) {
+					width: 50%;
+					grid-column: 1 / 2;
+					grid-row: 1;
+				}
+		
+				&:nth-child(2) {
+					width: 50%;
+					grid-column: 1 / -1;
+					grid-row: 2;
+					height: 100%;
+					margin-top: 10rem;
+				}
+		
+				&:nth-child(3) {
+					width: 100%;
+					grid-column: 3 / -1;
+					grid-row: 1;
+				}
+			}
+		}
+		
+}
+
+/* Landscape */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+
+		
+}
+
 /* 
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
@@ -5,49 +69,7 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
   
-  #contact {
-
-		.contact-container {
-			@include grid(repeat(3, 1fr), 1rem);
-			justify-items: center;
-			align-items: center;
-		}
-	
-		.contact-box {
-			
-			&-description {
-	
-				li {
-					margin: .5rem 0;
-					font-weight: 300;
-	
-					i { margin-right: .5rem }
-				}
-			}
-	
-			.hours { @include flex(row, space-between, center) }
-	
-			&:nth-child(1) {
-				width: 50%;
-				grid-column: 1 / 2;
-				grid-row: 1;
-			}
-	
-			&:nth-child(2) {
-				width: 50%;
-				grid-column: 1 / -1;
-				grid-row: 2;
-				height: 100%;
-				margin-top: 10rem;
-			}
-	
-			&:nth-child(3) {
-				width: 100%;
-				grid-column: 3 / -1;
-				grid-row: 1;
-			}
-		}
-	}
+  
   
 }
 

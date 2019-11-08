@@ -8,6 +8,8 @@ header {
 	
 	.container { transition: padding 500ms ease-in-out }
 
+	#mobile-header { display: none }
+
 	#desktop-header {
 		@include flex(row, center, center);
 		padding-left: 3rem;

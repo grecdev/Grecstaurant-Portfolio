@@ -66,6 +66,7 @@ class Ui {
 		this.menu_categories = document.querySelector('.menu-categories');
 		this.removeItem_btn = document.querySelector('.remove-item');
 		this.shippingReturn_btn = document.querySelector('.shipping-return');
+		this.barContainer_btn = document.querySelector('.bar-container');
 		// Inputs
 		this.phone_input = document.querySelector('.phone-number');
 		this.date_input = document.getElementById('full-date');
@@ -177,7 +178,8 @@ class Ui {
 		const pos = Math.floor(pageYOffset);
 
 		// For elements on the home page
-		if(document.body.getAttribute('id') === 'home-page') {
+		// Animations only for desktops
+		if(document.body.getAttribute('id') === 'home-page' && window.matchMedia('(min-width: 1025px)').matches) {
 
 			if(pos >= 500) ui.chef_avatar.classList.add('chef-visible')
 			else ui.chef_avatar.classList.remove('chef-visible')
@@ -1321,6 +1323,23 @@ class Ui {
 			ui.showcase_content.classList.remove('visible-none');
 			ui.scroll_hand.classList.remove('visible-none');
 		}
+	}
+
+	// Show / Hide mobile navbar
+	mobileNavbar(e) {
+
+
+		// Here i set an event 'toggle state', so we don't change the 'icon' on each click. Wait until the animation is end, and then enable it again.
+		if(e.currentTarget === this.barContainer_btn && e.currentTarget.dataset.eventToggle === 'true') {
+			e.currentTarget.children[0].classList.toggle('mobile-header-enabled');
+
+			e.currentTarget.setAttribute('data-event-toggle', 'false');
+
+			// We can't use e.currentTarget, because this works when the event is triggered. We use setAttribute after we click so that's why it doesn't work
+			setTimeout(() => this.barContainer_btn.setAttribute('data-event-toggle', 'true'), 850);
+		}
+
+
 	}
 }
 

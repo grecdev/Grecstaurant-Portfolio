@@ -18,11 +18,11 @@
 		&::after {
 			content: '';
 			position: absolute;
-			width: 150px;
+			width: 45%;
 			border-bottom: 3px $primary-red dotted;
 			top: 50%;
 			transform: translateY(-50%);
-			right: -83px;
+			right: -23%;
 		}
 
 		&:last-child:after { display: none }
