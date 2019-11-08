@@ -4,7 +4,6 @@
 */
 
 @media (min-width: 1025px) and (max-width: 1280px) {
-
 	/** Text **/
 	.heading-xs { font-size: 1.1rem }
 	.heading-sm { font-size: 1.4rem }
@@ -14,7 +13,6 @@
 	.description-sm { font-size: 1rem }
 	.description-md { font-size: 1.1rem }
 	.description-lg { font-size: 1.2rem }
-  
 }
 
 /* 
@@ -23,17 +21,15 @@
 */
 
 @media (min-width: 768px) and (max-width: 1024px) {
-  
   /** Text **/
 	.heading-xs { font-size: 1.1rem }
-	.heading-sm { font-size: 1.4rem }
-	.heading-md { font-size: 1.6rem }
-	.heading-lg { font-size: 2rem }
+	.heading-sm { font-size: 1.35rem }
+	.heading-md { font-size: 1.45rem }
+	.heading-lg { font-size: 1.75rem }
 
-	.description-sm { font-size: 1rem }
-	.description-md { font-size: 1.1rem }
-	.description-lg { font-size: 1.2rem }
-  
+	.description-sm { font-size: .85rem }
+	.description-md { font-size: .95rem }
+	.description-lg { font-size: 1rem }
 }
 
 /* 

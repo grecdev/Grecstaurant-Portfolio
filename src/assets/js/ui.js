@@ -40,6 +40,7 @@ class Ui {
 		this.preloader = document.querySelector('.preloader');
 		this.showcase_content = document.querySelector('.showcase-content')
 		this.scroll_hand = document.querySelector('.scroll-hand');
+		this.mobileHeader_modal = document.querySelector('.mobile-header-modal');
 		///////////// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
@@ -1327,8 +1328,6 @@ class Ui {
 
 	// Show / Hide mobile navbar
 	mobileNavbar(e) {
-
-
 		// Here i set an event 'toggle state', so we don't change the 'icon' on each click. Wait until the animation is end, and then enable it again.
 		if(e.currentTarget === this.barContainer_btn && e.currentTarget.dataset.eventToggle === 'true') {
 			e.currentTarget.children[0].classList.toggle('mobile-header-enabled');
@@ -1337,9 +1336,9 @@ class Ui {
 
 			// We can't use e.currentTarget, because this works when the event is triggered. We use setAttribute after we click so that's why it doesn't work
 			setTimeout(() => this.barContainer_btn.setAttribute('data-event-toggle', 'true'), 850);
+
+			this.mobileHeader_modal.classList.toggle('mobile-header-visible');
 		}
-
-
 	}
 }
 

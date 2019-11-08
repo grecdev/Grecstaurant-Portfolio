@@ -3,7 +3,7 @@ header {
 	position: absolute;
 	top: 0;
 	width: 100%;
-	z-index: 1;
+	z-index: 55;
 	transition: background 500ms ease-in-out;
 	
 	.container { transition: padding 500ms ease-in-out }
@@ -36,6 +36,82 @@ header {
 		border-radius: 50%;
 		margin: 0 2rem;
 		transition: all 500ms ease-in-out;
+	}
+
+	#mobile-header {
+		display: none;
+		position: relative;
+		height: 50px;
+
+		.bar-container {
+			width: 50px;
+			height: 50px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 51;
+		}
+
+		.header-bar {
+			width: 23px;
+			height: 1.7px;
+			background: $primary-red;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%) rotate(0deg);
+			transition: transform 300ms ease-in-out 150ms;
+
+			&::before, &::after {
+				content: '';
+				position: absolute;
+				width: inherit;
+				height: inherit;
+				background: inherit;
+				left: 0;
+				top: 0;
+				transition: top 300ms ease-in-out 300ms, transform 300ms ease-in-out 150ms;
+				transform: rotate(0deg);
+			}
+
+			&::before { top: -8px }
+			&::after { top: 8px }
+		}
+
+		/** When clicking bar menu**/
+		.mobile-header-enabled.header-bar::before, .mobile-header-enabled.header-bar::after {
+			top: 0;
+			transition: top 300ms ease-in-out, transform 300ms ease-in-out 150ms;
+		}
+
+		.mobile-header-enabled.header-bar { transform: translate(-50%, -50%) rotate(45deg) }
+		
+		.mobile-header-enabled.header-bar::before { transform: rotate(-90deg) }
+
+		/** Mobile header modal **/
+		.mobile-header-modal {
+			background: $primary-dark;
+			color: $primary-red;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			@include flex(column, center, center);
+			visibility: hidden;
+			opacity: 0;
+			transition: all 500ms ease-in-out;
+
+			a {
+				margin: 1rem 0;
+				font-size: 2rem;
+			}
+
+			&.mobile-header-visible {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
 	}
 }
 
