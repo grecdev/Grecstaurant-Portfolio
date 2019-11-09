@@ -67,9 +67,51 @@
   ##Screen = B/w 768px to 1024px
 */
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   
-  
+  #contact {
+
+		.contact-container {
+			@include grid(repeat(4, 1fr), 1rem);
+			justify-items: center;
+			align-items: center;
+		}
+	
+		.contact-box {
+			
+			&-description {
+	
+				li {
+					margin: .5rem 0;
+					font-weight: 300;
+	
+					i { margin-right: .5rem }
+				}
+			}
+	
+			.hours { @include flex(row, space-between, center) }
+	
+			&:nth-child(1) {
+				width: 100%;
+				grid-column: 1 / 3;
+				grid-row: 1;
+			}
+	
+			&:nth-child(2) {
+				width: 50%;
+				grid-column: 1 / -1;
+				grid-row: 2;
+				height: 100%;
+				margin-top: 10rem;
+			}
+	
+			&:nth-child(3) {
+				width: 80%;
+				grid-column: 3 / -1;
+				grid-row: 1;
+			}
+		}
+	}
   
 }
 

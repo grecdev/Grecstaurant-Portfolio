@@ -66,9 +66,43 @@
   ##Screen = B/w 768px to 1024px
 */
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1023px) {
 
+	#food-menu-showcase { padding: 0 }
+
+	#food-menu {
+		margin-bottom: 2rem;
+
+		.food-legend {
+			transform: none;
+			top: auto;
+			left: 10px;
+			bottom: -20px;
+		}
+
+		.food-menu-container {
+			flex-wrap: wrap;
 	
+			.food-menu-box { width: 45% }
+		}
+	}
+
+	#online-order {
+
+		.online-order-container {
+
+			.online-order-header .order-group-right { justify-content: space-evenly }
+
+			.order-group-left { width: 30% }
+
+			.order-group-right {
+				width: 55%;
+				justify-content: center;
+				
+				.order-quantity { width: 50% }
+			}
+		}
+	}
   
 }
 
@@ -79,7 +113,41 @@
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   
-  //CSS
+  #food-menu-showcase { padding: 0 }
+
+	#food-menu {
+		margin-bottom: 2rem;
+
+		.food-legend {
+			transform: none;
+			top: auto;
+			left: 10px;
+			bottom: -20px;
+		}
+
+		.food-menu-container {
+			flex-wrap: wrap;
+	
+			.food-menu-box { width: 45% }
+		}
+	}
+
+	#online-order {
+
+		.online-order-container {
+
+			.online-order-header .order-group-right { justify-content: space-evenly }
+
+			.order-group-left { width: 30% }
+
+			.order-group-right {
+				width: 55%;
+				justify-content: center;
+				
+				.order-quantity { width: 50% }
+			}
+		}
+	}
   
 }
 

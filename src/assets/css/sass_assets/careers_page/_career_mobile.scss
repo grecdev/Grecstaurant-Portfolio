@@ -14,9 +14,32 @@
   ##Screen = B/w 768px to 1024px
 */
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1023px) {
 
-	
+	#careers-showcase { height: 30vh }
+
+	#available {
+
+		.section-header { margin-bottom: 4.5rem }
+
+		.container { padding: 2rem 1rem }
+
+		.available-box {
+			width: 32%;
+			padding: 2rem 1rem;
+
+			.available-icon { top: -45px; }
+
+			h4 { font-size: 1.3rem }
+		}
+	}
+
+	#career-form form .employee-time label {
+		margin: 0;
+		margin-right: 2.35rem;
+
+		&::after { left: 80px }
+	}
   
 }
 

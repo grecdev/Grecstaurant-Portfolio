@@ -1,7 +1,5 @@
 #sneak {
-	.container {
-		max-width: 1500px;
-	}
+	.container { max-width: 1500px }
 
 	.sneak-container {
 		@include flex(row, space-around, center);
@@ -31,9 +29,7 @@
 			}
 		
 			&:nth-child(1) { background: url('../imgs/restaurant-staff.jpg') no-repeat center/cover }
-
 			&:nth-child(2) { background: url('../imgs/restaurant-food.jpg') no-repeat center/cover }
-
 			&:nth-child(3) { background: url('../imgs/restaurant-waiter.jpg') no-repeat center/cover }
 		}
 

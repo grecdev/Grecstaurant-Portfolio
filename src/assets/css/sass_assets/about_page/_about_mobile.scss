@@ -59,8 +59,37 @@
   ##Screen = B/w 768px to 1024px
 */
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1023px) {
 
+	#about-showcase { height: 25vh }
+  
+  #numbers .numbers-container {
+
+		.numbers-box .digit { font-size: 2rem }
+
+		.numbers-box {
+			height: 250px;
+
+			.number-description { font-size: 1rem }
+		}
+	}
+	
+	#sneak {
+
+		.container { padding: 2rem 0 }
+
+		.sneak-container {
+			flex-wrap: wrap;
+
+			.sneak-box {
+				width: 80%;
+				margin: 1rem 0;
+			}
+
+			.sneak-box-description { padding-top: 5rem }
+		}
+
+	}
 	
 }
 
@@ -71,8 +100,13 @@
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   
-  //CSS
+  #sneak {
+
+		.container { padding: 2rem 0 }
+
+		.sneak-container { .sneak-box-description { padding-top: 2.5rem } }
   
+	}
 }
 
 /* 

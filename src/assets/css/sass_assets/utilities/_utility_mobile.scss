@@ -20,7 +20,7 @@
   ##Screen = B/w 768px to 1024px
 */
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   /** Text **/
 	.heading-xs { font-size: 1.1rem }
 	.heading-sm { font-size: 1.35rem }
@@ -30,6 +30,8 @@
 	.description-sm { font-size: .85rem }
 	.description-md { font-size: .95rem }
 	.description-lg { font-size: 1rem }
+
+	.body-padding-top { padding-top: 3rem }
 }
 
 /* 
@@ -39,7 +41,17 @@
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   
-  //CSS
+  /** Text **/
+	.heading-xs { font-size: 1.1rem }
+	.heading-sm { font-size: 1.35rem }
+	.heading-md { font-size: 1.45rem }
+	.heading-lg { font-size: 1.75rem }
+
+	.description-sm { font-size: .85rem }
+	.description-md { font-size: .95rem }
+	.description-lg { font-size: 1rem }
+
+	.body-padding-top { padding-top: 3rem }
   
 }
 

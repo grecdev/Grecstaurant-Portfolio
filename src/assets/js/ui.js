@@ -180,7 +180,7 @@ class Ui {
 
 		// For elements on the home page
 		// Animations only for desktops
-		if(document.body.getAttribute('id') === 'home-page' && window.matchMedia('(min-width: 1025px)').matches) {
+		if(document.body.getAttribute('id') === 'home-page' && window.matchMedia('(min-width: 1024px)').matches) {
 
 			if(pos >= 500) ui.chef_avatar.classList.add('chef-visible')
 			else ui.chef_avatar.classList.remove('chef-visible')
