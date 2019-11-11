@@ -21,6 +21,8 @@ window.addEventListener('scroll', (e) => {
 
 	ui.scrollFunctionality(e);
 
+	ui.sneakpeakBox(e);
+
 	e.stopPropagation();
 });
 
@@ -54,6 +56,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
 		.then(data => ui.populateRegion(data))
 		.catch(err => console.log(err));
 	}
+
+	// About page sneakbox
+	ui.sneakpeakBox(e);
 
 	e.stopPropagation();
 });

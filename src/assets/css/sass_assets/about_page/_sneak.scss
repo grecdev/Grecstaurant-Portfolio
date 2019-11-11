@@ -14,7 +14,7 @@
 				position: relative;
 				z-index: 2;
 				font-size: 2rem;
-				transition: transform 200ms ease-in-out;
+				transition: transform 300ms ease-in-out;
 			}
 
 			&-description {
@@ -23,7 +23,7 @@
 				width: 100%;
 				height: 100%;
 				opacity: 0;
-				transition: opacity 350ms ease-in-out;
+				transition: opacity 200ms ease-in-out;
 				@include flex(column, center, center);
 				padding: 0 1rem;
 			}
@@ -34,14 +34,20 @@
 		}
 
 		/** For desktop **/
-		// .sneak-box:hover .sneak-box-description,
+		.sneak-box-hover:hover .sneak-box-description,
 		/** For mobile **/
-		.sneak-box-info .sneak-box-description { opacity: 1 }
+		.sneak-box-info .sneak-box-description {
+			opacity: 1;
+			transition: opacity 350ms ease-in-out;
+		}
 
 		/** For desktop **/
-		// .sneak-box:hover .sneak-box-title,
+		.sneak-box-hover:hover .sneak-box-title,
 		/** For mobile **/
-		.sneak-box-info .sneak-box-title { transform: translateY(-115px) }
+		.sneak-box-info .sneak-box-title {
+			transform: translateY(-115px);
+			transition: transform 200ms ease-in-out;
+		}
 	}
 
 }

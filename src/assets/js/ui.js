@@ -42,6 +42,7 @@ class Ui {
 		this.scroll_hand = document.querySelector('.scroll-hand');
 		this.mobileHeader_modal = document.querySelector('.mobile-header-modal');
 		this.sneak_section = document.getElementById('sneak');
+		this.sneak_box = document.querySelector('.sneak-box');
 		///////////// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
@@ -1339,6 +1340,37 @@ class Ui {
 			setTimeout(() => this.barContainer_btn.setAttribute('data-event-toggle', 'true'), 850);
 
 			this.mobileHeader_modal.classList.toggle('mobile-header-visible');
+		}
+	}
+
+	sneakpeakBox(e) {
+		// When we click on the box
+		if(e.type === 'click' && e.target.closest('.sneak-box')) e.target.closest('.sneak-box').classList.toggle('sneak-box-info')
+
+		// When we scroll disable all boxes
+		if(e.type === 'scroll' && document.body.contains(ui.sneak_box)) {
+
+			// Page position
+			const pos = window.pageYOffset;
+
+			document.querySelectorAll('.sneak-box').forEach(box => {
+
+				// Box position
+				const elementPos = box.getBoundingClientRect().top;
+
+				if(pos > elementPos) box.classList.remove('sneak-box-info');
+
+			});
+		}
+
+		// I made 2 classes one for mobile and one for desktop
+		// One that works only with click event and one that works only on hover
+		// See in scss partial file => _sneak.scss
+		if(e.type === 'DOMContentLoaded' && document.body.contains(ui.sneak_box)) {
+
+			if(window.matchMedia('(min-width: 1025px)').matches) document.querySelectorAll('.sneak-box').forEach(box => box.classList.add('sneak-box-hover'));
+			if(window.matchMedia('(max-width: 1024px)').matches) document.querySelectorAll('.sneak-box').forEach(box => box.classList.remove('sneak-box-hover'));
+
 		}
 	}
 }

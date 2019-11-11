@@ -64,7 +64,21 @@
 
 @media (min-width: 481px) and (max-width: 767px) {
   
-  .regex-alert { font-size: .85rem }
+  .container { padding: 1rem }
+  
+  /** Text **/
+	.heading-xs { font-size: 1.15rem }
+	.heading-sm { font-size: 1.2rem }
+	.heading-md { font-size: 1.3rem }
+	.heading-lg { font-size: 1.6rem }
+
+	.description-sm { font-size: .7rem }
+	.description-md { font-size: .8rem }
+	.description-lg { font-size: .95rem }
+
+	.body-padding-top { padding-top: 3rem }
+	
+	.regex-alert { font-size: .85rem }
   
 }
 
@@ -78,10 +92,10 @@
 	.container { padding: 1rem }
   
   /** Text **/
-	.heading-xs { font-size: 1rem }
-	.heading-sm { font-size: 1.2rem }
-	.heading-md { font-size: 1.3rem }
-	.heading-lg { font-size: 1.6rem }
+	.heading-xs { font-size: 1.1rem }
+	.heading-sm { font-size: 1.15rem }
+	.heading-md { font-size: 1.25rem }
+	.heading-lg { font-size: 1.55rem }
 
 	.description-sm { font-size: .7rem }
 	.description-md { font-size: .8rem }
