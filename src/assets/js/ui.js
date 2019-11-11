@@ -41,6 +41,7 @@ class Ui {
 		this.showcase_content = document.querySelector('.showcase-content')
 		this.scroll_hand = document.querySelector('.scroll-hand');
 		this.mobileHeader_modal = document.querySelector('.mobile-header-modal');
+		this.sneak_section = document.getElementById('sneak');
 		///////////// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');

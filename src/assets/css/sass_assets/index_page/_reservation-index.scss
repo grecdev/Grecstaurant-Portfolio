@@ -4,10 +4,7 @@
 
 	.container { max-width: 1300px }
 
-	.reservation-container {
-		@include flex(row, center, center);
-		height: 300px;
-	}
+	.reservation-container { @include flex(row, center, stretch) }
 
 	.reservation-line {
 		width: 1px;

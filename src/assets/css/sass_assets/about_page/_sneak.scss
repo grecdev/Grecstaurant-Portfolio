@@ -33,9 +33,15 @@
 			&:nth-child(3) { background: url('../imgs/restaurant-waiter.jpg') no-repeat center/cover }
 		}
 
-		.sneak-box:hover .sneak-box-description { opacity: 1 }
+		/** For desktop **/
+		// .sneak-box:hover .sneak-box-description,
+		/** For mobile **/
+		.sneak-box-info .sneak-box-description { opacity: 1 }
 
-		.sneak-box:hover .sneak-box-title { transform: translateY(-115px) }
+		/** For desktop **/
+		// .sneak-box:hover .sneak-box-title,
+		/** For mobile **/
+		.sneak-box-info .sneak-box-title { transform: translateY(-115px) }
 	}
 
 }

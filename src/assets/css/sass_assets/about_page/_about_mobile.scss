@@ -127,6 +127,47 @@
 
 @media (min-width: 320px) and (max-width: 480px) {
   
-  //CSS
+  #about-showcase { height: 25vh }
+  
+  #numbers .numbers-container {
+		@include flex(column, center, space-between);
+
+		.numbers-box .digit { font-size: 2rem }
+
+		.numbers-box {
+			height: 250px;
+			width: 100%;
+			margin: 1rem 0;
+
+			.number-description { font-size: 1rem }
+			.number-icon { font-size: 3rem }
+		}
+	}
+
+	#who .who-container {
+		@include flex(column, center, space-between);
+
+		.who-box {
+			margin: 1rem 0;
+			width: 100%;
+		}
+	}
+	
+	#sneak {
+
+		.container { padding: 2rem 0 }
+
+		.sneak-container {
+			flex-wrap: wrap;
+
+			.sneak-box {
+				width: 80%;
+				margin: 1rem 0;
+			}
+
+			.sneak-box-description { padding-top: 5rem }
+		}
+
+	}
   
 }

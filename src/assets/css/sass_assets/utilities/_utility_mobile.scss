@@ -52,6 +52,8 @@
 	.description-lg { font-size: 1rem }
 
 	.body-padding-top { padding-top: 3rem }
+
+	.regex-alert { font-size: .9rem }
   
 }
 
@@ -62,7 +64,7 @@
 
 @media (min-width: 481px) and (max-width: 767px) {
   
-  //CSS
+  .regex-alert { font-size: .85rem }
   
 }
 
@@ -72,7 +74,20 @@
 */
 
 @media (min-width: 320px) and (max-width: 480px) {
+
+	.container { padding: 1rem }
   
-  //CSS
-  
+  /** Text **/
+	.heading-xs { font-size: 1rem }
+	.heading-sm { font-size: 1.2rem }
+	.heading-md { font-size: 1.3rem }
+	.heading-lg { font-size: 1.6rem }
+
+	.description-sm { font-size: .7rem }
+	.description-md { font-size: .8rem }
+	.description-lg { font-size: .95rem }
+
+	.body-padding-top { padding-top: 3rem }
+	
+	.regex-alert { font-size: .8rem }
 }

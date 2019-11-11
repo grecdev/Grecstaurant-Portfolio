@@ -60,6 +60,7 @@
 	display: none;
 	padding: 2rem;
 	
+	
 	.close-modal {
 		position: absolute;
 		top: 10px;
@@ -72,7 +73,7 @@
 	/** Date modal **/
 	.date-modal {
 		background: $primary-dark;
-		width: 45%;
+		width: 50%;
 		height: 550px;
 		padding: 3rem 7rem;
 		@include flex(column, flex-start, center);
@@ -146,6 +147,7 @@
 		background: $primary-dark;
 		position: relative;
 		display: none;
+		overflow-y: auto;
 
 		li {
 			border-left: 1.5px solid $primary-red;

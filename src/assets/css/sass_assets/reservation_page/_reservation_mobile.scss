@@ -1,0 +1,125 @@
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+	#modals .date-modal { width: 65% }
+	
+}
+
+/* ----------- iPad Pro ----------- */
+/* Portrait */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+
+		#modals .date-modal {
+			width: 60%;
+
+			.calendar-container .calendar-header .calendar-month { font-size: 1.2rem }
+		}
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+	#modals .date-modal {
+		width: 80%;
+
+		.calendar-container .calendar-header .calendar-month { font-size: 1.1rem }
+	}
+
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+	
+	#modals .date-modal {
+		width: 60%;
+
+		.calendar-container .calendar-header .calendar-month { font-size: 1.2rem }
+	}
+
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  
+  //CSS
+  
+}
+
+/* Iphone X / Pixel 2 XL - Portrait */
+@media only screen 
+    and (min-width : 375px)
+		and (max-height : 812px)
+		and (orientation : portrait)
+    and (-webkit-device-pixel-ratio : 3) {
+
+}
+
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+	
+	#reservation form {
+
+		.form-box { flex-wrap: wrap }
+		fieldset, button { width: 100% }
+
+		.regex-alert { font-size: .8rem }
+
+		input, ::placeholder, select, option { font-size: .8rem }
+	}
+
+	#modals {
+		padding: 0;
+
+		.close-modal { font-size: 1.3rem }
+
+		.date-modal {
+			width: 100%;
+			padding: 0;
+			justify-content: center;
+			height: 100vh;
+			
+			.calendar-container .calendar-header .calendar-month { font-size: 1rem }
+		}
+	}
+
+}
+
+// Iphone SE / 5 - Portrait
+@media screen and (max-width: 320px) {
+
+	#modals .date-modal .calendar-container table th, #modals .date-modal .calendar-container table td {
+		font-size: .8rem;
+		padding: .3rem;
+	}
+
+	#modals .date-modal .calendar-container .calendar-header .calendar-month,
+	#modals .time-modal li { font-size: .9rem }
+
+	#modals .time-modal li { padding: .5rem }
+
+}
