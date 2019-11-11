@@ -38,7 +38,7 @@
 		margin: 0;
 		margin-right: 2.35rem;
 
-		&::after { left: 80px }
+		&::after { left: 115% }
 	}
   
 }
@@ -72,6 +72,61 @@
 
 @media (min-width: 320px) and (max-width: 480px) {
   
-  //CSS
+	#careers-showcase { height: 30vh }
+	
+	#benefits .benefits-container {
+		flex-wrap: wrap;
+
+		.benefits-box {
+			width: 100%;
+			margin: .5rem 0;
+		}		
+	}
+
+	#available {
+
+		.section-header { margin-bottom: 3rem }
+
+		.container { padding: 2rem 1rem }
+
+		.available-container { flex-wrap: wrap }
+
+		.available-box {
+			width: 100%;
+			padding: 2rem 1rem;
+			margin: 1rem 0;
+
+			.available-icon {
+				width: 55px;
+				top: 15px;
+				right: 10px;
+				left: auto !important;
+			}
+
+			h4 { font-size: 1.3rem }
+		}
+	}
+
+	#career-form form {
+		
+		.form-box {
+			@include flex(column, center, space-between);
+
+			fieldset {
+				width: 100%;
+
+				&:last-child { margin-top: 3.5rem }
+			}
+		}
+
+		.employee-time label {
+			margin: 0;
+			margin-right: 2.5rem;
+			
+			&::after { left: 118% }
+		}
+
+		button { width: 100% }
+	}
   
 }
