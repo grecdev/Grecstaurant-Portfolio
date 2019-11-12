@@ -102,11 +102,11 @@ if(document.body.contains(document.querySelector('form')) && !location.pathname.
 }
 
 // Show mobile header
-ui.barContainer_btn.addEventListener('click', (e) => {
-
-	ui.mobileNavbar(e);
-
-	e.stopPropagation();
-});
-
-//// IN PROGRESS
+if(document.body.contains(ui.barContainer_btn)) {
+	ui.barContainer_btn.addEventListener('click', (e) => {
+	
+		ui.mobileNavbar(e);
+	
+		e.stopPropagation();
+	});
+}

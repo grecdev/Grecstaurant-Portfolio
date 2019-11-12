@@ -21,7 +21,7 @@
 		}
 
 		.offer-box-description {
-			padding-bottom: 2rem;
+			padding: 0 1rem 2rem 2rem;
 			@include flex(column, space-between, center);
 
 			h5 { text-transform: capitalize }

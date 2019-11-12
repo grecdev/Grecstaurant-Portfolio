@@ -1245,12 +1245,15 @@ class Ui {
 
 	// Switch between forms
 	checkoutFormAnimation(e, submit) {
+		// Get the width of a form (don't matter which one)
+		// This is good for device queries
+		const boxWidth = this.shipping_form.getBoundingClientRect().width;
 
 		if(e.type === 'DOMContentLoaded') {
 			// I use Array.from() method because .children return HTML collection, and forEach works only on arrays / array like objects.
 			Array.from(this.formSwitchContainer.children).forEach((form, index) => {
 				// Set the position
-				const position = 850 * index;
+				const position = boxWidth * index;
 	
 				form.style.transform = `translateX(${position}px)`;
 			});

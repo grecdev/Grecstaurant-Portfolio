@@ -63,6 +63,8 @@
 */
 
 @media (min-width: 481px) and (max-width: 767px) {
+
+	body { font-size: .8rem }
   
   .container { padding: 1rem }
   
@@ -77,6 +79,7 @@
 	.description-lg { font-size: .95rem }
 
 	.body-padding-top { padding-top: 3rem }
+	.body-padding-bottom { padding-bottom: 8rem }
 	
 	.regex-alert { font-size: .85rem }
   
@@ -88,6 +91,8 @@
 */
 
 @media (min-width: 320px) and (max-width: 480px) {
+
+	body { font-size: .8rem }
 
 	.container { padding: 1rem }
   
@@ -102,6 +107,7 @@
 	.description-lg { font-size: .95rem }
 
 	.body-padding-top { padding-top: 3rem }
+	.body-padding-bottom { padding-bottom: 8rem }
 	
 	.regex-alert { font-size: .8rem }
 }

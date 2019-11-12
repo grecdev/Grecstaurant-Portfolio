@@ -1,6 +1,6 @@
 #available {
 
-	.available-container { @include flex(row, space-between, center) }
+	.available-container { @include flex(row, space-between, stretch) }
 
 	.available-box {
 		width: 30%;

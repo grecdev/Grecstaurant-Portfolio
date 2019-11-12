@@ -38,23 +38,23 @@
 		}
 
 		.employee-time {
-			@include flex(row, flex-start, center);
+			@include flex(row, space-between, center);
 			width: 100%;
 			position: relative;
 			border-bottom: 2px solid #F36429;
 			padding-bottom: 2rem;
 
 			label {
-				margin: 0 2rem;
 				position: relative;
 				cursor: pointer;
+				width: 25%;
 
 				&::after {
 					content: '';
 					position: absolute;
 					top: 50%;
 					transform: translateY(-50%);
-					left: 95px;
+					right: 0;
 					width: 15px;
 					height: 15px;
 					border-radius: 50%;

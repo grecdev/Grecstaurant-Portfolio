@@ -5,7 +5,7 @@
   and (max-height: 1366px) 
   and (-webkit-min-device-pixel-ratio: 1.5) {
 
-		#careers-showcase { height: 30vh }
+	#careers-showcase { height: 30vh }
 
 }
 
@@ -13,7 +13,6 @@
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
 */
-
 @media (min-width: 768px) and (max-width: 1023px) {
 
 	#careers-showcase { height: 30vh }
@@ -34,13 +33,7 @@
 		}
 	}
 
-	#career-form form .employee-time label {
-		margin: 0;
-		margin-right: 2.35rem;
-
-		&::after { left: 115% }
-	}
-  
+	#career-form form .employee-time label { width: 31% }
 }
 
 /* 
@@ -58,18 +51,65 @@
   ##Device = Low Resolution Tablets, Mobiles (Landscape)
   ##Screen = B/w 481px to 767px
 */
-
 @media (min-width: 481px) and (max-width: 767px) {
   
-  //CSS
+  #careers-showcase { height: 30vh }
+	
+	#benefits .benefits-container {
+		flex-wrap: wrap;
+
+		.benefits-box {
+			width: 100%;
+			margin: .5rem 0;
+		}		
+	}
+
+	#available {
+
+		.section-header { margin-bottom: 3rem }
+
+		.container { padding: 2rem 1rem }
+
+		.available-container { flex-wrap: wrap }
+
+		.available-box {
+			width: 100%;
+			padding: 2rem 1rem;
+			margin: 1rem 0;
+
+			.available-icon {
+				width: 55px;
+				top: 15px;
+				right: 10px;
+				left: auto !important;
+			}
+
+			h4 { font-size: 1.3rem }
+		}
+	}
+
+	#career-form form {
+		
+		.form-box {
+			@include flex(column, center, space-between);
+
+			fieldset {
+				width: 100%;
+
+				&:last-child { margin-top: 3.5rem }
+			}
+		}
+
+		button { width: 100% }
+	}
   
 }
+
 
 /* 
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
 */
-
 @media (min-width: 320px) and (max-width: 480px) {
   
 	#careers-showcase { height: 30vh }
@@ -119,14 +159,16 @@
 			}
 		}
 
-		.employee-time label {
-			margin: 0;
-			margin-right: 2.5rem;
-			
-			&::after { left: 118% }
-		}
+		.employee-time label { width: 31% }
 
 		button { width: 100% }
 	}
   
+}
+
+/* Iphone X / PIXEL 2XL - Portrait */
+@media screen and (min-height: 812px) and (max-height: 832px) {
+
+	#career-form form .employee-time label { width: 30% }
+
 }

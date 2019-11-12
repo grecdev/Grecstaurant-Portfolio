@@ -54,6 +54,50 @@
 
 }
 
+/* Iphone X / Pixel 2 XL - Portrait */
+@media only screen and (min-width : 812px) and (max-width : 823px) and (orientation : landscape) {
+	
+	#reservation form {
+
+		.form-box { flex-wrap: wrap }
+		fieldset, button { width: 100% }
+
+		.regex-alert { font-size: .8rem }
+
+		input, ::placeholder, select, option { font-size: .8rem }
+	}
+
+	#modals {
+		padding: 0;
+
+		.close-modal { font-size: 1.3rem }
+
+		.date-modal {
+			width: 100%;
+			padding: 0;
+			justify-content: center;
+			height: 100vh;
+			overflow-y: auto;
+			
+			.calendar-container .calendar-header .calendar-month { font-size: 1rem }
+
+			.calendar-container { width: 80% }
+		}
+
+		.date-modal .calendar-container table th, .date-modal .calendar-container table td {
+			font-size: .8rem;
+			padding: .3rem;
+		}
+	
+		.date-modal .calendar-container .calendar-header .calendar-month,
+		.time-modal li,
+		.date-modal .calendar-container .date-info-confirmation p { font-size: .9rem }
+		
+		.time-modal li { padding: .5rem }
+	}
+
+}
+
 /* 
   ##Device = Low Resolution Tablets, Mobiles (Landscape)
   ##Screen = B/w 481px to 767px
@@ -61,19 +105,47 @@
 
 @media (min-width: 481px) and (max-width: 767px) {
   
-  //CSS
+  #reservation form {
+
+		.form-box { flex-wrap: wrap }
+		fieldset, button { width: 100% }
+
+		.regex-alert { font-size: .8rem }
+
+		input, ::placeholder, select, option { font-size: .8rem }
+	}
+
+	#modals {
+		padding: 0;
+
+		.close-modal { font-size: 1.3rem }
+
+		.date-modal {
+			width: 100%;
+			padding: 0;
+			padding-top: 3rem;
+			justify-content: center;
+			height: 100vh;
+			overflow-y: auto;
+			
+			.calendar-container .calendar-header .calendar-month { font-size: 1rem }
+
+			.calendar-container { width: 80% }
+		}
+
+		.date-modal .calendar-container table th, .date-modal .calendar-container table td {
+			font-size: .8rem;
+			padding: .3rem;
+		}
+	
+		.date-modal .calendar-container .calendar-header .calendar-month,
+		.time-modal li,
+		.date-modal .calendar-container .date-info-confirmation p { font-size: .9rem }
+		
+		.time-modal li { padding: .5rem }
+	}
   
 }
-
-/* Iphone X / Pixel 2 XL - Portrait */
-@media only screen 
-    and (min-width : 375px)
-		and (max-height : 812px)
-		and (orientation : portrait)
-    and (-webkit-device-pixel-ratio : 3) {
-
-}
-
 
 /* 
   ##Device = Most of the Smartphones Mobiles (Portrait)
@@ -119,7 +191,6 @@
 
 	#modals .date-modal .calendar-container .calendar-header .calendar-month,
 	#modals .time-modal li { font-size: .9rem }
-
 	#modals .time-modal li { padding: .5rem }
 
 }

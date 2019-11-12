@@ -1,6 +1,7 @@
 #checkout {
 	@include flex(row, space-between, center);
 	position: relative;
+	height: 110vh;
 
 	h2 { font-size: 2rem }
 

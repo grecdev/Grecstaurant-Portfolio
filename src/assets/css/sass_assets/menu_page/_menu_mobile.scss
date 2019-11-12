@@ -160,7 +160,67 @@
 
 @media (min-width: 481px) and (max-width: 767px) {
   
-  //CSS
+  #food-menu-showcase { padding: 0 }
+
+	#food-menu {
+		margin-bottom: 4rem;
+
+		.food-legend {
+			transform: none;
+			top: auto;
+			left: -4px;
+			bottom: -50px;
+
+			p { margin: 0 .5rem }
+		}
+
+		.food-menu-container {
+			flex-wrap: wrap;
+	
+			.food-menu-box { width: 100% }
+		}
+
+		.menu-categories a { margin: 0 .7rem }
+	}
+
+	#online-order {
+
+		.online-order-container {
+
+			.online-order-header { display: none }
+
+			.order-group-left { width: 30% }
+
+			.order-box {
+				flex-wrap: wrap;
+
+				.order-group-left {
+					width: 100%;
+					margin-bottom: 1.5rem;
+				}
+
+				.order-group-right {
+					width: 100%;
+					justify-content: space-between;
+				}
+
+				.order-price { display: none }
+			}
+
+			.order-quantity {
+				width: 40%;
+
+				.quantity-number { margin: 0 .5rem }
+			}
+
+			a {
+				width: 100%;
+				display: block;
+				text-align: center;
+				float: none;
+			}
+		}
+	}
   
 }
 
@@ -235,7 +295,8 @@
   
 }
 
-@media screen and (max-width: 320px) {
+/* Iphone SE - Portrait */
+@media screen and (max-width: 320px) and (orientation: portrait) {
 	#food-menu .menu-categories a {
 		margin: 0 .5rem;
 		font-size: .8rem;
