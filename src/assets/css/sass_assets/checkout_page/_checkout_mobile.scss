@@ -16,16 +16,6 @@
 
 }
 
-/* ----------- iPad Pro ----------- */
-/* Portrait */
-@media only screen 
-and (min-width: 1024px) 
-and (max-height: 1366px) 
-and (orientation: portrait) 
-and (-webkit-min-device-pixel-ratio: 1.5) {
-
-}
-
 /* 
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
@@ -135,21 +125,186 @@ and (-webkit-min-device-pixel-ratio: 1.5) {
 				display: none;
 				border-bottom: 1.5px solid #000;
 			}
+
+			.product-box {
+				@include flex(row, space-between, flex-start);
+				width: 80%;
+	
+				.product-name {
+					font-weight: bold;
+					position: relative;
+					z-index: 1;
+				}
+	
+				.product-quantity {
+					position: absolute;
+					background: $primary-dark;
+					border-radius: 50%;
+					width: 20px;
+					height: 20px;
+					line-height: 20px;
+					left: -15px;
+					top: -10px;
+					text-align: center;
+					z-index: -1;
+				}
+	
+				.product-price { font-size: .85rem }
+			}
 		}
 	}
 }
 
-/* 
-  ##Device = Tablets, Ipads (landscape)
-  ##Screen = B/w 768px to 1024px
-*/
-
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-  
-}
-
 /* Iphone X / Pixel 2 XL - Portrait */
 @media only screen and (min-width : 812px) and (max-width : 823px) and (orientation : landscape) {
+
+	#checkout .order-preview .order-preview-desktop { display: none }
+	#checkout .order-preview .order-preview-mobile { display: block }
+
+	#checkout  {
+		margin: 0 auto;
+		@include grid(1fr, 0);
+		align-items: flex-start;
+		width: 100%;
+
+		.shipping-container, .payment-container {
+			width: 100%;
+			padding: 2rem;
+		}
+
+		.form-switch-container {
+			grid-row: 2;
+			width: 100%;
+			height: 1060px;
+		}
+
+		.shipping-container .field-box:first-child input, .shipping-container .select-box .field-box {
+			width: 100%;
+			margin: .5rem 0;
+		}
+
+		form .order-row {
+			flex-direction: column;
+
+			> * {
+				width: 100%;
+				margin: .5rem 0;
+				text-align: center;
+			}
+		}
+
+		.payment-container form .payment-card .payment-box .field-box:last-child {
+			
+			> input,
+			.security-code-box { width: 100% }
+		}
+
+		/** Mobile order preview **/
+		.order-preview-mobile {
+			width: 100%;
+
+			#mobile-preview-toggle,
+			.mobile-preview-box { background: lighten($primary-dark, 10%) }
+
+			#mobile-preview-toggle {
+				width: 100%;
+				@include flex(row, center, space-between);
+				border-top: 1.5px solid #000;
+				border-bottom: 1.5px solid #000;
+
+				span:first-child {
+					width: 70%;
+					text-align: left;
+				}
+
+				span {
+					display: inline-block;
+					
+					i:first-child { margin-right: 1rem }
+					i:last-child { margin-left: 1rem }
+				}
+			}
+
+			hr {
+				border: none;
+				border-radius: $border-radius-primary;
+				border-bottom: 1.6px solid $primary-red;
+			}
+
+			.product-preview-discount {
+				@include flex(row, space-between, center);
+				width: 95%;
+				
+				input {
+					border-radius: $border-radius-primary;
+					border: 2px solid #000;
+					padding: .5rem;
+					outline: none;
+					width: 100%;
+					margin: 0 1rem;
+				}
+			}
+
+			.product-preview-total {
+				width: 100%;
+				
+				.total-box {
+					@include flex(row, space-between, center);
+		
+					.shipping-type,
+					.total-price span { font-weight: bold }
+		
+					&:first-child { width: 38% }
+		
+					&:last-child { width: 55% }
+				}
+			}
+
+			.mobile-preview-box {
+				display: none;
+				border-bottom: 1.5px solid #000;
+			}
+
+			.product-box {
+				@include flex(row, space-between, flex-start);
+				width: 80%;
+	
+				.product-name {
+					font-weight: bold;
+					position: relative;
+					z-index: 1;
+				}
+	
+				.product-quantity {
+					position: absolute;
+					background: $primary-dark;
+					border-radius: 50%;
+					width: 20px;
+					height: 20px;
+					line-height: 20px;
+					left: -15px;
+					top: -10px;
+					text-align: center;
+					z-index: -1;
+				}
+	
+				.product-price { font-size: .85rem }
+			}
+		}
+
+		.payment-container .contact-review .contact-box {
+			display: block;
+
+			p:first-child { margin-bottom: .5rem }
+			p:last-child { font-style: italic }
+		}
+
+		.payment-container .contact-review .contact-box .address-preview {
+			width: 100%;
+			text-align: left;
+		}
+		
+	}
 	
 }
 
@@ -159,7 +314,153 @@ and (-webkit-min-device-pixel-ratio: 1.5) {
 */
 
 @media (min-width: 481px) and (max-width: 767px) {
-  
+	#checkout .order-preview .order-preview-desktop { display: none }
+	#checkout .order-preview .order-preview-mobile { display: block }
+
+	#checkout  {
+		margin: 0 auto;
+		@include grid(1fr, 0);
+		align-items: flex-start;
+		width: 100%;
+
+		.shipping-container, .payment-container {
+			width: 100%;
+			padding: 2rem;
+		}
+
+		.form-switch-container {
+			grid-row: 2;
+			width: 100%;
+			height: 1020px;
+		}
+
+		.shipping-container .field-box:first-child input, .shipping-container .select-box .field-box {
+			width: 100%;
+			margin: .5rem 0;
+		}
+
+		form .order-row {
+			flex-direction: column;
+
+			> * {
+				width: 100%;
+				margin: .5rem 0;
+				text-align: center;
+			}
+		}
+
+		.payment-container form .payment-card .payment-box .field-box:last-child {
+			
+			> input,
+			.security-code-box { width: 100% }
+		}
+
+		/** Mobile order preview **/
+		.order-preview-mobile {
+			width: 100%;
+
+			#mobile-preview-toggle,
+			.mobile-preview-box { background: lighten($primary-dark, 10%) }
+
+			#mobile-preview-toggle {
+				width: 100%;
+				@include flex(row, center, space-between);
+				border-top: 1.5px solid #000;
+				border-bottom: 1.5px solid #000;
+
+				span:first-child {
+					width: 70%;
+					text-align: left;
+				}
+
+				span {
+					display: inline-block;
+					
+					i:first-child { margin-right: 1rem }
+					i:last-child { margin-left: 1rem }
+				}
+			}
+
+			hr {
+				border: none;
+				border-radius: $border-radius-primary;
+				border-bottom: 1.6px solid $primary-red;
+			}
+
+			.product-preview-discount {
+				@include flex(row, space-between, center);
+				width: 95%;
+				
+				input {
+					border-radius: $border-radius-primary;
+					border: 2px solid #000;
+					padding: .5rem;
+					outline: none;
+					width: 100%;
+					margin: 0 1rem;
+				}
+			}
+
+			.product-preview-total {
+				width: 100%;
+				
+				.total-box {
+					@include flex(row, space-between, center);
+		
+					.shipping-type,
+					.total-price span { font-weight: bold }
+		
+					&:first-child { width: 38% }
+		
+					&:last-child { width: 55% }
+				}
+			}
+
+			.mobile-preview-box {
+				display: none;
+				border-bottom: 1.5px solid #000;
+			}
+
+			.product-box {
+				@include flex(row, space-between, flex-start);
+				width: 80%;
+	
+				.product-name {
+					font-weight: bold;
+					position: relative;
+					z-index: 1;
+				}
+	
+				.product-quantity {
+					position: absolute;
+					background: $primary-dark;
+					border-radius: 50%;
+					width: 20px;
+					height: 20px;
+					line-height: 20px;
+					left: -15px;
+					top: -10px;
+					text-align: center;
+					z-index: -1;
+				}
+	
+				.product-price { font-size: .85rem }
+			}
+		}
+
+		.payment-container .contact-review .contact-box {
+			display: block;
+
+			p:first-child { margin-bottom: .5rem }
+			p:last-child { font-style: italic }
+		}
+
+		.payment-container .contact-review .contact-box .address-preview {
+			width: 100%;
+			text-align: left;
+		}
+		
+	}
 }
 
 
@@ -169,10 +470,173 @@ and (-webkit-min-device-pixel-ratio: 1.5) {
 */
 
 @media (min-width: 320px) and (max-width: 480px) {
+
+	#checkout .order-preview .order-preview-desktop { display: none }
+	#checkout .order-preview .order-preview-mobile { display: block }
+
+	#checkout  {
+		margin: 0 auto;
+		@include grid(1fr, 0);
+		align-items: flex-start;
+		width: 100%;
+
+		.shipping-container, .payment-container {
+			width: 100%;
+			padding: 2rem;
+		}
+
+		.form-switch-container {
+			grid-row: 2;
+			width: 100%;
+			height: 1060px;
+		}
+
+		.shipping-container .field-box:first-child input, .shipping-container .select-box .field-box {
+			width: 100%;
+			margin: .5rem 0;
+		}
+
+		form .order-row {
+			flex-direction: column;
+
+			> * {
+				width: 100%;
+				margin: .5rem 0;
+				text-align: center;
+			}
+		}
+
+		.payment-container form .payment-card .payment-box .field-box:last-child {
+			
+			> input,
+			.security-code-box { width: 100% }
+		}
+
+		/** Mobile order preview **/
+		.order-preview-mobile {
+			width: 100%;
+
+			#mobile-preview-toggle,
+			.mobile-preview-box { background: lighten($primary-dark, 10%) }
+
+			#mobile-preview-toggle {
+				width: 100%;
+				@include flex(row, center, space-between);
+				border-top: 1.5px solid #000;
+				border-bottom: 1.5px solid #000;
+
+				span:first-child {
+					width: 70%;
+					text-align: left;
+				}
+
+				span {
+					display: inline-block;
+					
+					i:first-child { margin-right: 1rem }
+					i:last-child { margin-left: 1rem }
+				}
+			}
+
+			hr {
+				border: none;
+				border-radius: $border-radius-primary;
+				border-bottom: 1.6px solid $primary-red;
+			}
+
+			.product-preview-discount {
+				@include flex(row, space-between, center);
+				width: 95%;
+				
+				input {
+					border-radius: $border-radius-primary;
+					border: 2px solid #000;
+					padding: .5rem;
+					outline: none;
+					width: 100%;
+					margin: 0 1rem;
+				}
+			}
+
+			.product-preview-total {
+				width: 100%;
+				
+				.total-box {
+					@include flex(row, space-between, center);
+		
+					.shipping-type,
+					.total-price span { font-weight: bold }
+		
+					&:first-child { width: 38% }
+					&:last-child { width: 55% }
+				}
+			}
+
+			.mobile-preview-box {
+				display: none;
+				border-bottom: 1.5px solid #000;
+			}
+
+			.product-box {
+				@include flex(row, space-between, flex-start);
+				width: 80%;
+	
+				.product-name {
+					font-weight: bold;
+					position: relative;
+					z-index: 1;
+				}
+	
+				.product-quantity {
+					position: absolute;
+					background: $primary-dark;
+					border-radius: 50%;
+					width: 20px;
+					height: 20px;
+					line-height: 20px;
+					left: -15px;
+					top: -10px;
+					text-align: center;
+					z-index: -1;
+				}
+	
+				.product-price { font-size: .85rem }
+			}
+		}
+
+		.payment-container .contact-review .contact-box {
+			display: block;
+
+			p:first-child { margin-bottom: .5rem }
+			p:last-child { font-style: italic }
+		}
+
+		.payment-container .contact-review .contact-box .address-preview {
+			width: 100%;
+			text-align: left;
+		}
+
+		.payment-container form .payment-paypal .payment-box img { width: 100% }
+		
+	}
   
 }
 
 /* Iphone SE / 5 - Portrait */
 @media screen and (max-width: 320px) {
 
+	#checkout .form-switch-container { height: 980px }
+
+	#checkout .order-preview-mobile #mobile-preview-toggle {
+		padding: 1rem .3rem;
+		font-size: .8rem;
+
+		span i:first-child { margin-right: .5rem }
+		span i:last-child { margin-left: .5rem }
+	}
+
+	#checkout .shipping-container, #checkout .payment-container { padding: 1rem }
+
+	#checkout .payment-container p,
+	#checkout .payment-container form .payment-card .payment-box input { font-size: .7rem }
 }

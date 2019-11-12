@@ -2,7 +2,6 @@
   ##Device = Laptops, Desktops
   ##Screen = B/w 1025px to 1280px
 */
-
 @media (min-width: 1025px) and (max-width: 1280px) {
 
 	#food-menu-showcase .container { max-width: 900px }
@@ -18,8 +17,7 @@
 	#online-order .cart-empty-description { font-size: 1rem }
 }
 
-/* ----------- iPad Pro ----------- */
-/* Portrait and Landscape */
+/* iPad Pro Portrait and Landscape */
 @media only screen 
   and (min-width: 1024px) 
   and (max-height: 1366px) 
@@ -38,36 +36,16 @@
 
 }
 
-/* ----------- iPad Pro ----------- */
-/* Portrait */
-@media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: portrait) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-
-	#food-menu .container { width: 950px }
-
-
-	
-}
+/* iPad Pro Portrait */
+@media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) { #food-menu .container { width: 950px } }
 
 /* Landscape */
-@media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-
-		#food-menu .container { max-width: 1250px }
-
-}
+@media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1.5) { #food-menu .container { max-width: 1250px } }
 
 /* 
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
 */
-
 @media (min-width: 768px) and (max-width: 1023px) {
 
 	#food-menu-showcase { padding: 0 }
@@ -112,7 +90,6 @@
   ##Device = Tablets, Ipads (landscape)
   ##Screen = B/w 768px to 1024px
 */
-
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   
   #food-menu-showcase { padding: 0 }
@@ -157,7 +134,6 @@
   ##Device = Low Resolution Tablets, Mobiles (Landscape)
   ##Screen = B/w 481px to 767px
 */
-
 @media (min-width: 481px) and (max-width: 767px) {
   
   #food-menu-showcase { padding: 0 }
@@ -228,7 +204,6 @@
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
 */
-
 @media (min-width: 320px) and (max-width: 480px) {
   
   #food-menu-showcase { padding: 0 }

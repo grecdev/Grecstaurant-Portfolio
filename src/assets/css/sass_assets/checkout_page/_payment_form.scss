@@ -189,13 +189,11 @@
 			.payment-header .payment-header-group label { width: 95px }
 
 			.payment-box {
-				display: none;
 				padding: 1.5rem 5rem;
+				@include flex(column, center, center);
+				display: none;
 
-				img {
-					width: 200px;
-					margin: 0 auto 1rem;
-				}
+				img { width: 40% }
 			}
 		}
 	}

@@ -18,13 +18,8 @@
   
 }
 
-/* ----------- iPad Pro ----------- */
-/* Portrait */
-@media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: portrait) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+/* iPad Pro Portrait */
+@media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
 
 	#about-showcase { height: 30vh }
   
@@ -43,16 +38,8 @@
 
 }
 
-/* Landscape */
-@media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-
-		#about-showcase { height: 30vh }
-		
-}
+/* iPad Pro Landscape */
+@media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1.5) { #about-showcase { height: 30vh } }
 
 /* 
   ##Device = Tablets, Ipads (portrait)

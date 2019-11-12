@@ -1081,7 +1081,7 @@ class Ui {
 	changePaymentMethod(e) {
 		// Show Credit card payment
 		if(e.target.closest('.payment-card')) {
-			this.paymentPaypal_box.classList.remove('visible-block');
+			this.paymentPaypal_box.classList.remove('visible-flex');
 			this.paymentCard_box.classList.remove('visible-none');
 	
 			this.cardPaypal_radio_input.nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
@@ -1094,7 +1094,7 @@ class Ui {
 		// Show Paypal card payment
 		if(e.target.closest('.payment-paypal')) {
 			this.paymentCard_box.classList.add('visible-none');
-			this.paymentPaypal_box.classList.add('visible-block');
+			this.paymentPaypal_box.classList.add('visible-flex');
 	
 			this.cardCredit_radio_input.nextElementSibling.classList.replace('radio-custom-checked', 'radio-custom-disabled');
 			this.cardPaypal_radio_input.nextElementSibling.classList.replace('radio-custom-disabled', 'radio-custom-checked');
@@ -1104,6 +1104,8 @@ class Ui {
 
 			// Remove regex alert when change to paypal method. ( it bugs out if we don't have this, remove so you can see it)
 			document.querySelectorAll('.regex-alert').forEach(error => error.remove());
+			// Reset the inputs
+			document.querySelectorAll('.input-error').forEach(error => error.classList.remove('input-error'));
 		}
 	}
 
