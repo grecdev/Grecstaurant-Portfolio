@@ -43,6 +43,7 @@ class Ui {
 		this.mobileHeader_modal = document.querySelector('.mobile-header-modal');
 		this.sneak_section = document.getElementById('sneak');
 		this.sneak_box = document.querySelector('.sneak-box');
+		this.mobilePreview_box = document.querySelector('.mobile-preview-box');
 		///////////// Divs where we insert the error for specific input
 		this.number_error = document.querySelector('.number-error');
 		this.email_error = document.querySelector('.email-error');
@@ -70,6 +71,7 @@ class Ui {
 		this.removeItem_btn = document.querySelector('.remove-item');
 		this.shippingReturn_btn = document.querySelector('.shipping-return');
 		this.barContainer_btn = document.querySelector('.bar-container');
+		this.orderSummary_btn = document.getElementById('mobile-preview-toggle');
 		// Inputs
 		this.phone_input = document.querySelector('.phone-number');
 		this.date_input = document.getElementById('full-date');
@@ -1245,9 +1247,9 @@ class Ui {
 
 	// Switch between forms
 	checkoutFormAnimation(e, submit) {
-		// Get the width of a form (don't matter which one)
+		// Get the width of a form (usually the big one)
 		// This is good for device queries
-		const boxWidth = this.shipping_form.getBoundingClientRect().width;
+		let boxWidth = this.paymentContainer.getBoundingClientRect().width;
 
 		if(e.type === 'DOMContentLoaded') {
 			// I use Array.from() method because .children return HTML collection, and forEach works only on arrays / array like objects.
@@ -1298,10 +1300,12 @@ class Ui {
 
 		// Calculate total items
 		const total = items.reduce((total, item) => total + parseFloat(item.totalPrice), 0);
+
+		// Here i get all the DOM elements because we have a different style for mobile / desktop
 		// Add html to the DOM
-		this.product_preview_list.innerHTML = html;
+		document.querySelectorAll('.product-preview-list').forEach(preview => preview.innerHTML = html);
 		// Add total price formated
-		this.product_preview_totalPrice.innerHTML = `${total.toFixed(2)} $`;
+		document.querySelectorAll('.total-price').forEach(price => price.innerHTML = `USD ${total.toFixed(2)} $`);
 	}
 
 	populateRegion(data) {
@@ -1374,6 +1378,16 @@ class Ui {
 			if(window.matchMedia('(min-width: 1025px)').matches) document.querySelectorAll('.sneak-box').forEach(box => box.classList.add('sneak-box-hover'));
 			if(window.matchMedia('(max-width: 1024px)').matches) document.querySelectorAll('.sneak-box').forEach(box => box.classList.remove('sneak-box-hover'));
 
+		}
+	}
+
+	// Checkout mobile preview order
+	previewOrderMobile(e) {
+		if(e.currentTarget === this.orderSummary_btn) {
+			this.mobilePreview_box.classList.toggle('visible-block');
+
+			// Change the icon
+			e.currentTarget.children[0].children[1].classList.toggle('fa-chevron-up');
 		}
 	}
 }

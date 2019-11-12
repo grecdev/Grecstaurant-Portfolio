@@ -57,4 +57,12 @@ if(location.pathname.includes('checkout')) {
 
 		e.stopPropagation();
 	});
+
+	// Mobile order preview
+	ui.orderSummary_btn.addEventListener('click', (e) => {
+
+		ui.previewOrderMobile(e);
+	
+		e.stopPropagation();
+	});
 }

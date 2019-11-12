@@ -61,7 +61,7 @@
 	
 						<div class="order-row">
 							<a href="menu.html" class="btn btn-red"><i class="fas fa-cart-plus"></i> Go back to menu</a>
-							<button class="btn btn-red" type="submit">Continue to Payment <i class="fas fa-angle-right"></i></button>
+							<button class="btn btn-green" type="submit">Continue to Payment <i class="fas fa-angle-right"></i></button>
 						</div>
 					</form>
 				</div>
@@ -173,7 +173,7 @@
 						</div>
 						
 						<div class="order-row p-1">
-							<a class="shipping-return" role="button"><i class="fas fa-chevron-left"></i> Return to shipping</a>
+							<a class="shipping-return btn btn-red" role="button"><i class="fas fa-chevron-left"></i> Return to shipping</a>
 	
 							<button class="btn btn-green" type="submit">Complete Order</button>
 						</div>
@@ -185,34 +185,83 @@
 
 			<!-- Order preview -->
 			<div class="order-preview">
-				<!-- insert dynamically with JS -->
-				<div class="product-preview-list mb-md"></div>
 
-				<hr class="mb-md">
-
-				<div class="product-preview-discount mb-md">
-					<input type="text" placeholder="Enter your discount here">
-
-					<button type="button" class="btn btn-light">Apply</button>
+				<div class="order-preview-desktop">
+					<!-- insert dynamically with JS -->
+					<div class="product-preview-list mb-md"></div>
+	
+					<hr class="mb-md">
+	
+					<div class="product-preview-discount mb-md">
+						<input type="text" placeholder="Enter your discount here">
+	
+						<button type="button" class="btn btn-light">Apply</button>
+					</div>
+	
+					<hr class="mb-md">
+	
+					<div class="product-preview-total">
+	
+						<div class="total-box mb-sm">
+							<p>Shipping</p>
+	
+							<p class="shipping-type">Free</p>
+						</div>
+	
+						<div class="total-box">
+							<p>Total</p>
+	
+							<!-- insert dynamically with JS -->
+							<p class="total-price"></p>
+						</div>
+	
+					</div>
 				</div>
 
-				<hr class="mb-md">
+				<div class="order-preview-mobile">
+					
+					<button type="button" id="mobile-preview-toggle" class="px-1">
+						<span><i class="fas fa-cart-plus"></i> Show order summary <i class="fas fa-chevron-down"></i></span>
 
-				<div class="product-preview-total">
+						<span class="total-price"></span>
+					</button>
 
-					<div class="total-box mb-sm">
-						<p>Shipping</p>
 
-						<p class="shipping-type">Free</p>
+					<div class="mobile-preview-box">
+						<!-- insert dynamically with JS -->
+						<div class="product-preview-list mb-md p-3"></div>
+		
+						<hr>
+		
+						<div class="product-preview-discount mx-2">
+							<input type="text" placeholder="Enter your discount here">
+		
+							<button type="button" class="btn btn-light">Apply</button>
+						</div>
+		
+						<hr class="mb-md">
+		
+						<div class="product-preview-total p-3">
+		
+							<div class="total-box mb-sm">
+								<p>Shipping</p>
+		
+								<p class="shipping-type">Free</p>
+							</div>
+		
+							<div class="total-box">
+								<p>Total</p>
+		
+								<!-- insert dynamically with JS -->
+								<p class="total-price"></p>
+							</div>
+		
+						</div>
+
 					</div>
-
-					<div class="total-box">
-						<p>Total</p>
-
-						<p class="total-price">USD <span>$ 281.00</span></p>
-					</div>
-
 				</div>
+
+
 
 			</div>
 			<!-- order preview -->

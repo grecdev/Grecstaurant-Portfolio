@@ -1,7 +1,8 @@
 #checkout {
-	@include flex(row, space-between, center);
+	@include flex(row, space-between, stretch);
 	position: relative;
-	height: 110vh;
+	min-height: 110vh;
+	overflow: hidden;
 
 	h2 { font-size: 2rem }
 
@@ -33,7 +34,10 @@
 		border-radius: $border-radius-primary;
 	}
 
-	.form-switch-container { height: 850px }
+	.form-switch-container { width: 60% }
+
+	.order-preview-desktop { display: block }
+	.order-preview-mobile { display: none }
 
 	.shipping-container, .payment-container {
 		width: 60%;

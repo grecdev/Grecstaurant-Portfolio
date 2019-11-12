@@ -1,7 +1,8 @@
 /** Shipping form **/
 #checkout .shipping-container {
 	@include flex(column, center, center);
-	
+	// display: none;
+
 	.field-box {
 		@include flex(row, space-between, center);
 		margin: 1rem 0;
