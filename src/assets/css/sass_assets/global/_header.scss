@@ -44,7 +44,7 @@ header {
 		height: 50px;
 
 		.bar-container {
-			width: 50px;
+			width: 80px;
 			height: 50px;
 			position: absolute;
 			top: 0;
@@ -59,7 +59,7 @@ header {
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			transform: translate(-50%, -50%) rotate(0deg);
+			transform: translate(-120%, -50%) rotate(0deg);
 			transition: transform 300ms ease-in-out 150ms;
 
 			&::before, &::after {
@@ -84,7 +84,7 @@ header {
 			transition: top 300ms ease-in-out, transform 300ms ease-in-out 150ms;
 		}
 
-		.mobile-header-enabled.header-bar { transform: translate(-50%, -50%) rotate(45deg) }
+		.mobile-header-enabled.header-bar { transform: translate(-120%, -50%) rotate(45deg) }
 		
 		.mobile-header-enabled.header-bar::before { transform: rotate(-90deg) }
 

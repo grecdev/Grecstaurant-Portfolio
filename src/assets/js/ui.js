@@ -928,9 +928,11 @@ class Ui {
 						<div class="order-price"><p>${item.price}</p></div>
 
 						<div class="order-quantity">
-							<button type="button" class="decrement-quantity">-</button>
-							<input type="text" class="quantity-number letter-disabled text-center" value="${item.quantity}">
-							<button type="button" class="increment-quantity">+</button>
+							<div class="quantity-group">
+								<button type="button" class="decrement-quantity">-</button>
+								<input type="text" class="quantity-number letter-disabled text-center" value="${item.quantity}">
+								<button type="button" class="increment-quantity">+</button>
+							</div>
 
 							<span class="text-center remove-item">Remove</span>
 						</div>
@@ -970,9 +972,9 @@ class Ui {
 		const decrementQuantity = e.target.nextElementSibling;
 		const incrementQuantity = e.target.previousElementSibling;
 
-		const itemId = parseFloat(e.target.parentElement.parentElement.previousElementSibling.dataset.itemId);
-		let initialPrice = e.target.parentElement.previousElementSibling.textContent;
-		let totalPrice = e.target.parentElement.nextElementSibling.textContent;
+		const itemId = parseFloat(e.target.parentElement.parentElement.parentElement.previousElementSibling.dataset.itemId);
+		let initialPrice = e.target.parentElement.parentElement.previousElementSibling.textContent;
+		let totalPrice = e.target.parentElement.parentElement.nextElementSibling.textContent;
 
 		// Min / Max stock
 		let minStock = 1;

@@ -184,9 +184,12 @@
 			}
 
 			.order-quantity {
-				width: 40%;
+				width: 20%;
 
-				.quantity-number { margin: 0 .5rem }
+				.quantity-number {
+					margin: 0 .5rem;
+					width: 50%;
+				}
 			}
 
 			a {
@@ -254,9 +257,12 @@
 			}
 
 			.order-quantity {
-				width: 40%;
+				width: 35%;
 
-				.quantity-number { margin: 0 .5rem }
+				.quantity-number {
+					margin: 0 .5rem;
+					width: 50%;
+				}
 			}
 
 			a {

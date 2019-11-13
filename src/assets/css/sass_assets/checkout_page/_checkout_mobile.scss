@@ -49,13 +49,16 @@
 		}
 
 		form .order-row {
-			flex-direction: column;
+			@include grid(1fr, 0);
 
 			> * {
 				width: 100%;
 				margin: .5rem 0;
 				text-align: center;
 			}
+
+			/* Reverse the buttons */
+			a { grid-row: 2 }
 		}
 
 		.payment-container form .payment-card .payment-box .field-box:last-child {
@@ -184,13 +187,16 @@
 		}
 
 		form .order-row {
-			flex-direction: column;
+			@include grid(1fr, 0);
 
 			> * {
 				width: 100%;
 				margin: .5rem 0;
 				text-align: center;
 			}
+
+			/* Reverse the buttons */
+			a { grid-row: 2 }
 		}
 
 		.payment-container form .payment-card .payment-box .field-box:last-child {
@@ -340,13 +346,16 @@
 		}
 
 		form .order-row {
-			flex-direction: column;
+			@include grid(1fr, 0);
 
 			> * {
 				width: 100%;
 				margin: .5rem 0;
 				text-align: center;
 			}
+
+			/* Reverse the buttons */
+			a { grid-row: 2 }
 		}
 
 		.payment-container form .payment-card .payment-box .field-box:last-child {
@@ -497,13 +506,16 @@
 		}
 
 		form .order-row {
-			flex-direction: column;
+			@include grid(1fr, 0);
 
 			> * {
 				width: 100%;
 				margin: .5rem 0;
 				text-align: center;
 			}
+
+			/* Reverse the buttons */
+			a { grid-row: 2 }
 		}
 
 		.payment-container form .payment-card .payment-box .field-box:last-child {
@@ -639,4 +651,8 @@
 
 	#checkout .payment-container p,
 	#checkout .payment-container form .payment-card .payment-box input { font-size: .7rem }
+
+	#checkout .order-preview-mobile .product-preview-total .total-box:first-child { width: 60% }
+
+	#checkout .order-preview-mobile .product-preview-total .total-box:last-child { width: 82% }
 }

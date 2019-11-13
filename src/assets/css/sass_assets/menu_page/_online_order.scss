@@ -23,8 +23,9 @@
 		}
 
 		.order-quantity {
-			@include flex(row, center, center);
-			flex-wrap: wrap;
+			@include flex(column, center, center);
+
+			.quantity-group { @include flex(row, center, space-between) }
 
 			button, input {
 				border: 1.5px solid $primary-red;
@@ -39,7 +40,6 @@
 
 			/* Remove text */
 			span {
-				width: 43%;
 				margin-top: .5rem;
 				font-size: .7rem;
 				cursor: pointer;
@@ -48,7 +48,7 @@
 			}
 
 			.quantity-number {
-				width: 30%;
+				width: 35%;
 				margin: 0 1rem;
 
 				&::placeholder { color: $primary-white }
