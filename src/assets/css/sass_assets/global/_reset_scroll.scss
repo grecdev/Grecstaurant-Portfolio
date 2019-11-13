@@ -1,0 +1,20 @@
+#reset-scroll {
+	position: fixed;
+	z-index: 55;
+	background: lighten($primary-dark, 15%);
+	right: 35px;
+	bottom: 30px;
+	@include flex(column, center, center);
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	visibility: hidden;
+	transform: scale(0);
+	transition: all 500ms ease-in-out;
+	cursor: pointer;
+}
+
+#reset-scroll.scrollBtn-enabled {
+	visibility: visible;
+	transform: scale(1);
+}

@@ -23,6 +23,8 @@ window.addEventListener('scroll', (e) => {
 
 	ui.sneakpeakBox(e);
 
+	if(document.body.contains(ui.resetScroll_btn)) ui.resetScroll(e);
+
 	e.stopPropagation();
 });
 
@@ -109,4 +111,14 @@ if(document.body.contains(ui.barContainer_btn)) {
 	
 		e.stopPropagation();
 	});
+}
+if(document.body.contains(ui.resetScroll_btn)) {
+	
+	ui.resetScroll_btn.addEventListener('click', (e) => {
+
+		ui.resetScroll(e);
+
+		e.stopPropagation();
+	});
+
 }

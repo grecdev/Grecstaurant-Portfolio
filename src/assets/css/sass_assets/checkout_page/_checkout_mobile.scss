@@ -262,7 +262,7 @@
 		
 					&:first-child { width: 38% }
 		
-					&:last-child { width: 55% }
+					&:last-child { width: 46.5% }
 				}
 			}
 
@@ -421,7 +421,7 @@
 		
 					&:first-child { width: 38% }
 		
-					&:last-child { width: 55% }
+					&:last-child { width: 46.5% }
 				}
 			}
 
@@ -635,7 +635,7 @@
 }
 
 /* Iphone SE / 5 - Portrait */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 320px) and (orientation: portrait) {
 
 	#checkout .form-switch-container { height: 980px }
 
@@ -654,5 +654,10 @@
 
 	#checkout .order-preview-mobile .product-preview-total .total-box:first-child { width: 60% }
 
-	#checkout .order-preview-mobile .product-preview-total .total-box:last-child { width: 82% }
+	#checkout .order-preview-mobile .product-preview-total .total-box:last-child { width: 79.5% }
+}
+
+/* Iphone SE / 5 - Landscape */
+@media screen and (max-width: 568px) and (orientation: landscape) {
+	#checkout .order-preview-mobile .product-preview-total .total-box:last-child { width: 49% }
 }

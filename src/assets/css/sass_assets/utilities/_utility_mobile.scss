@@ -108,4 +108,8 @@
 	.regex-alert { font-size: .8rem }
 
 	.btn { font-size: .8rem !important }
+
 }
+
+/* Iphone SE - Portrait */
+@media screen and (max-width: 320px) and (orientation: portrait) { body { font-size: .7rem } }

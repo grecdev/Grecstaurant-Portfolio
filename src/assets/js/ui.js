@@ -3,6 +3,7 @@
 const img = (image) => require(`../imgs/${image}`);
 
 import { ls } from './localStorage.js';
+import jump from 'jump.js';
 
 // VIEW
 class Ui {
@@ -72,6 +73,7 @@ class Ui {
 		this.shippingReturn_btn = document.querySelector('.shipping-return');
 		this.barContainer_btn = document.querySelector('.bar-container');
 		this.orderSummary_btn = document.getElementById('mobile-preview-toggle');
+		this.resetScroll_btn = document.getElementById('reset-scroll');
 		// Inputs
 		this.phone_input = document.querySelector('.phone-number');
 		this.date_input = document.getElementById('full-date');
@@ -1393,6 +1395,31 @@ class Ui {
 			// Change the icon
 			e.currentTarget.children[0].children[1].classList.toggle('fa-chevron-up');
 		}
+	}
+
+	resetScroll(e) {
+
+		const pos = window.pageYOffset;
+
+		if(e.type === 'scroll') {
+			if(pos >= 650) ui.resetScroll_btn.classList.add('scrollBtn-enabled');
+			else ui.resetScroll_btn.classList.remove('scrollBtn-enabled');
+	
+			
+		}
+
+		if(e.currentTarget === ui.resetScroll_btn && e.type === 'click' && e.currentTarget.dataset.eventToggle === 'true') {
+
+			// Disable event state
+			e.currentTarget.setAttribute('data-event-toggle', 'false');
+
+			jump('body', { duration: 1000 });
+
+			// We can't use e.currentTarget, because this works when the event is triggered. We use setAttribute after we click so that's why it doesn't work
+			setTimeout(() => ui.resetScroll_btn.setAttribute('data-event-toggle', 'true'), 1000);
+		}
+		
+
 	}
 }
 
