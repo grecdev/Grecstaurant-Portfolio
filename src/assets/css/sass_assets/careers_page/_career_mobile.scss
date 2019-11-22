@@ -73,6 +73,8 @@
 		
 		.form-box {
 			@include flex(column, center, space-between);
+			
+			input { font-size: .85rem }
 
 			fieldset {
 				width: 100%;
@@ -131,6 +133,8 @@
 		
 		.form-box {
 			@include flex(column, center, space-between);
+			
+			input { font-size: .85rem }
 
 			fieldset {
 				width: 100%;

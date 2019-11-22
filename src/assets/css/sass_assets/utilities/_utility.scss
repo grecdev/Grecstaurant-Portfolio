@@ -252,10 +252,13 @@ svg {
 
 /** Alerts **/
 .regex-alert {
-	background: $primary-pink;
 	padding: .5rem;
 	border-radius: $border-radius-primary;
+	width: 100%;
 }
+
+.regex-error { background: $primary-pink }
+.regex-success { background: $primary-green }
 
 /** Alert styling / Form regex styling **/
 /* I use !important because we don't always know on which element we asign the class ( so we can't make a high element specifity ) */
@@ -267,15 +270,6 @@ svg {
 
 .label-success { color: $primary-green !important }
 .input-success { border-color: $primary-green !important }
-
-.success-sent {
-	background: #82C4B0;
-	padding: .5rem;
-	border-radius: $border-radius-primary;
-	text-align: center;
-	margin: 1rem auto;
-	width: 50%;
-}
 
 /** Because we use the classes globally ( in food menu and in shopping cart ) **/
 .vegetarian-food, .spicy-food { margin-left: .4rem }

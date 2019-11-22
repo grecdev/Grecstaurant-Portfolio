@@ -65,10 +65,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	e.stopPropagation();
 });
 
-// Events for all inputs ( i can't put blur event on from )
-// blur event doesn't bubble so i removed e.stopPropagation() method => https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event
-document.querySelectorAll('input[type="text"]').forEach(input => input.addEventListener('blur', (e) => ui.regexValidation(e) ));
-
 // Disable characters from inputs that require only numbers
 // Here i can add the event directly to the input becuase the elements are already in the DOM (not inserted with JavaScript)
 ui.letterDisabled_input.forEach(input => {
@@ -85,15 +81,36 @@ ui.letterDisabled_input.forEach(input => {
 if(document.body.contains(document.querySelector('input[type="file"]'))) {
 	// File name placeholder
 	ui.upload_input.addEventListener('change', (e) => {
-	
-		ui.uploadFile();
+		
+		ui.uploadFile(e);
 	
 		e.stopPropagation();
 	});
 }
 
-// On checkout page we have 2 forms, and on the checkout page indiviual script i added another listener for forms
-if(document.body.contains(document.querySelector('form')) && !location.pathname.includes('checkout')) {
+// For pages that have the radio elements
+// Cause erros and disable others listeners if we don't check (disable the if statement so you can see)
+if(document.body.contains(document.querySelector('input[type="file"]'))) {
+
+	document.querySelectorAll('input[type="radio"]').forEach(input => {
+
+		// If radio has been checkd
+		input.addEventListener('change', (e) => {
+
+			// The 'input-filled' class we use it in the regex validation
+			e.target.parentElement.classList.add('input-filled', 'input-success');
+			e.target.parentElement.classList.remove('input-error');
+
+			setTimeout(() => e.target.parentElement.classList.remove('input-success'), 1250);
+	
+			e.stopPropagation();
+		});
+
+	})
+}
+
+// On checkout page we have 2 forms, and on the checkout.js script i added another listener for forms
+if(document.body.contains(ui.form) && !location.pathname.includes('checkout')) {
 	ui.form.addEventListener('submit', (e) => {
 
 		ui.regexValidation(e);
@@ -112,13 +129,18 @@ if(document.body.contains(ui.barContainer_btn)) {
 		e.stopPropagation();
 	});
 }
+
 if(document.body.contains(ui.resetScroll_btn)) {
-	
 	ui.resetScroll_btn.addEventListener('click', (e) => {
 
 		ui.resetScroll(e);
 
 		e.stopPropagation();
 	});
-
 }
+
+// Events for all inputs ( i can't put blur event on from )
+// blur event doesn't bubble so i removed e.stopPropagation() method => https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event
+///// IN PROGRESS
+ui.input_field.forEach(input => input.addEventListener('blur', ui.regexValidation));
+//////

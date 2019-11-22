@@ -45,23 +45,10 @@ class Ui {
 		this.sneak_section = document.getElementById('sneak');
 		this.sneak_box = document.querySelector('.sneak-box');
 		this.mobilePreview_box = document.querySelector('.mobile-preview-box');
-		///////////// Divs where we insert the error for specific input
-		this.number_error = document.querySelector('.number-error');
-		this.email_error = document.querySelector('.email-error');
-		this.lastName_error = document.querySelector('.lastName-error');
-		this.firstName_error = document.querySelector('.firstName-error');
-		this.fullName_error = document.querySelector('.fullName-error');
-		this.address_error = document.querySelector('.address-error');
-		this.city_error = document.querySelector('.city-error');
-		this.postalCode_error = document.querySelector('.postalCode-error');
-		this.cardNumber_error = document.querySelector('.cardNumber-error');
-		this.cardName_error = document.querySelector('.cardName-error');
-		this.expirationDate_error = document.querySelector('.expirationDate-error');
-		this.securityCode_error = document.querySelector('.securityCode-error');
-		/////////////////////
 		this.form = document.querySelector('form');
 		this.upload_placeholder = document.querySelector('.upload-value');
 		this.career_container = document.querySelector('#career-form .container');
+		this.input_field = document.querySelectorAll('.text-field');
 		// Buttons
 		this.prev_month_btn = document.getElementById('prev-month');
 		this.next_month_btn = document.getElementById('next-month');
@@ -74,6 +61,7 @@ class Ui {
 		this.barContainer_btn = document.querySelector('.bar-container');
 		this.orderSummary_btn = document.getElementById('mobile-preview-toggle');
 		this.resetScroll_btn = document.getElementById('reset-scroll');
+		this.form_btn = document.querySelector('.form-btn');
 		// Inputs
 		this.phone_input = document.querySelector('.phone-number');
 		this.date_input = document.getElementById('full-date');
@@ -176,20 +164,22 @@ class Ui {
 			mastercardStart: /^((?:5)|(?:2){1,2})/,
 			// 37 / 34 => American Express
 			amexpStart: /^3(7|4){0,1}/
-		}
+		};
+		// To check for mobile devices
+		this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
 	}
 
 	// Scroll functionality
-	scrollFunctionality(e) {
+	scrollFunctionality() {
 
 		const pos = Math.floor(pageYOffset);
 
 		// For elements on the home page
 		// Animations only for desktops
-		if(document.body.getAttribute('id') === 'home-page' && window.matchMedia('(min-width: 1024px)').matches) {
+		if(document.body.getAttribute('id') === 'home-page' && !ui.isMobile.test(navigator.userAgent)) {
 
-			if(pos >= 500) ui.chef_avatar.classList.add('chef-visible')
-			else ui.chef_avatar.classList.remove('chef-visible')
+			if(pos >= 500) ui.chef_avatar.classList.add('chef-visible');
+			else ui.chef_avatar.classList.remove('chef-visible');
 	
 			if(pos >= 800) {
 				ui.pizza_left.classList.add('pizza-visible');
@@ -217,7 +207,7 @@ class Ui {
 		}
 	}
 
-	// Populate days ( DRY )
+	// Populate days (DRY)
 	populateDates(date) {
 		// Calculate total days
 		let totalDays = this.totalDays(date);
@@ -262,10 +252,7 @@ class Ui {
 
 			// date = navigate ( see the argument in monthChange method )
 			// If we go past the current date
-			if(date.month <= this.currentDate.month && date.year <= this.currentDate.year || date.month > this.currentDate.month && date.year < this.currentDate.year) {
-				day.style.color = '#666';
-				day.className = 'disabled-date';
-			}
+			if(date.month <= this.currentDate.month && date.year <= this.currentDate.year || date.month > this.currentDate.month && date.year < this.currentDate.year) day.className = 'disabled-date';
 
 			// Enable the reset date button (so the user don't have to close the modal and click on the date input over and over again) for lazy users (like myself)
 			if(date.month < this.currentDate.month && date.year <= this.currentDate.year || date.year < this.currentDate.year) {
@@ -280,13 +267,9 @@ class Ui {
 			}
 
 			// If we want to set a date in the future
-			if(date.month >= this.currentDate.month && date.year >= this.currentDate.year && day.textContent >= this.currentDate.day || date.month < this.currentDate.month && date.year > this.currentDate.year || date.month > this.currentDate.month && date.year >= this.currentDate.year || date.month === this.currentDate.month && date.year > this.currentDate.year) {
-				day.style.color = '#fff';
-				day.className = 'available-date';
-			}
+			if(date.month >= this.currentDate.month && date.year >= this.currentDate.year && day.textContent >= this.currentDate.day || date.month < this.currentDate.month && date.year > this.currentDate.year || date.month > this.currentDate.month && date.year >= this.currentDate.year || date.month === this.currentDate.month && date.year > this.currentDate.year) day.className = 'available-date';
 			
 			if(day.textContent === '') day.className = 'disabled-date';
-
 		});
 	}
 
@@ -427,323 +410,105 @@ class Ui {
 		const globalRegex = {
 			/* 
 			Phone format
+			0777123456
+			0777 123 456
+			0777-123-456
 			+44 123 456 789
 			+40 123 456 789
 			+40123456789
 			+40-123-456-789
 			(1234) 567 890
 			(555) 555-1234
-		*/
+			*/
 			phoneRegex: /^\+?(\(\+\d{2,3}\)?)?[\s-\.]?(\(?\d+\)?)[\s-\.]?(\d+)[\s-\.]?(\d+)$/g,
+			/*
+			email@gmail.com / ro / co / co.uk / fr
+			email@yahoo.com / ro / co / co.uk / fr
+			email@hotmail.com / ro / co / co.uk / fr
+			email@aol.com / ro / co / co.uk / fr
+			*/
 			emailRegex: /^[\w\W]+\@{1}(gmail|yahoo|hotmail|aol)\.(com|ro|co|co\.uk|fr)+$/g,
 			letterRegex: /^[aA-zZ\s-]{3,}$/,
 			// 1234567 - 12345 - 1234
-			// 123-4567 ...
+			// 123-4567
 			postalCodeRegex: /^[\d\-]{4,8}$/,
 			addressRegex: /^[\w\W]{5,}$/
 		};
 
-		// Variable 'state'
-		// If radio inputs are checked. See below.
-		let checked = false;
-		// Disable or enable the form submission
-		let submit;
+		if(e.type === 'blur' && e.target.tagName === 'INPUT') {
+			// I use ui object instead of this. keyword because i use the regexValidation method as addEventListener function parameter
+			// We can use e.target or this. keyword
 
-		const inputs = document.querySelectorAll('input');
-		const radioInputs = document.querySelectorAll('input[type="radio"]');
-		// I choose to pick the parent div because not all the elements are inputs ( we have a select or textarea attribute)
-		// So i get the parent div and the first child (depends on the markup)
-		const fieldBox = document.querySelectorAll('.field-box');
+			// Global Inputs
+			if(e.target === ui.lastName_input) {
+				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Last name is invalid, please type again', 'error', false, e.target);
+			}
 
-		// Global inputs
-		if(e.target === this.phone_input) {
-			// Error
-			if(!globalRegex.phoneRegex.test(this.phone_input.value)) this.alert('Invalid Number, please type again.', 'error', 'number', false, e.target);
-			// Success
-			else this.alert(null, 'success', null, false, e.target);
-			// Empty input
-			if(this.phone_input.value === '') this.alert('Phone Number is required, please type one.', 'error', 'number', false, e.target);
+			if(e.target === ui.email_input) {
+				if(globalRegex.emailRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Email is invalid, please type again', 'error', false, e.target);
+			}
+
+			if(e.target === ui.firstName_input) {
+				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('First Name is invalid, please type again', 'error', false, e.target);
+			}
+
+			if(e.target === ui.phone_input) {
+				if(globalRegex.phoneRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Phone Number is invalid, please type again', 'error', false, e.target);
+			}
+
+			// Only for inputs that can type text inside them
+			if(e.target.value === '') ui.alert(`${e.target.previousElementSibling.textContent} is empty, please fill the input`, 'error', false, e.target);
 		}
 
-		if(e.target === this.email_input) {
-			// Error
-			if(!globalRegex.emailRegex.test(this.email_input.value)) this.alert('Invalid Email, please type again.', 'error', 'email', false, e.target);
-			// Success
-			else this.alert(null, 'success', null, false, e.target);
-			// Empty input
-			if(this.email_input.value === '') this.alert('Email is required, please type one.', 'error', 'email', false, e.target);
-		}
+		if(e.type === 'submit') {
+			// Variable 'state': disable or enable the form submission
+			let submit;
 
-		if(e.target === this.lastName_input) {
-			// Error
-			if(!globalRegex.letterRegex.test(this.lastName_input.value)) this.alert('Invalid Last Name, please type again.', 'error', 'lastName', false, e.target);
-			// Success
-			else this.alert(null, 'success', null, false, e.target);
-			// Empty input
-			if(this.lastName_input.value === '') this.alert('Last Name is required, please type one.', 'error', 'lastName', false, e.target);
-		}
+			const filledInputs = [];
 
-		if(e.target === this.firstName_input) {
-			// Error
-			if(!globalRegex.letterRegex.test(this.firstName_input.value)) this.alert('Invalid First Name, please type again.', 'error', 'firstName', false, e.target);
-			// Success
-			else this.alert(null, 'success', null, false, e.target);
-			// Empty input
-			if(this.firstName_input.value === '') this.alert('First Name is required, please type one.', 'error', 'firstName', false, e.target);
-		}
+			this.input_field.forEach(input => {
 
-		if(e.target === this.fullName_input) {
-			// Error
-			if(!globalRegex.letterRegex.test(this.fullName_input.value)) this.alert('Invalid Name, please type again.', 'error', 'fullName', false, e.target);
-			// Success
-			else this.alert(null, 'success', null, false, e.target);
-			// Empty input
-			if(this.fullName_input.value === '') this.alert('Name is required, please type one.', 'error', 'fullName', false, e.target);
-		}
+				if(!input.classList.contains('input-filled')) {
 
-		// Checkout page
-		if(location.pathname.includes('checkout')) {
+					// Display the alert
+					this.alert('All inputs are required !', 'error', true, e.target);
+					// Highlight the inputs
+					input.classList.add('input-error');
 
-			if(e.target === this.address_input) {
-				// Error
-				if(this.address_input.value.length < 3) this.alert('Invalid Address, please type again.', 'error', 'address', false, e.target);
-				// Success
-				else this.alert(null, 'success', null, false, e.target);
-				// Empty input
-				if(this.address_input.value === '') this.alert('Address is required, please type one.', 'error', 'address', false, e.target);
-			}
-
-			if(e.target === this.city_input) {
-				// Error
-				if(!globalRegex.letterRegex.test(this.city_input.value)) this.alert('Invalid City, please type again.', 'error', 'city', false, e.target);
-				// Success
-				else this.alert(null, 'success', null, false, e.target);
-				// Empty input
-				if(this.city_input.value === '') this.alert('City is required, please type one.', 'error', 'city', false, e.target);
-			}
-			
-			if(e.target === this.postalCode_input) {
-				// Error
-				if(!globalRegex.postalCodeRegex.test(this.postalCode_input.value)) this.alert('Invalid Postal Code, please type again.', 'error', 'postalCode', false, e.target);
-				// Success
-				else this.alert(null, 'success', null, false, e.target);
-				// Empty input
-				if(this.postalCode_input.value === '') this.alert('Postal Code is required, please type one.', 'error', 'postalCode', false, e.target);
-			}
-
-			if(e.target === this.cardExpiration_input) {
-				// Error
-				if(!this.cardRegex.expDate.test(this.cardExpiration_input.value)) this.alert('Invalid Expration Date, please type again.', 'error', 'expiration-date', false, e.target);
-				// Success
-				else this.alert(null, 'success', null, false, e.target);
-				// Empty input
-				if(this.cardExpiration_input.value === '') this.alert('Expration Date is required, please type one.', 'error', 'expiration-date', false, e.target);
-			}
-
-			if(e.target === this.securityCode_input) {
-				// Error
-				if(!this.cardRegex.securityCode.test(this.securityCode_input.value)) this.alert('Invalid Security Code, please type again.', 'error', 'security-code', false, e.target);
-				// Success
-				else this.alert(null, 'success', null, false, e.target);
-				// Empty input
-				if(this.securityCode_input.value === '') this.alert('Security Code is required, please type one.', 'error', 'security-code', false, e.target);
-			}
-
-			// Shipping address form
-			if(e.target === this.shipping_form) {
-				// Loop trough all field boxes and loop trough all childrens (because we have multiple inputs in 1 single fieldbox)
-				// And get the field box for shipping form because if we use the global field box variable it will get for payment form aswell and we don't want that 
-				// Submit error
-				document.querySelectorAll('form[name="shipping-form"] .field-box').forEach(box => {
-
-					Array.from(box.children).forEach(children => {
-						
-						if(children.value === '') {
-	
-							children.classList.add('input-error');
-							this.alert('All fields are required.', 'error', 'shipping', true, null);
-						
-							setTimeout(() => children.classList.remove('input-error'), 2500);
-
-							// Don't submit the form
-							submit = false;
-						}
-
-					});
-				});
-				
-				// Succes validation for shipping form
-				if(this.address_input.value.length >= 3 && globalRegex.letterRegex.test(this.city_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.countryRegion_input.value.length > 0 && globalRegex.postalCodeRegex.test(this.postalCode_input.value)) {
-
-					// Submit the form
-					submit = true;
-				}
-
-				// So we can check for submit
-				this.checkoutFormAnimation(e, submit);
-				console.log('Form has been submited ? ', submit);
-				return submit
-			}
-
-			if(e.target === this.cardNumber_input) {
-				if(!this.cardRegex.visaRegex.test(this.cardNumber_input.value) && !this.cardRegex.mastercardRegex.test(this.cardNumber_input.value) && !this.cardRegex.amexpRegex.test(this.cardNumber_input.value)) this.alert('Invalid Card Number, please type again.', 'error', 'cardNumber', false, e.target);
-				// Success
-				else this.alert(null, 'success', null, false, e.target);
-
-				// Empty input
-				if(this.cardNumber_input.value === '') this.alert('Card Number is required, please type one.', 'error', 'cardNumber', false, e.target);
-			}
-
-			// Payment method form
-			if(e.target === this.payment_form) {
-				if(this.cardCredit_radio_input.checked) {
-					// Submit error
-					document.querySelectorAll('form[name="payment-form"] input[type="text"]').forEach(box => {
-
-						if(box.value === '') {
-
-							box.classList.add('input-error');
-
-							this.alert('All fields are required.', 'error', 'payment', true, null);
-						
-							setTimeout(() => box.classList.remove('input-error'), 2500);
-
-							// Don't submit the form
-							submit = false;
-						}
-						
-					});
-
-					// Succes validation for payment form
-					if((this.cardRegex.visaRegex.test(this.cardNumber_input.value) || this.cardRegex.mastercardRegex.test(this.cardNumber_input.value) || this.cardRegex.amexpRegex.test(this.cardNumber_input.value)) && globalRegex.letterRegex.test(this.fullName_input.value) && this.cardRegex.securityCode.test(this.securityCode_input.value) && this.cardRegex.expDate.test(this.cardExpiration_input.value)) {
-						// Reset all inputs from both forms
-						inputs.forEach(inputs => inputs.value = '');
-
-						// Submit the form
-						submit = true;
-					}
-				}
-
-				console.log('Form has been submited ? ', submit);
-				return submit;
-			}
-		}
-
-		// Reservation page
-		if(location.pathname.includes('reservation')) {
-
-			if(e.target === this.form) {
-				
-				// Submit error
-				fieldBox.forEach(box => {
-					
-					if(box.children[0].value === '') {
-
-						// Add error
-						box.children[0].classList.add('input-error');
-						this.alert('All fields are required.', 'error', null, true, null);
-
-						// Remove the highlight input errors
-						setTimeout(() => box.children[0].classList.remove('input-error'), 2500);
-
-						// Don't submit the form
-						submit = false;
+					if(location.pathname.includes('careers')) {
+						// If the input has a label element
+						if(this.form.contains(document.querySelector('label')) && input.tagName === 'INPUT') input.previousElementSibling.classList.add('label-error');
 					}
 
-				});
-				
-				// Submit success
-				if(globalRegex.phoneRegex.test(this.phone_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.letterRegex.test(this.fullName_input.value) && this.people_input.value.length > 0 && this.time_input.value.length > 0 && this.date_input.value.length > 0) {
+					// Don't submit the form
+					submit = false;
 
-					fieldBox.forEach(box => box.children[0].value = '');
+				// Get all the inputs that are correct
+				} else filledInputs.push(input);
+			});
 
-					// Textarea
-					document.getElementById('message').value = '';
+			// If the number of correct inputs is the same as all inputs that means all the inputs are correct filled :)
+			if(filledInputs.length === this.input_field.length) {
 
-					this.alert('Reservation successful registered', 'success', null, true, null);
-	
-					// Submit the form
-					submit = true;
-				}
+				this.alert('Form has been successfully submited !', 'success', true, e.target);
 
-				console.log('Form has been submited ? ', submit);
-				return submit;
+				// Submit the form
+				submit = true;
 			}
-		}
 
-		// Careers page
-		if(location.pathname.includes("careers")) {
-			// Submiting the form
-			if(e.target === this.form) {
-				// If the inputs are checked we enable the checked varaible / 'state'
-				radioInputs.forEach(radio => { if(radio.checked) checked = true });
-	
-				// Empty input
-				inputs.forEach(input => {
-					// Text inputs
-					if(!input.classList.contains('input-filled') && input.getAttribute('type') === 'text') {
-						// Add the error
-						input.classList.add('input-error');
-						input.previousElementSibling.classList.add('label-error');
-	
-						setTimeout(() => {
-							input.classList.remove('input-error');
-							input.previousElementSibling.classList.remove('label-error');
-						}, 2500);
-	
-						this.alert('All fields are required.', 'error', null, true, null);
-	
-						// Disable the event
-						submit = false;
-					}
-	
-					// For radio && file upload
-					// If radio inputs are not checked (see checked variable / 'state') or CV is not uploaded
-					if(input.getAttribute('type') === 'radio' && !checked || input.getAttribute('type') === 'file' && input.value === '') {
-						// Add the error to the parent div.
-						input.parentElement.classList.add('input-error');
-	
-						setTimeout(() => input.parentElement.classList.remove('input-error'), 2500);
-	
-						this.alert('All fields are required.', 'error', null, true, null);
-	
-						// Disable the event
-						submit = false;
-					}
-				});
-	
-				// If all inputs are filled
-				// Here you can see why i made a variable checked / 'state'
-				if(globalRegex.letterRegex.test(this.lastName_input.value) && globalRegex.letterRegex.test(this.firstName_input.value) && globalRegex.emailRegex.test(this.email_input.value) && globalRegex.phoneRegex.test(this.phone_input.value) && this.upload_input.value.length > 0 && checked) {
-	
-					this.alert('Contact details succesfull sent', 'success', null, true, null);
-	
-					// Reset all inputs
-					inputs.forEach(input => {
-	
-						if(input.getAttribute('type') === 'text' || input.getAttribute('type') === 'file') input.value = '';
-						if(input.getAttribute('type') === 'radio') input.checked = false;
-	
-					});
-	
-					// Reset upload placeholder
-					this.upload_placeholder.textContent = '';
-					
-					// Enable the event ( submit the form )
-					submit =  true;
-				}
-
-				console.log('Form has been submited ? ', submit);
-				return submit;
-			}
+			console.log('Form has been submited ?', submit);
+			return submit;
 		}
 	}
 
 	// DRY
-	alert(message, alertType, inputType, multiple, target) {
+	alert(message, alertType, multiple, target) {
 		// message = obviously
 		// alertType = success / error
-		// inputType = where we insert the error
 		// multiple = true (when submiting the form and check all inputs) / false (single input)
 		// target = when we need to use the event object
 
@@ -753,97 +518,127 @@ class Ui {
 		// Add custom text
 		p.appendChild(document.createTextNode(message));
 
-		// Error
+		// Remove alert, so we have only one
+		document.querySelectorAll('.regex-alert').forEach(alert => alert.remove());
+
 		if(alertType === 'error') {
-			// Remove error, so we have only one
-			document.querySelectorAll('.regex-alert').forEach(error => error.remove());
-	
-			// Add the error styling
-			p.classList.add('regex-alert', 'text-center');
+
+			p.classList.add('regex-alert', 'regex-error', 'text-center');
 			
-			// Add error for individual input
 			if(!multiple) {
-				// Add the error to specific inputs
+				// If input is not valid remove the input correct validation class (input-filled);
+				target.classList.remove('input-filled');
 				target.classList.add('input-error');
-				// If we have label for inputs
-				// For reservation page we use placeholder attribute instead of label so that's why we check it
+
+				// If the input has a label element
 				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-error');
-	
-				// Add the error for individual inputs
-				if(inputType === 'number') this.number_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'email') this.email_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'lastName') this.lastName_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'firstName') this.firstName_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'fullName') this.fullName_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'address') this.address_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'city') this.city_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'postalCode') this.postalCode_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'cardNumber') this.cardNumber_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'expiration-date') this.expirationDate_error.insertAdjacentElement('beforeend', p);
-				if(inputType === 'security-code') this.securityCode_error.insertAdjacentElement('beforeend', p);
+
+				// For individual input add the regex alert
+				target.parentElement.insertAdjacentElement('beforeend', p);
+
+				if(target.value === '') target.classList.remove('input-filled');
+			}
+			else {
+				// Add the regex alert to the DOM && other alert styling to elements
+				target.insertAdjacentElement('beforeend', p);
+
+				this.input_field.forEach(input => {
+
+					input.classList.remove('input-success');
+					// If the input has a label element
+					if(this.form.contains(document.querySelector('label'))) input.previousElementSibling.classList.remove('label-success');
+
+				});
+
+				this.form_btn.classList.add('regex-error');
+
+				// Reset the regex alert
+				setTimeout(() => {
+
+					this.form_btn.classList.remove('regex-error');
+					p.remove();
+
+				}, 2500);
 			}
 
-			// Add error for all inputs when submit the form
-			if(multiple) {
-				// Add to the DOM
-				if(location.pathname.includes('careers')) this.career_container.insertAdjacentElement('beforeend', p);
-				if(document.body.contains(this.form) && !location.pathname.includes('checkout')) this.form.insertAdjacentElement('beforeend', p);
-
-				// For checkout page
-				if(inputType === 'shipping') this.shipping_form.insertAdjacentElement('beforeend', p);
-				if(inputType === 'payment') this.payment_form.insertBefore(p, document.querySelector('.payment-container .payment-paypal'));
-
-				// Remove the alert
-				setTimeout(() => p.remove(), 2500);
-			}
 		}
-		// Success validation
-		if(alertType === 'success') {
 
+		if(alertType === 'success') {
+			
+			// Single input
 			if(!multiple) {
-				// Remove error styling
+
+				// Remove alert styling
 				target.classList.remove('input-error');
-				// For reservation we use placeholder attribute instead of label so that's why we check it
+				// If the input has a label element
 				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-error');
-				
-				// Success validation
-				// The input filled class is required for regex validation
-				// When we submit check for input that does not have been filled
+
+				// input-filled - If the input has been filled corectly (we check for class in regex validation for multiple inputs)
 				target.classList.add('input-success', 'input-filled');
-				// For reservation we use placeholder attribute instead of label so that's why we check it
+				// If the input has a label element
 				if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.add('label-success');
 
-				// Reset the styling
+				// Reset the success styling
 				setTimeout(() => {
+
 					target.classList.remove('input-success');
-					// For reservation we use placeholder attribute instead of label so that's why we check it
+					// If the input has a label element
 					if(this.form.contains(document.querySelector('label'))) target.previousElementSibling.classList.remove('label-success');
+
 				}, 1250);
-	
-				// Remove error, so we have only one
-				document.querySelectorAll('.regex-alert').forEach(error => error.remove());
+			}
+			else {
+				// Add the alert styling
+				p.classList.add('regex-alert', 'text-center', 'regex-success');
+
+				// Add alert to DOM
+				target.insertAdjacentElement('beforeend', p);
+				this.form_btn.classList.add('regex-success');
+
+				// Reset inputs
+				this.input_field.forEach(input => {
+					input.classList.remove('input-error', 'input-filled', 'input-success');
+
+					if(input.tagName === 'INPUT') input.value = '';
+
+					// For careers page we have file and radio inputs
+					if(location.pathname.includes('careers')) {
+						
+						this.upload_placeholder.textContent = '';
+
+						// I use Array.from(), because .children returns a Html Collection and .forEach works on array objects or array like objects;
+						if(input.classList.contains('employee-time')) Array.from(input.children).forEach(children => { if(children.tagName === 'INPUT') children.checked = false })
+						
+					}
+				});
+
+
+				setTimeout(() => {
+					this.form_btn.classList.remove('regex-success');
+					p.remove();
+				}, 2500);
 			}
 
-			if(multiple) {
-				// Add styling
-				p.classList.add('success-sent');
-
-				// Add to the DOM
-				if(location.pathname.includes('careers')) this.career_container.insertAdjacentElement('beforeend', p);
-				if(location.pathname.includes('reservation')) this.form.insertAdjacentElement('beforeend', p);
-
-				setTimeout(() => p.remove(), 2500);
-			}
 		}
 	}
 
-	uploadFile() {
+	uploadFile(e) {
 		// Get the character after the backslash
 		const uploadIndex = ui.upload_input.value.lastIndexOf("\\") + 1;
-		// "Placholder of the upload input"
-		const uploadInfo = document.querySelector('.upload-value');
 		// Apply the file name
-		uploadInfo.textContent = ui.upload_input.value.slice(uploadIndex);
+		this.upload_placeholder.textContent = ui.upload_input.value.slice(uploadIndex);
+
+		// The 'input-filled' class we use it in the regex validation
+		// If file has been selected for upload
+		if(e.target.value.length > 0) {
+
+			e.target.parentElement.classList.remove('input-error');
+			e.target.parentElement.classList.add('input-filled', 'input-success');
+			setTimeout(() => e.target.parentElement.classList.remove('input-success'), 1250);
+
+		}
+
+		if(e.target.value === '') e.target.parentElement.classList.remove('input-filled');
 	}
 
 	// Populate UI (DRY)
@@ -1381,8 +1176,8 @@ class Ui {
 		// See in scss partial file => _sneak.scss
 		if(e.type === 'DOMContentLoaded' && document.body.contains(ui.sneak_box)) {
 
-			if(window.matchMedia('(min-width: 1025px)').matches) document.querySelectorAll('.sneak-box').forEach(box => box.classList.add('sneak-box-hover'));
-			if(window.matchMedia('(max-width: 1024px)').matches) document.querySelectorAll('.sneak-box').forEach(box => box.classList.remove('sneak-box-hover'));
+			if(!ui.isMobile.test(navigator.userAgent)) document.querySelectorAll('.sneak-box').forEach(box => box.classList.add('sneak-box-hover'));
+			if(ui.isMobile.test(navigator.userAgent)) document.querySelectorAll('.sneak-box').forEach(box => box.classList.remove('sneak-box-hover'));
 
 		}
 	}
