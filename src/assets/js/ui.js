@@ -48,7 +48,7 @@ class Ui {
 		this.form = document.querySelector('form');
 		this.upload_placeholder = document.querySelector('.upload-value');
 		this.career_container = document.querySelector('#career-form .container');
-		this.input_field = document.querySelectorAll('.text-field');
+		this.form_box = document.querySelector('.form-box');
 		// Buttons
 		this.prev_month_btn = document.getElementById('prev-month');
 		this.next_month_btn = document.getElementById('next-month');
@@ -82,6 +82,8 @@ class Ui {
 		this.cardNumber_input = document.getElementById('card-number');
 		this.cardExpiration_input = document.getElementById('expiration-date');
 		this.securityCode_input = document.getElementById('security-code');
+		this.input_field = document.querySelectorAll('.text-field');
+		this.change_value = document.querySelectorAll('.change-value');
 		// Days / Months
 		// So we can dynamically implement with JS
 		this.dateNames = {
@@ -275,7 +277,7 @@ class Ui {
 
 	showHideModal(e, navigate) {
 		// Show modal && calendar ( because in html files the time and calendar is in the same modal element )
-		if(e.currentTarget === this.date_input) {
+		if(e.target === this.date_input) {
 			this.modals.classList.add('visible-flex');
 			this.date_modal.classList.add('visible-flex');
 
@@ -301,7 +303,7 @@ class Ui {
 		}
 		
 		// Show modal && time picker ( because in html files the time and calendar is in the same modal element )
-		if(e.currentTarget === this.time_input) {
+		if(e.target === this.time_input) {
 			this.modals.classList.add('visible-flex');
 			this.time_modal.classList.add('visible-block');
 		}
@@ -309,6 +311,11 @@ class Ui {
 		if(e.target.parentElement === this.time_modal) {
 			// Change the time input value
 			this.time_input.value = e.target.textContent;
+
+			// Class for regex validation
+			this.time_input.classList.remove('input-error');
+			this.time_input.parentElement.classList.remove('input-error');
+			this.time_input.parentElement.classList.add('input-filled');
 
 			// Hide modals
 			this.modals.classList.remove('visible-flex');
@@ -320,7 +327,14 @@ class Ui {
 	setDate(e, navigate) {
 		// Set today date
 		// Set the input date
-		if(e.target === this.today_date_btn) this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`;
+		if(e.target === this.today_date_btn) {
+
+			this.date_input.value = `${this.dateNames.months[this.currentDate.month]} ${this.currentDate.day}, ${this.currentDate.year}`;
+			// Class for regex validation
+			this.date_input.classList.remove('input-error');
+			this.date_input.parentElement.classList.remove('input-error');
+			this.date_input.parentElement.classList.add('input-filled');
+		}
 
 		// Show confirm popup box and show selected date in the table
 		if(e.target.className === 'available-date') {
@@ -338,7 +352,15 @@ class Ui {
 		}
 
 		// Confirm Date
-		if(e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn) this.date_input.value = this.date_confirm_info.textContent
+		if(e.target === this.confirm_date_btn || e.target.parentElement === this.confirm_date_btn) {
+
+			this.date_input.value = this.date_confirm_info.textContent;
+			// Class for regex validation
+			this.date_input.classList.remove('input-error');
+			this.date_input.parentElement.classList.remove('input-error');
+			this.date_input.parentElement.classList.add('input-filled');
+
+		}
 
 		// Reset date
 		if(e.target.parentElement === this.reset_date_btn || e.target === this.reset_date_btn) {
@@ -355,6 +377,8 @@ class Ui {
 			document.querySelectorAll('table tbody td').forEach(day => { if(day.textContent == this.currentDate.day) day.classList.add('selected') });
 
 			this.date_input.value = 'Pick Date';
+			// If input is empty
+			this.date_input.parentElement.classList.remove('input-filled');
 		}
 	}
 
@@ -440,9 +464,19 @@ class Ui {
 			// We can use e.target or this. keyword
 
 			// Global Inputs
+			if(e.target === ui.firstName_input) {
+				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('First Name is invalid, please type again', 'error', false, e.target);
+			}
+
 			if(e.target === ui.lastName_input) {
 				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
 				else ui.alert('Last name is invalid, please type again', 'error', false, e.target);
+			}
+
+			if(e.target === ui.fullName_input) {
+				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Full Name is invalid, please type again', 'error', false, e.target);
 			}
 
 			if(e.target === ui.email_input) {
@@ -450,18 +484,18 @@ class Ui {
 				else ui.alert('Email is invalid, please type again', 'error', false, e.target);
 			}
 
-			if(e.target === ui.firstName_input) {
-				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
-				else ui.alert('First Name is invalid, please type again', 'error', false, e.target);
-			}
-
 			if(e.target === ui.phone_input) {
 				if(globalRegex.phoneRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
 				else ui.alert('Phone Number is invalid, please type again', 'error', false, e.target);
 			}
 
-			// Only for inputs that can type text inside them
-			if(e.target.value === '') ui.alert(`${e.target.previousElementSibling.textContent} is empty, please fill the input`, 'error', false, e.target);
+			// Empty inputs
+			if(e.target.value === '') {
+
+				if(!e.target.hasAttribute('placeholder')) ui.alert(`${e.target.previousElementSibling.textContent} is empty, please fill the input`, 'error', false, e.target);
+				else ui.alert(`${e.target.placeholder} is empty, please fill the input`, 'error', false, e.target);
+
+			}
 		}
 
 		if(e.type === 'submit') {
@@ -479,10 +513,11 @@ class Ui {
 					// Highlight the inputs
 					input.classList.add('input-error');
 
-					if(location.pathname.includes('careers')) {
-						// If the input has a label element
-						if(this.form.contains(document.querySelector('label')) && input.tagName === 'INPUT') input.previousElementSibling.classList.add('label-error');
-					}
+					// If the input has a label element
+					if(this.form.contains(document.querySelector('label')) && input.tagName === 'INPUT') input.previousElementSibling.classList.add('label-error');
+
+					// For inputs that are have the regex validation class assigned to the parent element
+					if(input.tagName === 'DIV') input.firstElementChild.classList.add('input-error');
 
 					// Don't submit the form
 					submit = false;
@@ -600,6 +635,9 @@ class Ui {
 					input.classList.remove('input-error', 'input-filled', 'input-success');
 
 					if(input.tagName === 'INPUT') input.value = '';
+					
+					// For inputs that are have the regex validation class assigned to the parent element
+					if(input.tagName === 'DIV') input.firstElementChild.value = '';
 
 					// For careers page we have file and radio inputs
 					if(location.pathname.includes('careers')) {
@@ -607,7 +645,7 @@ class Ui {
 						this.upload_placeholder.textContent = '';
 
 						// I use Array.from(), because .children returns a Html Collection and .forEach works on array objects or array like objects;
-						if(input.classList.contains('employee-time')) Array.from(input.children).forEach(children => { if(children.tagName === 'INPUT') children.checked = false })
+						if(input.classList.contains('employee-time')) Array.from(input.children).forEach(children => { if(children.tagName === 'INPUT') children.checked = false });
 						
 					}
 				});
@@ -622,11 +660,15 @@ class Ui {
 		}
 	}
 
-	uploadFile(e) {
-		// Get the character after the backslash
-		const uploadIndex = ui.upload_input.value.lastIndexOf("\\") + 1;
-		// Apply the file name
-		this.upload_placeholder.textContent = ui.upload_input.value.slice(uploadIndex);
+	// Method for inputs that works change / input events
+	changeValue(e) {
+
+		if(e.target.getAttribute('type') === 'file') {
+			// Get the character after the backslash
+			const uploadIndex = ui.upload_input.value.lastIndexOf("\\") + 1;
+			// Apply the file name
+			this.upload_placeholder.textContent = ui.upload_input.value.slice(uploadIndex);
+		}
 
 		// The 'input-filled' class we use it in the regex validation
 		// If file has been selected for upload
@@ -637,6 +679,8 @@ class Ui {
 			setTimeout(() => e.target.parentElement.classList.remove('input-success'), 1250);
 
 		}
+
+		if(e.target.tagName === 'SELECT') e.target.classList.remove('input-error');
 
 		if(e.target.value === '') e.target.parentElement.classList.remove('input-filled');
 	}

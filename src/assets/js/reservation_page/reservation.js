@@ -41,20 +41,6 @@ if(location.pathname.includes('reservation')) {
 		e.stopPropagation();
 	});
 	
-	ui.date_input.addEventListener('click', (e) => {
-	
-		ui.showHideModal(e);
-	
-		e.stopPropagation();
-	});
-	
-	ui.time_input.addEventListener('click', (e) => {
-	
-		ui.showHideModal(e);
-	
-		e.stopPropagation();
-	});
-	
 	// I put directly on the modal so don't have to manny listeners ( reduce memory usage )
 	ui.modals.addEventListener('click', (e) => {
 	
@@ -62,6 +48,13 @@ if(location.pathname.includes('reservation')) {
 	
 		ui.setDate(e, navigate);
 	
+		e.stopPropagation();
+	});
+
+	ui.form_box.addEventListener('click', (e) => {
+
+		ui.showHideModal(e);
+
 		e.stopPropagation();
 	});
 }

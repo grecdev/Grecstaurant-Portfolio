@@ -18,8 +18,8 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
 // Individual functionality for each file
-import './global.js';
 import './reservation_page/reservation.js';
 import './menu_page/menu_selection.js';
 import './checkout_page/payment.js';
 import './about_page/about.js';
+import './global.js';
