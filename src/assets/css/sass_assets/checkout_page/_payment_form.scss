@@ -88,9 +88,13 @@
 			border-top-right-radius: $border-radius-primary;
 		}
 
+		.payment-card > p {
+			width: 95%;
+			margin: 0 auto 1rem;
+		}
+
 		 /** Card form **/
 		.payment-card .payment-box {
-
 			border-top: 1px solid $primary-red;
 			
 			.field-box {
@@ -99,8 +103,6 @@
 				&:last-child {
 					@include flex(row, space-between, flex-start);
 					flex-wrap: wrap;
-
-					.regex-alert { width: 100% }
 				
 					input,
 					.security-code-box { width: 48% }

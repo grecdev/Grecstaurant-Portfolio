@@ -11,20 +11,18 @@ if(location.pathname.includes('checkout')) {
 	});
 
 	// We have more than 1 form on the checkout page so that's why we asign multiple listeners
-	document.querySelectorAll('form').forEach(form => {
-		form.addEventListener('submit', (e) => {
-			ui.regexValidation(e);
+	// document.querySelectorAll('form').forEach(form => {
+	// 	form.addEventListener('submit', (e) => {
+	// 		ui.regexValidation(e);
 
-			ui.checkoutFormAnimation(e, null);
-
-			e.preventDefault();
-			e.stopPropagation();
-		});
-	});
+	// 		e.preventDefault();
+	// 		e.stopPropagation();
+	// 	});
+	// });
 
 	ui.shippingReturn_btn.addEventListener('click', (e) => {
 
-		ui.checkoutFormAnimation(e, null);
+		ui.checkoutFormAnimation(e);
 
 		e.stopPropagation();
 	});

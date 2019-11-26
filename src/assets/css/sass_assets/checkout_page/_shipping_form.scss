@@ -13,23 +13,19 @@
 	}
 
 	.field-box:first-child input,
-	.select-box .field-box { width: 48% }
+	.field-box:nth-child(4) input, 
+	.field-box:nth-child(4) .select-box { width: 48% }
 
-	.field-box:nth-child(2), 
-	.field-box:nth-child(6) {
-		@include flex(column, flex-start, flex-start);
-	}
+	.field-box:nth-child(4) {
 
-	.select-box {
-		@include flex(row, space-between, center);
-		flex-wrap: wrap;
-		
-		.field-box {
-			margin: 0;
-			
+		.select-box {
+			@include flex(row, space-between, center);
+			flex-wrap: wrap;
+			position: relative;
+
 			select { width: 100% }
 
-			.input-icon { right: 15px }
+			.input-icon { right: 5% }
 		}
 	}
 }

@@ -1,7 +1,7 @@
 #checkout {
 	@include flex(row, space-between, stretch);
 	position: relative;
-	min-height: 110vh;
+	height: 115vh;
 	overflow: hidden;
 
 	h2 { font-size: 2rem }

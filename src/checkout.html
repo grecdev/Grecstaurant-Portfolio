@@ -30,38 +30,36 @@
 	
 					<form name="shipping-form" class="p-1">
 	
-						<div class="field-box firstName-error lastName-error">
-							<input autocomplete="off" type="text" placeholder="Last Name" class="input-field lastName-input" name="last-name">
-							<input autocomplete="off" type="text" placeholder="First Name" class="input-field firstName-input" name="first-name">
+						<div class="field-box">
+							<input autocomplete="off" type="text" placeholder="Last Name" class="input-field text-field lastName-input" name="last-name">
+							<input autocomplete="off" type="text" placeholder="First Name" class="input-field text-field firstName-input" name="first-name">
 						</div>
 						
-						<div class="field-box email-error">
-							<input autocomplete="off" type="text" placeholder="Email" class="input-field email-input" name="email">
+						<div class="field-box">
+							<input autocomplete="off" type="text" placeholder="Email" class="input-field text-field email-input" name="email">
 						</div>
 	
-						<div class="field-box address-error">
-							<input autocomplete="off" type="text" placeholder="Address" class="input-field address-input" name="address">
+						<div class="field-box">
+							<input autocomplete="off" type="text" placeholder="Address" class="input-field text-field address-input" name="address">
 						</div>
 	
-						<div class="select-box postalCode-error">
-							<div class="field-box">
+						<div class="field-box">
+							<div class="select-box">
 								<!-- insert dynamically with JS-->
-								<select name="country/region" id="countryRegion" class="input-field"></select>
+								<select name="country/region" id="countryRegion" class="input-field text-field"></select>
 		
 								<div class="input-icon"><i class="fas fa-caret-down"></i></div>
 							</div>
 	
-							<div class="field-box">
-								<input autocomplete="off" id="postal-code" type="text" name="postal-code" placeholder="Postal Code" maxlength="8" class="input-field letter-disabled">
-							</div>
+							<input autocomplete="off" id="postal-code" type="text" name="postal-code" placeholder="Postal Code" maxlength="8" class="input-field text-field letter-disabled">
 						</div>
 
-						<div class="field-box city-error">
-							<input autocomplete="off" type="text" placeholder="City" class="input-field city-input" name="city">
+						<div class="field-box">
+							<input autocomplete="off" type="text" placeholder="City" class="input-field text-field city-input" name="city">
 						</div>
 						
-						<div class="field-box number-error">
-							<input autocomplete="off" type="text" name="phone-number" class="input-field phone-number letter-disabled" placeholder="Phone Number">
+						<div class="field-box">
+							<input autocomplete="off" type="text" name="phone-number" class="input-field phone-number text-field letter-disabled" placeholder="Phone Number">
 						</div>
 	
 						<div class="order-row">
@@ -124,23 +122,23 @@
 	
 							<div class="payment-box p-1">
 	
-								<div class="field-box cardNumber-error mb-sm">
+								<div class="field-box mb-sm">
 									<div class="card-number-box">
-										<input type="text" placeholder="Card Number" id="card-number" class="letter-disabled input-field" name="card-number">
+										<input type="text" placeholder="Card Number" id="card-number" class="letter-disabled disable-submit text-field input-field" name="card-number">
 		
 										<div class="input-icon" title="All transactions are secure and encrypted."><i class="fas fa-lock"></i></div>
 									</div>
 								</div>
 	
-								<div class="field-box fullName-error mb-sm">
-									<input type="text" placeholder="Name on card" name="card-name" id="card-name" class="input-field fullName">
+								<div class="field-box mb-sm">
+									<input type="text" placeholder="Name on card" name="card-name" id="card-name" class="input-field disable-submit text-field fullName">
 								</div>
 	
-								<div class="field-box expirationDate-error securityCode-error">
-									<input type="text" placeholder="Expiration date (MM / YY)" name="expiration-date" id="expiration-date" maxlength="9" class="input-field mb-sm letter-disabled">
+								<div class="field-box">
+									<input type="text" placeholder="Expiration date (MM / YY)" name="expiration-date" id="expiration-date" maxlength="9" class="input-field disable-submit text-field mb-sm letter-disabled">
 	
 									<div class="security-code-box">
-										<input type="text" placeholder="Security Code" name="security-code" id="security-code" maxlength="4" class="input-field letter-disabled">
+										<input type="text" placeholder="Security Code" name="security-code" id="security-code" maxlength="4" class="input-field disable-submit text-field letter-disabled">
 	
 										<div class="security-code-icon"><i class="fas fa-question-circle"></i></div>
 	
@@ -180,7 +178,7 @@
 						<div class="order-row p-1">
 							<a class="shipping-return btn btn-red" role="button"><i class="fas fa-chevron-left"></i> Return to shipping</a>
 	
-							<button class="btn btn-green" type="submit">Complete Order</button>
+							<button class="btn btn-green" type="button">Complete Order</button>
 						</div>
 					</form>
 				</div>

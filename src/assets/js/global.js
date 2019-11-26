@@ -50,13 +50,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	if(location.pathname.includes('checkout')) {
 
 		// Change between forms
-		ui.checkoutFormAnimation(e, null);
+		ui.checkoutFormAnimation(e);
 		ui.populateOrderPreview(e);
 		
 		// Model + View + Controller
 		http.getCountries_xhr()
 		.then(data => ui.populateRegion(data))
 		.catch(err => console.log(err));
+
 	}
 
 	// About page sneakbox
@@ -76,12 +77,11 @@ ui.letterDisabled_input.forEach(input => {
 	});
 });
 
-// On checkout page we have 2 forms, and on the checkout.js script i added another listener for forms
-if(document.body.contains(ui.form) && !location.pathname.includes('checkout')) {
+if(document.body.contains(ui.form)) {
 	ui.form.addEventListener('submit', (e) => {
 
 		ui.regexValidation(e);
-
+		
 		e.preventDefault();	
 		e.stopPropagation();
 	});
@@ -106,22 +106,18 @@ if(document.body.contains(ui.resetScroll_btn)) {
 	});
 }
 
-// Events for all inputs ( i can't put blur event on from )
-// blur event doesn't bubble so i removed e.stopPropagation() method => https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event
+// Events for all inputs
 ///// IN PROGRESS
-ui.input_field.forEach(input => input.addEventListener('blur', ui.regexValidation));
+ui.input_field.forEach(input => {
 
-// For pages that have the input type file
-// Cause erros and disable others listeners if we don't check (disable the if statement so you can see)
-if(document.body.contains(document.querySelector('.change-value'))) {
-	// File name placeholder
-	ui.change_value.forEach(input => {
+	// blur event doesn't bubble so i removed e.stopPropagation() method => https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event
+	input.addEventListener('blur', ui.regexValidation);
 
-		input.addEventListener('input', (e) => {
+	input.addEventListener('change', (e) => {
 		
-			ui.changeValue(e);
-		
-			e.stopPropagation();
-		});
+		ui.changeValue(e);
+	
+		e.stopPropagation();
 	});
-}
+
+});

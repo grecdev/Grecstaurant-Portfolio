@@ -462,8 +462,13 @@ class Ui {
 		if(e.type === 'blur' && e.target.tagName === 'INPUT') {
 			// I use ui object instead of this. keyword because i use the regexValidation method as addEventListener function parameter
 			// We can use e.target or this. keyword
+			if(e.target === ui.fullName_input) {
+				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Full Name is invalid, please type again', 'error', false, e.target);
 
-			// Global Inputs
+				if(!globalRegex.letterRegex.test(e.target.value) && location.pathname.includes('checkout')) ui.alert('Name on card is invalid, please type again', 'error', false, e.target);
+			}
+
 			if(e.target === ui.firstName_input) {
 				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
 				else ui.alert('First Name is invalid, please type again', 'error', false, e.target);
@@ -474,11 +479,6 @@ class Ui {
 				else ui.alert('Last name is invalid, please type again', 'error', false, e.target);
 			}
 
-			if(e.target === ui.fullName_input) {
-				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
-				else ui.alert('Full Name is invalid, please type again', 'error', false, e.target);
-			}
-
 			if(e.target === ui.email_input) {
 				if(globalRegex.emailRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
 				else ui.alert('Email is invalid, please type again', 'error', false, e.target);
@@ -487,6 +487,36 @@ class Ui {
 			if(e.target === ui.phone_input) {
 				if(globalRegex.phoneRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
 				else ui.alert('Phone Number is invalid, please type again', 'error', false, e.target);
+			}
+
+			if(e.target === ui.address_input) {
+				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Address is invalid, please type again', 'error', false, e.target);
+			}
+
+			if(e.target === ui.postalCode_input) {
+				if(globalRegex.postalCodeRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Postal Code is invalid, please type again', 'error', false, e.target);
+			}
+
+			if(e.target === ui.city_input) {
+				if(globalRegex.letterRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('City is invalid, please type again', 'error', false, e.target);
+			}
+
+			if(e.target === ui.cardNumber_input) {
+				if(ui.cardRegex.visaRegex.test(e.target.value) || ui.cardRegex.mastercardRegex.test(e.target.value) || ui.cardRegex.amexpRegex.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Card Number is invalid, please type again', 'error', false, e.target);
+			}
+
+			if(e.target === ui.cardExpiration_input) {
+				if(ui.cardRegex.expDate.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Expiration date is invalid, please type again', 'error', false, e.target);
+			}
+
+			if(e.target === ui.securityCode_input) {
+				if(ui.cardRegex.securityCode.test(e.target.value)) ui.alert(null, 'success', false, e.target);
+				else ui.alert('Security Code is invalid, please type again', 'error', false, e.target);
 			}
 
 			// Empty inputs
@@ -506,8 +536,8 @@ class Ui {
 
 			this.input_field.forEach(input => {
 
-				if(!input.classList.contains('input-filled')) {
-
+				// For last form we don't need regex validation, that's why i added disable submit class
+				if(!input.classList.contains('input-filled') && !input.classList.contains('disable-submit') ) {
 					// Display the alert
 					this.alert('All inputs are required !', 'error', true, e.target);
 					// Highlight the inputs
@@ -529,13 +559,14 @@ class Ui {
 			// If the number of correct inputs is the same as all inputs that means all the inputs are correct filled :)
 			if(filledInputs.length === this.input_field.length) {
 
-				this.alert('Form has been successfully submited !', 'success', true, e.target);
+				if(!location.pathname.includes('checkout')) this.alert('Form has been successfully submited !', 'success', true, e.target);
+				else this.checkoutFormAnimation(e);
 
 				// Submit the form
 				submit = true;
 			}
 
-			console.log('Form has been submited ?', submit);
+			console.log('Form has been submited ?', submit, e.target);
 			return submit;
 		}
 	}
@@ -562,7 +593,7 @@ class Ui {
 			
 			if(!multiple) {
 				// If input is not valid remove the input correct validation class (input-filled);
-				target.classList.remove('input-filled');
+				target.classList.remove('input-filled', 'input-success');
 				target.classList.add('input-error');
 
 				// If the input has a label element
@@ -571,11 +602,15 @@ class Ui {
 				// For individual input add the regex alert
 				target.parentElement.insertAdjacentElement('beforeend', p);
 
-				if(target.value === '') target.classList.remove('input-filled');
+				if(target === this.cardNumber_input || target === this.securityCode_input) target.parentElement.parentElement.insertAdjacentElement('beforeend', p);
+
+				if(target.value === '') target.classList.remove('input-filled', 'input-success');
 			}
 			else {
 				// Add the regex alert to the DOM && other alert styling to elements
 				target.insertAdjacentElement('beforeend', p);
+
+				if(target === this.payment_form) document.querySelector('.payment-card').insertAdjacentElement('beforeend', p);
 
 				this.input_field.forEach(input => {
 
@@ -585,12 +620,12 @@ class Ui {
 
 				});
 
-				this.form_btn.classList.add('regex-error');
+				if(document.body.contains(this.form_btn)) this.form_btn.classList.add('regex-error');
 
 				// Reset the regex alert
 				setTimeout(() => {
 
-					this.form_btn.classList.remove('regex-error');
+					if(document.body.contains(this.form_btn)) 	this.form_btn.classList.remove('regex-error');
 					p.remove();
 
 				}, 2500);
@@ -628,7 +663,7 @@ class Ui {
 
 				// Add alert to DOM
 				target.insertAdjacentElement('beforeend', p);
-				this.form_btn.classList.add('regex-success');
+				if(document.body.contains(this.form_btn)) this.form_btn.classList.add('regex-success');
 
 				// Reset inputs
 				this.input_field.forEach(input => {
@@ -652,7 +687,7 @@ class Ui {
 
 
 				setTimeout(() => {
-					this.form_btn.classList.remove('regex-success');
+					if(document.body.contains(this.form_btn)) this.form_btn.classList.remove('regex-success');
 					p.remove();
 				}, 2500);
 			}
@@ -663,26 +698,38 @@ class Ui {
 	// Method for inputs that works change / input events
 	changeValue(e) {
 
-		if(e.target.getAttribute('type') === 'file') {
-			// Get the character after the backslash
-			const uploadIndex = ui.upload_input.value.lastIndexOf("\\") + 1;
-			// Apply the file name
-			this.upload_placeholder.textContent = ui.upload_input.value.slice(uploadIndex);
+		if(e.type === 'change') {
+			if(e.target.value.length > 0) {
+
+				if(e.target.getAttribute('type') === 'file') {
+					// Get the character after the backslash
+					const uploadIndex = ui.upload_input.value.lastIndexOf("\\") + 1;
+					// Apply the file name
+					this.upload_placeholder.textContent = ui.upload_input.value.slice(uploadIndex);
+				}
+	
+				// If file has been selected for upload
+				if(e.target.getAttribute('type') === 'file' || e.target.getAttribute('type') === 'radio') {
+					
+					e.target.parentElement.classList.remove('input-error');
+					// The 'input-filled' class we use it in the regex validation
+					e.target.parentElement.classList.add('input-filled', 'input-success');
+					setTimeout(() => e.target.parentElement.classList.remove('input-success'), 1250);
+				}
+				else {
+					e.target.classList.remove('input-error');
+					e.target.classList.add('input-filled', 'input-success');
+					setTimeout(() => e.target.classList.remove('input-success'), 1250);
+				}
+			}
+	
+			if(e.target.value === '') {
+	
+				if(e.target.getAttribute('type' === 'file') || e.target.getAttribute('type') === 'radio') e.target.parentElement.classList.remove('input-filled');
+				else e.target.classList.remove('input-filled');
+	
+			}
 		}
-
-		// The 'input-filled' class we use it in the regex validation
-		// If file has been selected for upload
-		if(e.target.value.length > 0) {
-
-			e.target.parentElement.classList.remove('input-error');
-			e.target.parentElement.classList.add('input-filled', 'input-success');
-			setTimeout(() => e.target.parentElement.classList.remove('input-success'), 1250);
-
-		}
-
-		if(e.target.tagName === 'SELECT') e.target.classList.remove('input-error');
-
-		if(e.target.value === '') e.target.parentElement.classList.remove('input-filled');
 	}
 
 	// Populate UI (DRY)
@@ -1091,14 +1138,21 @@ class Ui {
 	}
 
 	// Switch between forms
-	checkoutFormAnimation(e, submit) {
+	checkoutFormAnimation(e) {
 		// Get the width of a form (usually the big one)
 		// This is good for device queries
 		let boxWidth = this.paymentContainer.getBoundingClientRect().width;
 
 		if(e.type === 'DOMContentLoaded') {
-			// I use Array.from() method because .children return HTML collection, and forEach works only on arrays / array like objects.
+
+			// .children returns HTML collection
+			// .forEach work only on arrays or array like objects
 			Array.from(this.formSwitchContainer.children).forEach((form, index) => {
+
+				// Removes the transition so it won't see the animation when we enter the page
+				form.style.transition = 'none';
+				setTimeout(() => form.style.transition = '', 100);
+
 				// Set the position
 				const position = boxWidth * index;
 	
@@ -1107,7 +1161,7 @@ class Ui {
 		}
 		
 		// Only if the form is submited (thats why i use submit parameter)
-		if(e.type === 'submit' && submit === true) {
+		if(e.type === 'submit') {
 			if(e.target === this.shipping_form) {
 				// Show payment form / Hide shipping form
 				this.shippingContainer.classList.add('form-left');
@@ -1120,7 +1174,7 @@ class Ui {
 		}
 
 		if(e.currentTarget === this.shippingReturn_btn) {
-			// Show payment form / Hide shipping form
+			// Show shipping form / Hide payment form
 			this.shippingContainer.classList.remove('form-left');
 			this.paymentContainer.classList.remove('form-reset');
 		}
