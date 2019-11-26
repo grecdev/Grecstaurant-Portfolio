@@ -17,6 +17,17 @@
 }
 
 /* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  
+	#checkout .order-preview .order-preview-desktop .product-preview-discount { width: 80% }
+  
+}
+
+/* 
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
 */
@@ -43,7 +54,7 @@
 			height: 800px;
 		}
 
-		.shipping-container .field-box:first-child input, .shipping-container .select-box .field-box {
+		.shipping-container .field-box:first-child input {
 			width: 100%;
 			margin: .5rem 0;
 		}
@@ -181,7 +192,7 @@
 			height: 1060px;
 		}
 
-		.shipping-container .field-box:first-child input, .shipping-container .select-box .field-box {
+		.shipping-container .field-box:first-child input {
 			width: 100%;
 			margin: .5rem 0;
 		}
@@ -340,7 +351,11 @@
 			height: 1020px;
 		}
 
-		.shipping-container .field-box:first-child input, .shipping-container .select-box .field-box {
+		.shipping-container .field-box:nth-child(4) .select-box { margin-bottom: 1rem }
+
+		.shipping-container .field-box:nth-child(4) .select-box, .shipping-container .field-box:nth-child(4) input { width: 100% }
+
+		.shipping-container .field-box:first-child input {
 			width: 100%;
 			margin: .5rem 0;
 		}
@@ -500,7 +515,11 @@
 			height: 1060px;
 		}
 
-		.shipping-container .field-box:first-child input, .shipping-container .select-box .field-box {
+		.shipping-container .field-box:nth-child(4) .select-box { margin-bottom: 1rem }
+
+		.shipping-container .field-box:nth-child(4) .select-box, .shipping-container .field-box:nth-child(4) input { width: 100% }
+
+		.shipping-container .field-box:first-child input {
 			width: 100%;
 			margin: .5rem 0;
 		}

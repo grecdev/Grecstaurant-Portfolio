@@ -566,7 +566,7 @@ class Ui {
 				submit = true;
 			}
 
-			console.log('Form has been submited ?', submit, e.target);
+			console.log('Form has been submited ?', submit);
 			return submit;
 		}
 	}
