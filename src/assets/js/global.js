@@ -66,6 +66,21 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	e.stopPropagation();
 });
 
+// Events for all inputs
+ui.input_field.forEach(input => {
+
+	// blur event doesn't bubble so i removed e.stopPropagation() method => https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event
+	input.addEventListener('blur', ui.regexValidation);
+
+	input.addEventListener('change', (e) => {
+		
+		ui.changeValue(e);
+	
+		e.stopPropagation();
+	});
+
+});
+
 // Disable characters from inputs that require only numbers
 // Here i can add the event directly to the input becuase the elements are already in the DOM (not inserted with JavaScript)
 ui.letterDisabled_input.forEach(input => {
@@ -105,19 +120,3 @@ if(document.body.contains(ui.resetScroll_btn)) {
 		e.stopPropagation();
 	});
 }
-
-// Events for all inputs
-///// IN PROGRESS
-ui.input_field.forEach(input => {
-
-	// blur event doesn't bubble so i removed e.stopPropagation() method => https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event
-	input.addEventListener('blur', ui.regexValidation);
-
-	input.addEventListener('change', (e) => {
-		
-		ui.changeValue(e);
-	
-		e.stopPropagation();
-	});
-
-});
