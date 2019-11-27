@@ -44,12 +44,15 @@ npm install
 5. Date picker (algorithm source [here](http://jszen.blogspot.com/2007/03/how-to-build-simple-calendar-with.html)) adapted to my needs
 6. Cart shop (like e-commerce), `CRUD` application, i used `localStorage` for `"mockup database"`
 7. Checkout page with slider animation
+8. Card Number Format, Card data Format (see on checkout page, the second form) algorithm source [here](https://www.peterbe.com/plog/cc-formatter) adapted to my needs
 
 For the Menu page i used my own [`api`](https://grecdev.github.io/json-api/restaurant-foods.json) with products.
 
 For the Region / Country `select` element, on the Checkout page i used the [`REST Countries`](https://restcountries.eu/) api.
 
-For `api fetching` data i used (see more in `src/assets/js/http.js` file): 
+
+
+For `api data fetching` i used (see more in `src/assets/js/http.js` file): 
 
 - `XMLHttpRequest()`
 - `Fetch api`
