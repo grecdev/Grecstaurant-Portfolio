@@ -8,13 +8,15 @@ Best food in town, eat a lot and don't get fat.
 
 **Installing:**
 
-1. Make sure you have the latest version of [Node.js](https://nodejs.org/en/download/)
+1. Assuming you have [`git`](https://git-scm.com/downloads) installed type in console: `git clone https://github.com/grecdev/Grecstaurant.git`
 
-2. [node package manager](https://docs.npmjs.com/about-npm/), run the following command in the `CLI` (command line interface):
+2. Make sure you have the latest version of [Node.js](https://nodejs.org/en/download/)
+
+3. [node package manager](https://docs.npmjs.com/about-npm/), run the following command in the `CLI` (command line interface):
 ```
 npm install -g npm@latest
 ```
-3. Install all `dependencies / modules`, run the following command in the `CLI` (command line interface):
+4. Install all `dependencies / modules`, run the following command in the `CLI` (command line interface):
 ```
 npm install
 ```
@@ -56,7 +58,7 @@ For `api data fetching` i used (see more in `src/assets/js/http.js` file):
 
 ### :bowtie: Contribuitors:
 
-Grecu Alexandru aka [`grecdev`]()
+Grecu Alexandru aka [`grecdev`](https://github.com/grecdev)
 
 ### License:
 
