@@ -1,7 +1,7 @@
 {
   "name": "grecstaurant",
   "version": "1.0.0",
-  "description": "---",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js --content-base src/ --open",
