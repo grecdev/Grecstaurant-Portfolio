@@ -1,9 +1,11 @@
 "use strict";
 
-const img = (image) => require(`../imgs/${image}`);
+const img = (image) => require(`../imgs/${image}`).default;
 
 import { ls } from './localStorage.js';
 import jump from 'jump.js';
+
+console.log(img('add-to-cart.svg'));
 
 // VIEW
 class Ui {
