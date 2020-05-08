@@ -39,7 +39,7 @@ npm install
 
 ### Features for this website:
 
-1. Form regex validation (see on career page, reservation page, checkout page)
+1. Form regex validation
 2. Home page intro showcase and header animation
 3. Date picker (algorithm source [here](http://jszen.blogspot.com/2007/03/how-to-build-simple-calendar-with.html)) adapted to my needs
 4. Cart shop (like e-commerce), `CRUD` application, i used `localStorage` for `"mockup database"`
