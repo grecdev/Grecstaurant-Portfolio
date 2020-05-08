@@ -5,8 +5,6 @@ const img = (image) => require(`../imgs/${image}`).default;
 import { ls } from './localStorage.js';
 import jump from 'jump.js';
 
-console.log(img('add-to-cart.svg'));
-
 // VIEW
 class Ui {
 
@@ -434,7 +432,7 @@ class Ui {
 	regexValidation(e) {
 		// Regex
 		const globalRegex = {
-			/* 
+			/*
 			Phone format
 			0777123456
 			0777 123 456
@@ -1141,33 +1139,14 @@ class Ui {
 
 	// Switch between forms
 	checkoutFormAnimation(e) {
-		// Get the width of a form (usually the big one)
-		// This is good for device queries
-		let boxWidth = this.paymentContainer.getBoundingClientRect().width;
-
-		if(e.type === 'DOMContentLoaded') {
-
-			// .children returns HTML collection
-			// .forEach work only on arrays or array like objects
-			Array.from(this.formSwitchContainer.children).forEach((form, index) => {
-
-				// Removes the transition so it won't see the animation when we enter the page
-				form.style.transition = 'none';
-				setTimeout(() => form.style.transition = '', 100);
-
-				// Set the position
-				const position = boxWidth * index;
-	
-				form.style.transform = `translateX(${position}px)`;
-			});
-		}
 		
 		// Only if the form is submited (thats why i use submit parameter)
 		if(e.type === 'submit') {
+
 			if(e.target === this.shipping_form) {
 				// Show payment form / Hide shipping form
-				this.shippingContainer.classList.add('form-left');
-				this.paymentContainer.classList.add('form-reset');
+				this.shippingContainer.classList.add('visible-none');
+				this.paymentContainer.classList.remove('visible-none');
 
 				// Display the info in the payment form
 				this.email_preview.textContent = this.email_input.value;
@@ -1177,8 +1156,8 @@ class Ui {
 
 		if(e.currentTarget === this.shippingReturn_btn) {
 			// Show shipping form / Hide payment form
-			this.shippingContainer.classList.remove('form-left');
-			this.paymentContainer.classList.remove('form-reset');
+			this.shippingContainer.classList.remove('visible-none');
+			this.paymentContainer.classList.add('visible-none');
 		}
 	}
 

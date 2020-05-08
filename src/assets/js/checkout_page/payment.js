@@ -3,6 +3,7 @@
 import { ui } from '../ui.js';
 
 if(location.pathname.includes('checkout')) {
+
 	ui.payment_form.addEventListener('click', (e) => {
 	
 		ui.changePaymentMethod(e);
@@ -11,7 +12,9 @@ if(location.pathname.includes('checkout')) {
 	});
 
 	// We have more than 1 form on the checkout page so that's why we asign multiple listeners
+	// I disable this because i use the submit only on the shipping form
 	// document.querySelectorAll('form').forEach(form => {
+		
 	// 	form.addEventListener('submit', (e) => {
 	// 		ui.regexValidation(e);
 

@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	if(location.pathname.includes('checkout')) {
 
 		// Change between forms
-		ui.checkoutFormAnimation(e);
 		ui.populateOrderPreview(e);
 		
 		// Model + View + Controller

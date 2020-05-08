@@ -2,7 +2,6 @@
   ##Device = Laptops, Desktops
   ##Screen = B/w 1025px to 1280px
 */
-
 @media (min-width: 1025px) and (max-width: 1280px) {
 
 	#checkout .order-preview .order-preview-desktop {
@@ -13,14 +12,12 @@
 		
 		.product-preview-total .total-box:first-child { width: 74.5% }
 	}
-
 }
 
 /* 
   ##Device = Tablets, Ipads (landscape)
   ##Screen = B/w 768px to 1024px
 */
-
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   
 	#checkout .order-preview .order-preview-desktop .product-preview-discount { width: 80% }
@@ -31,7 +28,6 @@
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
 */
-
 @media (min-width: 768px) and (max-width: 1023px) {
 
 	#checkout .order-preview .order-preview-desktop { display: none }
@@ -51,7 +47,6 @@
 		.form-switch-container {
 			grid-row: 2;
 			width: 100%;
-			height: 800px;
 		}
 
 		.shipping-container .field-box:first-child input {
@@ -189,7 +184,6 @@
 		.form-switch-container {
 			grid-row: 2;
 			width: 100%;
-			height: 1060px;
 		}
 
 		.shipping-container .field-box:first-child input {
@@ -348,7 +342,6 @@
 		.form-switch-container {
 			grid-row: 2;
 			width: 100%;
-			height: 1020px;
 		}
 
 		.shipping-container .field-box:nth-child(4) .select-box { margin-bottom: 1rem }
@@ -512,7 +505,6 @@
 		.form-switch-container {
 			grid-row: 2;
 			width: 100%;
-			height: 1060px;
 		}
 
 		.shipping-container .field-box:nth-child(4) .select-box { margin-bottom: 1rem }
@@ -655,8 +647,6 @@
 
 /* Iphone SE / 5 - Portrait */
 @media screen and (max-width: 320px) and (orientation: portrait) {
-
-	#checkout .form-switch-container { height: 980px }
 
 	#checkout .order-preview-mobile #mobile-preview-toggle {
 		padding: 1rem .3rem;
