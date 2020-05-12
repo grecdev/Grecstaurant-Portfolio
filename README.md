@@ -29,7 +29,7 @@ npm install
 
 ### I used the following technologies for this project:
 
-- Semantic HTML5
+- HTML5
 - [Sass](https://sass-lang.com/) (with `.scss` extension / syntax, see more details [here](https://sass-lang.com/documentation/syntax))
 - Media Queries ( Responsive Design )
 - Vanilla Javascript
@@ -40,17 +40,17 @@ npm install
 ### Features for this website:
 
 1. Form regex validation
-2. Home page intro showcase and header animation
-3. Date picker (algorithm source [here](http://jszen.blogspot.com/2007/03/how-to-build-simple-calendar-with.html)) adapted to my needs
-4. Cart shop (like e-commerce), `CRUD` application, i used `localStorage` for `"mockup database"`
-5. Checkout page with form slider animation
-6. Card Number Format, Card data Format (see on checkout page, the second form) algorithm source [here](https://www.peterbe.com/plog/cc-formatter) adapted to my needs
+2. [Smooth scroll](http://callmecavs.com/jump.js/)
+3. Home page intro showcase and header animation
+4. [Date picker](http://jszen.blogspot.com/2007/03/how-to-build-simple-calendar-with.html) adapted to my needs
+5. Cart shop ( like e-commerce ), `CRUD` application, i used `localStorage` for `"mockup database"`
+7. [Card Number / Data Format](https://www.peterbe.com/plog/cc-formatter) adapted to my needs.
 
 For the Menu page i used my own [`api`](https://grecdev.github.io/json-api/restaurant-foods.json) with products.
 
 For the Region / Country `select` element, on the Checkout page i used the [`REST Countries`](https://restcountries.eu/) api.
 
-For `api data fetching` i used (see more in `src/assets/js/http.js` file): 
+For `api data fetching` i used ( see more in `src/assets/js/http.js` file ): 
 
 - `XMLHttpRequest()`
 - `Fetch api`
