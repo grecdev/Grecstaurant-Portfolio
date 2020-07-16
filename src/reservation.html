@@ -1,233 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="description" content="Grecstaurant, the best food you will find at our restaurant. Come check it out. You can order online or make an online reservation">
-	<meta name="keywords" content="Grecstaurant, Online, Reservation, Order, Weekly, Offers">
-	<meta name="author" content="grecdev1">
-	<link href="https://fonts.googleapis.com/css?family=Lora:400,700|Merriweather:300,300i,400,700&display=swap" rel="stylesheet">
-	<title>Grecstaurant | Best food in town</title>
-	<script src="https://kit.fontawesome.com/ebf05ebe39.js" crossorigin="anonymous"></script>
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-</head>
-<body class="body-padding-bottom body-padding-top">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="Grecstaurant, the best food you will find at our restaurant. Come check it out. You can order online or make an online reservation"
+    />
+    <meta
+      name="keywords"
+      content="Grecstaurant, Online, Reservation, Order, Weekly, Offers"
+    />
+    <meta name="author" content="grecdev1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,700|Merriweather:300,300i,400,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Grecstaurant | Best food in town</title>
+    <script
+      src="https://kit.fontawesome.com/ebf05ebe39.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  </head>
+  <body class="body-padding-bottom body-padding-top">
+    <!-- Loader -->
+    <div class="preloader">
+      <div class="preloader-image mb-md"></div>
+      <p>Loading...</p>
+    </div>
+    <!-- loader -->
 
-	<!-- Loader -->
-	<div class="preloader">
-		<div class="preloader-image mb-md"></div>
-		<p>Loading...</p>
-	</div>
-	<!-- loader -->
+    <!-- Header -->
+    <header class="header-fixed">
+      <div class="container">
+        <nav id="desktop-header">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About Us</a></li>
+          </ul>
 
-	<!-- Header -->
-	<header class="header-fixed">
-		<div class="container">
-			<nav id="desktop-header">
+          <div class="logo">
+            <a href="index.html"
+              ><img src="./assets/imgs/logo.png" alt="restaurant logo"
+            /></a>
+          </div>
 
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a href="about.html">About Us</a></li>
-				</ul>
+          <ul>
+            <li><a href="menu.html">Menu</a></li>
+            <li class="active-page">
+              <a href="reservation.html">Reservation</a>
+            </li>
+            <li><a href="careers.html">Careers</a></li>
+          </ul>
+        </nav>
 
-				<div class="logo"><a href="index.html"><img src="./assets/imgs/logo.png" alt="restaurant logo"></a></div>
+        <div id="mobile-header">
+          <div class="bar-container" data-event-toggle="true" role="button">
+            <div class="header-bar"></div>
+          </div>
 
-				<ul>
-					<li><a href="menu.html">Menu</a></li>
-					<li class="active-page"><a href="reservation.html">Reservation</a></li>
-					<li><a href="careers.html">Careers</a></li>
-				</ul>
+          <div class="logo">
+            <a href="index.html"
+              ><img src="./assets/imgs/logo.png" alt="restaurant logo"
+            /></a>
+          </div>
 
-			</nav>
+          <div class="mobile-header-modal">
+            <a href="index.html">Home</a>
+            <a href="contact.html">Contact</a>
+            <a href="about.html">About Us</a>
+            <a href="menu.html">Menu</a>
+            <a class="active-page" href="reservation.html">Reservation</a>
+            <a href="careers.html">Careers</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- header -->
 
-			<div id="mobile-header">
-				<div class="bar-container" data-event-toggle="true" role="button">
-					<div class="header-bar"></div>
-				</div>
+    <!-- Reservation -->
+    <section id="reservation">
+      <div class="container">
+        <div class="section-header text-center mb-lg">
+          <h3 class="heading-title heading-sm mb-xs">
+            <span class="highlight-red">Make</span> a reservation
+          </h3>
 
-				<div class="logo"><a href="index.html"><img src="./assets/imgs/logo.png" alt="restaurant logo"></a></div>
+          <hr />
+        </div>
 
-				<div class="mobile-header-modal">
-					<a href="index.html">Home</a>
-					<a href="contact.html">Contact</a>
-					<a href="about.html">About Us</a>
-					<a href="menu.html">Menu</a>
-					<a class="active-page" href="reservation.html">Reservation</a>
-					<a href="careers.html">Careers</a>
-				</div>
+        <form name="reservation-form">
+          <div class="form-box mb-sm">
+            <fieldset>
+              <div class="field-box text-field">
+                <input
+                  aria-label="Pick date"
+                  class="input-field"
+                  id="full-date"
+                  name="date"
+                  type="text"
+                  aria-haspopup="true"
+                  placeholder="Pick Date"
+                  readonly
+                />
+              </div>
 
-			</div>
-		</div>
-	</header>
-	<!-- header -->
+              <div class="field-box text-field">
+                <input
+                  aria-label="Pick time"
+                  class="input-field"
+                  id="full-time"
+                  name="time"
+                  type="text"
+                  aria-haspopup="true"
+                  placeholder="Time"
+                  readonly
+                />
+              </div>
 
-	<!-- Reservation -->
-	<section id="reservation">
-		<div class="container">
+              <div class="field-box">
+                <select
+                  aria-label="How manny people"
+                  class="input-field text-field"
+                  id="people"
+                  name="people"
+                >
+                  <option value="" selected disabled>How manny people</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                </select>
 
-			<div class="section-header text-center mb-lg">
-				<h3 class="heading-title heading-sm mb-xs"><span class="highlight-red">Make</span> a reservation</h3>
+                <div class="input-icon"><i class="fas fa-caret-down"></i></div>
+              </div>
+            </fieldset>
 
-				<hr>
-			</div>
+            <fieldset>
+              <div class="field-box">
+                <input
+                  aria-label="Full Name"
+                  class="input-field fullName text-field"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Full Name"
+                  name="fullName"
+                />
+              </div>
 
-			<form name="reservation-form">
-				<div class="form-box mb-sm">
-					<fieldset>
-	
-						<div class="field-box text-field">
-							<input aria-label="Pick date" class="input-field" id="full-date" name="date" type="text" aria-haspopup="true" placeholder="Pick Date">
-						</div>
-	
-						<div class="field-box text-field">
-							<input aria-label="Pick time" class="input-field" id="full-time" name="time" type="text" aria-haspopup="true" placeholder="Time">
-						</div>
-	
-						<div class="field-box">
-							<select aria-label="How manny people" class="input-field text-field" id="people" name="people">
-								<option value="" selected disabled>How manny people</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-								<option value="13">13</option>
-								<option value="14">14</option>
-								<option value="15">15</option>
-								<option value="16">16</option>
-								<option value="17">17</option>
-								<option value="18">18</option>
-								<option value="19">19</option>
-								<option value="20">20</option>
-								<option value="21">21</option>
-								<option value="22">22</option>
-								<option value="23">23</option>
-								<option value="24">24</option>
-								<option value="25">25</option>
-							</select>
-	
-							<div class="input-icon"><i class="fas fa-caret-down"></i></div>
-						</div>
-						
-					</fieldset>
-	
-					<fieldset>
-						<div class="field-box">
-							<input aria-label="Full Name" class="input-field fullName text-field" type="text" autocomplete="off" placeholder="Full Name" name="fullName">
-						</div>
-	
-						<div class="field-box">
-							<input aria-label="Email" class="email-input input-field text-field" type="text" autocomplete="off" placeholder="Email" name="email">
-						</div>
-	
-						<div class="field-box">
-							<input aria-label="Phone Number" class="phone-number text-field letter-disabled input-field" type="text" autocomplete="off" placeholder="Phone" name="phone">
-						</div>
+              <div class="field-box">
+                <input
+                  aria-label="Email"
+                  class="email-input input-field text-field"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Email"
+                  name="email"
+                />
+              </div>
 
-					</fieldset>
-	
-					<fieldset>
-						<textarea aria-label="Message" class="input-field" id="message" name="message" placeholder="Your message (optional)"></textarea>
-					</fieldset>
-					
-				</div>
-				
-				<button type="submit" class="form-btn btn btn-red">Book a table</button>
-			</form>
-			
-		</div>
-	</section>
-	<!-- reservation -->
+              <div class="field-box">
+                <input
+                  aria-label="Phone Number"
+                  class="phone-number text-field letter-disabled input-field"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Phone"
+                  name="phone"
+                />
+              </div>
+            </fieldset>
 
-	<!-- Popup modals for reservation inputs -->
-	<div id="modals">
+            <fieldset>
+              <textarea
+                aria-label="Message"
+                class="input-field"
+                id="message"
+                name="message"
+                placeholder="Your message (optional)"
+              ></textarea>
+            </fieldset>
+          </div>
 
-		<!-- Date picker -->
-		<div class="date-modal">
-			<button class="highlight-red close-modal" type="button"><i class="fas fa-window-close"></i></button>
-			
-			<div class="calendar-container">
-				
-				<div class="calendar-header mb-lg">
-					<button type="button" id="prev-month"><i class="fas fa-caret-left"></i></button>
+          <button type="submit" class="form-btn btn btn-red">
+            Book a table
+          </button>
+        </form>
+      </div>
+    </section>
+    <!-- reservation -->
 
-					<div class="calendar-month"></div>
+    <!-- Popup modals for reservation inputs -->
+    <div id="modals">
+      <!-- Date picker -->
+      <div class="date-modal">
+        <button class="highlight-red close-modal" type="button">
+          <i class="fas fa-window-close"></i>
+        </button>
 
-					<button type="button" id="next-month"><i class="fas fa-caret-right"></i></button>
-				</div>
+        <div class="calendar-container">
+          <div class="calendar-header mb-lg">
+            <button type="button" id="prev-month">
+              <i class="fas fa-caret-left"></i>
+            </button>
 
-				<!-- Implement dynamically with JS -->
-				<table class="mb-lg">
+            <div class="calendar-month"></div>
 
-					<thead><tr></tr></thead>
+            <button type="button" id="next-month">
+              <i class="fas fa-caret-right"></i>
+            </button>
+          </div>
 
-					<tbody></tbody>
-					
-				</table>
+          <!-- Implement dynamically with JS -->
+          <table class="mb-lg">
+            <thead>
+              <tr></tr>
+            </thead>
 
-				<div class="calendar-button mb-sm">
-					<button id="confirm-date" data-date-confirm class="btn btn-confirm" type="button"><i class="fas fa-check"></i></button>
+            <tbody></tbody>
+          </table>
 
-					<button id="today-date" class="btn btn-red" type="button">Today</button>
+          <div class="calendar-button mb-sm">
+            <button
+              id="confirm-date"
+              data-date-confirm
+              class="btn btn-confirm"
+              type="button"
+            >
+              <i class="fas fa-check"></i>
+            </button>
 
-					<button id="reset-date" data-date-confirm class="btn btn-cancel" type="button"><i class="fas fa-times"></i></button>
-				</div>
+            <button id="today-date" class="btn btn-red" type="button">
+              Today
+            </button>
 
-				<div class="date-info-confirmation">
-					<p>Confirm Date: <span>October 11, 2019</span></p>
-				</div>
+            <button
+              id="reset-date"
+              data-date-confirm
+              class="btn btn-cancel"
+              type="button"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
 
-			</div>
-		</div>
+          <div class="date-info-confirmation">
+            <p>Confirm Date: <span>October 11, 2019</span></p>
+          </div>
+        </div>
+      </div>
 
-		<!-- time modal -->
-		<ul class="time-modal" role="listbox">
-			<li aria-label="8:00 AM" role="option">8:00 AM</li>
-			<li aria-label="9:00 AM" role="option">9:00 AM</li>
-			<li aria-label="10:00 AM" role="option">10:00 AM</li>
-			<li aria-label="11:00 AM" role="option">11:00 AM</li>
-			<li aria-label="12:00 PM" role="option">12:00 PM</li>
-			<li aria-label="13:00 PM" role="option">13:00 PM</li>
-			<li aria-label="14:00 PM" role="option">14:00 PM</li>
-			<li aria-label="15:00 PM" role="option">15:00 PM</li>
-			<li aria-label="16:00 PM" role="option">16:00 PM</li>
-			<li aria-label="17:00 PM" role="option">17:00 PM</li>
-			<li aria-label="18:00 PM" role="option">18:00 PM</li>
-			<li aria-label="19:00 PM" role="option">19:00 PM</li>
-			<li aria-label="20:00 PM" role="option">20:00 PM</li>
-			<li aria-label="21:00 PM" role="option">21:00 PM</li>
-		</ul>
+      <!-- time modal -->
+      <ul class="time-modal" role="listbox">
+        <li aria-label="8:00 AM" role="option">8:00 AM</li>
+        <li aria-label="9:00 AM" role="option">9:00 AM</li>
+        <li aria-label="10:00 AM" role="option">10:00 AM</li>
+        <li aria-label="11:00 AM" role="option">11:00 AM</li>
+        <li aria-label="12:00 PM" role="option">12:00 PM</li>
+        <li aria-label="13:00 PM" role="option">13:00 PM</li>
+        <li aria-label="14:00 PM" role="option">14:00 PM</li>
+        <li aria-label="15:00 PM" role="option">15:00 PM</li>
+        <li aria-label="16:00 PM" role="option">16:00 PM</li>
+        <li aria-label="17:00 PM" role="option">17:00 PM</li>
+        <li aria-label="18:00 PM" role="option">18:00 PM</li>
+        <li aria-label="19:00 PM" role="option">19:00 PM</li>
+        <li aria-label="20:00 PM" role="option">20:00 PM</li>
+        <li aria-label="21:00 PM" role="option">21:00 PM</li>
+      </ul>
+    </div>
+    <!-- popup modals for reservation inputs -->
 
-	</div>
-	<!-- popup modals for reservation inputs -->
+    <!-- Footer -->
+    <footer>
+      <div class="container footer-container">
+        <ul class="mb-lg">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/alexandru-constanin-grecu-7a570b14a/"
+              aria-label="linkedin account"
+              target="_blank"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/grecdev1/?hl=en"
+              aria-label="instagram account"
+              target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/grecdev"
+              aria-label="github account"
+              target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+          </li>
+        </ul>
 
-	<!-- Footer -->
-	<footer>
-		<div class="container footer-container">
-
-			<ul class="mb-lg">
-				<li><a href="https://www.linkedin.com/in/alexandru-constanin-grecu-7a570b14a/" aria-label="linkedin account" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-				<li><a href="https://www.instagram.com/grecdev1/?hl=en" aria-label="instagram account" target="_blank"><i class="fab fa-instagram"></i></a></li>
-				<li><a href="https://github.com/grecdev" aria-label="github account" target="_blank"><i class="fab fa-github"></i></a></li>
-			</ul>
-
-			<p>Grecstaurant | All rights reserved &copy;</p>
-
-		</div>
-	</footer>
-	<!-- footer -->
-
-</body>
+        <p>Grecstaurant | All rights reserved &copy;</p>
+      </div>
+    </footer>
+    <!-- footer -->
+  </body>
 </html>
